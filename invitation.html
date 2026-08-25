@@ -30,8 +30,6 @@
         radial-gradient(1200px 600px at 50% -10%, #fff8ea 0%, transparent 60%),
         linear-gradient(160deg, #f6efe0 0%, #efe4cc 45%, #f3ead6 100%);
       min-height: 100vh;
-      display: grid;
-      place-items: center;
       padding: 32px 16px;
       overflow-x: hidden;
     }
@@ -56,6 +54,7 @@
       position: relative;
       z-index: 1;
       width: min(560px, 100%);
+      margin: 0 auto;
       background: var(--cream);
       border-radius: 26px;
       box-shadow: var(--shadow);
@@ -74,7 +73,7 @@
       background: linear-gradient(135deg, var(--gold-deep), var(--gold) 45%, var(--gold-soft));
       color: #fff;
       text-align: center;
-      padding: 26px 20px 22px;
+      padding: 40px 20px 30px;
       position: relative;
     }
     .band .eyebrow {
@@ -99,10 +98,19 @@
       border-radius: 50%;
       border: 5px solid var(--cream);
       box-shadow: 0 10px 30px rgba(120, 90, 30, .28);
-      object-fit: cover;
       position: relative;
       z-index: 2;
       display: block;
+      overflow: hidden;
+    }
+    .frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* מיקוד וזום על הפנים של מוריה כדי להשאיר אותה בלבד בפריים */
+      object-position: 34% 24%;
+      transform: scale(1.85);
+      transform-origin: 34% 24%;
     }
 
     .content { text-align: center; padding: 20px 30px 0; }
@@ -227,7 +235,7 @@
       <div class="invite-word">You're Invited</div>
     </div>
 
-    <img class="frame" src="17.jpg" alt="מוריה" />
+    <div class="frame"><img src="17.jpg" alt="מוריה" /></div>
 
     <div class="content">
       <h1 class="name">מוריה</h1>
@@ -267,12 +275,12 @@
           <div class="ic">📍</div>
           <div class="txt">
             <div class="k">איפה</div>
-            <div class="v">ניסנית 35 · אצלנו בבית</div>
+            <div class="v">ניסנית 35, נתיבות · אצלנו בבית</div>
           </div>
         </div>
       </div>
 
-      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=%D7%A0%D7%99%D7%A1%D7%A0%D7%99%D7%AA+35" target="_blank" rel="noopener">
+      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=%D7%A0%D7%99%D7%A1%D7%A0%D7%99%D7%AA%2035%20%D7%A0%D7%AA%D7%99%D7%91%D7%95%D7%AA" target="_blank" rel="noopener">
         🧭 ניווט לכתובת
       </a>
 
