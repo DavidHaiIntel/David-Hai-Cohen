@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💛 יום הולדת 40 לאמא 💛</title>
+  <meta name="description" content="חוגגים 40 שנה של אהבה — מסע בזמן, תחנות, סיבות, עוגה ופלייליסט" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@300;400;700;900&family=Suez+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- רקע חלקיקים / קונפטי -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- נגן מוזיקה צף -->
+  <button id="music-toggle" class="music-toggle" title="מוזיקת רקע" aria-label="הפעלת מוזיקה">
+    <span class="music-icon">♪</span>
+  </button>
+
+  <!-- כפתור איפוס — חוזרים לנקודת ההתחלה -->
+  <button id="reset-btn" class="reset-btn" title="אפס וחזור להתחלה" aria-label="אפס וחזור להתחלה">↻</button>
+
+  <!-- ניווט -->
+  <nav id="navbar" class="navbar">
+    <a href="#hero" class="nav-logo">40 <span>למוריה</span></a>
+    <button class="nav-burger" id="nav-burger" aria-label="תפריט">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#journey">המסע</a></li>
+      <li><a href="#reasons">40 סיבות</a></li>
+      <li><a href="#kahoot">קהוט</a></li>
+      <li><a href="#playlist">פלייליסט</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero" class="hero">
+    <div class="hero-balloons" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow reveal">מנקודת אור לממלכה ✨</p>
+      <h1 class="hero-title">
+        <span class="hero-name reveal" data-name>מוריה</span>
+        <span class="hero-forty reveal">חוגגת <b>40</b></span>
+      </h1>
+      <p class="hero-sub reveal">המסע של מוריה לטרוף את העולם — מניצוץ אחד בכ״ב אלול תשמ״ו (1986) ועד הממלכה שבנינו יחד 💛</p>
+
+      <a href="#journey" class="btn-primary reveal">יוצאים למסע ✨</a>
+    </div>
+    <a href="#journey" class="scroll-hint" aria-label="גלול למטה">⌄</a>
+  </header>
+
+  <!-- המסע: מסע אחד של תמונות — שער בכל תמונה -->
+  <section id="journey" class="section journey">
+    <div class="section-head">
+      <span class="section-kicker">מנקודת אור לממלכה</span>
+      <h2 class="section-title">המסע של מוריה — 40 שנה בתמונות</h2>
+      <p class="section-lead">כל תמונה דורשת משהו כדי להמשיך — פעילות של ילד, או חידה 🔒💛</p>
+    </div>
+
+    <div class="journey-intro reveal" id="journey-intro"><!-- תחנת הפתיחה --></div>
+    <div class="timeline" id="timeline"><!-- נבנה דינמית --></div>
+  </section>
+
+  <!-- 40 סיבות -->
+  <section id="reasons" class="section reasons">
+    <div class="section-head">
+      <span class="section-kicker">מכל הלב</span>
+      <h2 class="section-title">40 סיבות למה אנחנו אוהבים אותך</h2>
+      <p class="section-lead">לחצו על כל כרטיס וגלו סיבה 💛</p>
+    </div>
+    <div class="reasons-grid" id="reasons-grid"><!-- נבנה דינמית --></div>
+  </section>
+
+  <!-- קהוט -->
+  <section id="kahoot" class="section kahoot">
+    <div class="kahoot-card">
+      <div class="kahoot-emoji">🎮</div>
+      <span class="section-kicker">מי מכיר הכי טוב את אמא?</span>
+      <h2 class="section-title">חידון הקהוט המשפחתי</h2>
+      <p class="section-lead">40 שאלות, משפחה אחת, ואלופ/ה אחד/ת שיוכתר/תוכתר. מוכנים?</p>
+      <a href="#" id="kahoot-link" class="btn-primary" target="_blank" rel="noopener">שחקו עכשיו 🚀</a>
+      <p class="kahoot-note">* עדכנו את קישור הקהוט בקובץ <code>assets/js/data.js</code></p>
+    </div>
+  </section>
+
+  <!-- פלייליסט -->
+  <section id="playlist" class="section playlist">
+    <div class="section-head">
+      <span class="section-kicker">הסאונדטרק של היום</span>
+      <h2 class="section-title">הפלייליסט של אמא</h2>
+      <p class="section-lead">השירים שמלווים אותנו — לחצו והתחילו לרקוד 🎶</p>
+    </div>
+    <div class="playlist-list" id="playlist-list"><!-- נבנה דינמית --></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-heart">💛</div>
+    <h2>מוריה — מנקודת אור לממלכה</h2>
+    <p>מניצוץ אחד בכ״ב אלול תשמ״ו (1986) בנית אימפריה שלמה — ועכשיו תורך לטרוף את העולם.<br />אנחנו הגב שלך, באהבה אינסופית.</p>
+    <p class="footer-sign">מזל טוב 40 🎈</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
