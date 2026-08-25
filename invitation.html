@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הזמנה · יום הולדת 40 למוריה</title>
+  <meta name="description" content="הזמנה חגיגית ליום הולדת 40 של מוריה — יום חמישי, כ״ב אלול, 3.9.26" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&family=Amatic+SC:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c9a24b;
+      --gold-soft: #e6cf92;
+      --gold-deep: #a8842f;
+      --ink: #3a2f22;
+      --cream: #fbf7ef;
+      --rose: #d98a8a;
+      --shadow: 0 20px 60px rgba(80, 60, 20, 0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: "Heebo", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 50% -10%, #fff8ea 0%, transparent 60%),
+        linear-gradient(160deg, #f6efe0 0%, #efe4cc 45%, #f3ead6 100%);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 16px;
+      overflow-x: hidden;
+    }
+
+    /* Floating decorative sparkles */
+    .sparkles { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .sparkles span {
+      position: absolute;
+      color: var(--gold-soft);
+      font-size: 14px;
+      opacity: 0;
+      animation: float 9s linear infinite;
+    }
+    @keyframes float {
+      0%   { transform: translateY(20px) scale(.6); opacity: 0; }
+      15%  { opacity: .9; }
+      85%  { opacity: .9; }
+      100% { transform: translateY(-90vh) scale(1); opacity: 0; }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: min(560px, 100%);
+      background: var(--cream);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 0 0 44px;
+      overflow: hidden;
+      border: 1px solid rgba(201, 162, 75, 0.35);
+      animation: rise 1s cubic-bezier(.2, .8, .2, 1) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Ornamental top band */
+    .band {
+      background: linear-gradient(135deg, var(--gold-deep), var(--gold) 45%, var(--gold-soft));
+      color: #fff;
+      text-align: center;
+      padding: 26px 20px 22px;
+      position: relative;
+    }
+    .band .eyebrow {
+      font-family: "Frank Ruhl Libre", serif;
+      letter-spacing: 4px;
+      font-size: 13px;
+      opacity: .95;
+      margin-bottom: 6px;
+    }
+    .band .invite-word {
+      font-family: "Amatic SC", cursive;
+      font-size: 46px;
+      line-height: 1;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 10px rgba(0,0,0,.15);
+    }
+
+    .frame {
+      width: 150px;
+      height: 150px;
+      margin: -46px auto 0;
+      border-radius: 50%;
+      border: 5px solid var(--cream);
+      box-shadow: 0 10px 30px rgba(120, 90, 30, .28);
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+      display: block;
+    }
+
+    .content { text-align: center; padding: 20px 30px 0; }
+
+    .name {
+      font-family: "Frank Ruhl Libre", serif;
+      font-weight: 900;
+      font-size: clamp(38px, 9vw, 56px);
+      color: var(--gold-deep);
+      line-height: 1.05;
+      margin-top: 10px;
+    }
+    .forty {
+      display: inline-block;
+      margin-top: 6px;
+      font-family: "Heebo", sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--ink);
+      letter-spacing: 1px;
+    }
+    .forty b {
+      color: var(--gold-deep);
+      font-size: 26px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 22px auto 20px;
+      color: var(--gold);
+    }
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      width: 70px;
+      background: linear-gradient(to var(--dir, left), transparent, var(--gold));
+    }
+    .divider span { font-size: 18px; }
+
+    .lead {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 19px;
+      line-height: 1.7;
+      color: var(--ink);
+      max-width: 40ch;
+      margin: 0 auto;
+    }
+
+    .details {
+      margin: 26px auto 0;
+      display: grid;
+      gap: 14px;
+      max-width: 360px;
+    }
+    .detail {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid rgba(201, 162, 75, .3);
+      border-radius: 16px;
+      padding: 14px 18px;
+      text-align: right;
+      box-shadow: 0 6px 18px rgba(140, 110, 40, .08);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .detail:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(140, 110, 40, .14); }
+    .detail .ic {
+      flex: 0 0 auto;
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+      border-radius: 12px;
+      font-size: 20px;
+    }
+    .detail .txt { line-height: 1.4; }
+    .detail .txt .k { font-size: 12px; color: var(--gold-deep); font-weight: 700; letter-spacing: .5px; }
+    .detail .txt .v { font-size: 17px; font-weight: 500; color: var(--ink); }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 26px;
+      padding: 13px 30px;
+      background: linear-gradient(135deg, var(--gold-deep), var(--gold));
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 10px 24px rgba(168, 132, 47, .35);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .map-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(168, 132, 47, .45); }
+
+    .closing {
+      margin-top: 28px;
+      font-family: "Amatic SC", cursive;
+      font-size: 30px;
+      color: var(--gold-deep);
+      line-height: 1;
+    }
+    .hearts { margin-top: 8px; font-size: 18px; letter-spacing: 4px; }
+
+    @media (max-width: 420px) {
+      .content { padding: 18px 20px 0; }
+      .band .invite-word { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkles" id="sparkles" aria-hidden="true"></div>
+
+  <main class="card">
+    <div class="band">
+      <p class="eyebrow">מוזמנת בשמחה</p>
+      <div class="invite-word">You're Invited</div>
+    </div>
+
+    <img class="frame" src="17.jpg" alt="מוריה" />
+
+    <div class="content">
+      <h1 class="name">מוריה</h1>
+      <span class="forty">חוגגת <b>40</b> 👑</span>
+
+      <div class="divider"><span>✦</span></div>
+
+      <p class="lead">
+        מהניצוץ ועד הממלכה —<br />
+        אנחנו מזמינים אותך לחגוג יחד ערב מיוחד,<br />
+        מלא באהבה, בני משפחה והפתעות 💛
+      </p>
+
+      <div class="details">
+        <div class="detail">
+          <div class="ic">📅</div>
+          <div class="txt">
+            <div class="k">מתי</div>
+            <div class="v">יום חמישי · ליל שישי · כ״א–כ״ב אלול</div>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="ic">🗓️</div>
+          <div class="txt">
+            <div class="k">תאריך לועזי</div>
+            <div class="v">3.9.26</div>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="ic">🕔</div>
+          <div class="txt">
+            <div class="k">שעה</div>
+            <div class="v">17:00</div>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="ic">📍</div>
+          <div class="txt">
+            <div class="k">איפה</div>
+            <div class="v">ניסנית 35 · אצלנו בבית</div>
+          </div>
+        </div>
+      </div>
+
+      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=%D7%A0%D7%99%D7%A1%D7%A0%D7%99%D7%AA+35" target="_blank" rel="noopener">
+        🧭 ניווט לכתובת
+      </a>
+
+      <p class="closing">מחכים לך באהבה</p>
+      <div class="hearts">💛 ✦ 💛</div>
+    </div>
+  </main>
+
+  <script>
+    // Gentle sparkle generator
+    (function () {
+      const layer = document.getElementById("sparkles");
+      const glyphs = ["✦", "✧", "❀", "•", "✨"];
+      const COUNT = 22;
+      for (let i = 0; i < COUNT; i++) {
+        const s = document.createElement("span");
+        s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.fontSize = 8 + Math.random() * 16 + "px";
+        s.style.animationDuration = 7 + Math.random() * 8 + "s";
+        s.style.animationDelay = -Math.random() * 12 + "s";
+        layer.appendChild(s);
+      }
+    })();
+  </script>
+</body>
+</html>
