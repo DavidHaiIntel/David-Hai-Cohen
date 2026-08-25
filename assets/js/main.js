@@ -87,7 +87,7 @@
     return div;
   };
 
-  const buildGate = (gate, onSolve) => {
+  const buildGate = (gate, onSolve, onReveal) => {
     const wrap = document.createElement("div");
     wrap.className = "journey-gate locked";
     wrap.style.setProperty("--kc", gate.color || "#e8b64c");
@@ -140,6 +140,15 @@
               <h3 class="gate-title">${gate.pre.question}</h3>
               <button class="gate-submit gate-pre-btn" type="button">${gate.pre.button}</button>
             </div>
+            ${gate.mid ? `
+            <div class="gate-mid" hidden>
+              <div class="gate-lock">🎯</div>
+              <span class="gate-kicker">${gate.mid.kicker || gate.kicker || "תחנה"}</span>
+              <div class="gate-emoji">${gate.mid.emoji || gate.emoji || "🎉"}</div>
+              <h3 class="gate-title">${gate.mid.title || ""}</h3>
+              <p class="gate-intro">${gate.mid.text || ""}</p>
+              <button class="gate-submit gate-mid-btn" type="button">${gate.mid.button || "ממשיכים"}</button>
+            </div>` : ""}
             <div class="gate-main" hidden>
               <div class="gate-lock">🎯</div>
               <span class="gate-kicker">${gate.kicker || "תחנה"}</span>
@@ -150,10 +159,20 @@
               <button class="gate-submit gate-station" type="button">${gate.button || "בוצע ✓ ממשיכים"}</button>
             </div>
           </div>`;
+        const midEl = wrap.querySelector(".gate-mid");
+        const mainEl = wrap.querySelector(".gate-main");
         wrap.querySelector(".gate-pre-btn").addEventListener("click", () => {
           wrap.querySelector(".gate-pre").hidden = true;
-          wrap.querySelector(".gate-main").hidden = false;
+          if (gate.revealPhoto && onReveal) onReveal();
+          if (midEl) midEl.hidden = false;
+          else mainEl.hidden = false;
         });
+        if (midEl) {
+          wrap.querySelector(".gate-mid-btn").addEventListener("click", () => {
+            midEl.hidden = true;
+            mainEl.hidden = false;
+          });
+        }
         wrap.querySelector(".gate-station").addEventListener("click", finish);
       } else {
         wrap.innerHTML = `
@@ -234,6 +253,12 @@
         const isLast = i === order.length - 1;
         const target = isLast && giftEl ? giftEl : stopEls[i];
         setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "center" }), isLast ? 700 : 260);
+      }, () => {
+        // חשיפת תמונת התחנה באמצע הפעילות (לפני סיום)
+        if (stopEls[i]) {
+          stopEls[i].classList.remove("hidden-locked");
+          burstConfetti(120, stopEls[i]);
+        }
       });
       gateEls[i] = g;
       tl.appendChild(g);
