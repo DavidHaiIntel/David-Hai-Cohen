@@ -58,6 +58,7 @@
   const stopEls = [];
   const gateEls = [];
   const bannerEls = [];
+  let giftEl = null; // קטע המתנה — נחשף רק בסוף המסע
   let unlocked = 0; // אינדקס התחנה האחרונה שנחשפה (0 = הראשונה גלויה)
 
   const buildMilestone = (item, i) => {
@@ -214,6 +215,7 @@
     bannerEls.forEach((b, i) => {
       if (b) b.classList.toggle("hidden-locked", i > unlocked + 1);
     });
+    if (giftEl) giftEl.classList.toggle("hidden-locked", unlocked < order.length - 1);
   };
 
   function buildJourney() {
@@ -229,7 +231,9 @@
         unlocked = Math.max(unlocked, i);
         apply();
         burstConfetti(item.n === 1 ? 220 : 130, stopEls[i]);
-        setTimeout(() => stopEls[i].scrollIntoView({ behavior: "smooth", block: "center" }), 260);
+        const isLast = i === order.length - 1;
+        const target = isLast && giftEl ? giftEl : stopEls[i];
+        setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "center" }), isLast ? 700 : 260);
       });
       gateEls[i] = g;
       tl.appendChild(g);
@@ -244,6 +248,22 @@
     const el = buildMilestone(item, i);
     stopEls[i] = el;
     tl.appendChild(el);
+
+    // אחרי התחנה האחרונה (הלידה 1986) — קטע המתנה, נחשף רק בסוף המסע
+    if (i === order.length - 1) {
+      const gift = document.createElement("div");
+      gift.className = "tl-gift hidden-locked";
+      gift.innerHTML = `
+        <div class="gift-card">
+          <div class="gift-emoji">🎁</div>
+          <span class="section-kicker">ועכשיו — למתנה</span>
+          <h2 class="section-title">הגיע הזמן לפנק אותך</h2>
+          <p class="section-lead">מוזמנת לבחור לעצמך משהו שמסמל את המסע המטורף שעברנו היום 💛</p>
+          <a href="https://nogajewelry.com/collections/breast-milk-rings" class="btn-primary" target="_blank" rel="noopener">💍 לבחירת המתנה</a>
+        </div>`;
+      tl.appendChild(gift);
+      giftEl = gift;
+    }
 
     // התחנה הראשונה (היום/40): פעילות הפתיחה (הצגה) — גלויה, מתחילה את המסע
     if (i === 0 && GATES[item.n]) {
