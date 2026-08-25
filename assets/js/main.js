@@ -144,7 +144,7 @@
             <div class="gate-mid" hidden>
               <div class="gate-lock">🎯</div>
               <span class="gate-kicker">${gate.mid.kicker || gate.kicker || "תחנה"}</span>
-              <div class="gate-emoji">${gate.mid.emoji || gate.emoji || "🎉"}</div>
+              ${gate.mid.img ? `<img class="gate-photo-reveal" src="${gate.mid.img}" alt="${gate.mid.title || ""}" />` : `<div class="gate-emoji">${gate.mid.emoji || gate.emoji || "🎉"}</div>`}
               <h3 class="gate-title">${gate.mid.title || ""}</h3>
               <p class="gate-intro">${gate.mid.text || ""}</p>
               <button class="gate-submit gate-mid-btn" type="button">${gate.mid.button || "ממשיכים"}</button>
@@ -163,7 +163,7 @@
         const mainEl = wrap.querySelector(".gate-main");
         wrap.querySelector(".gate-pre-btn").addEventListener("click", () => {
           wrap.querySelector(".gate-pre").hidden = true;
-          if (gate.revealPhoto && onReveal) onReveal();
+          if (gate.revealPhoto) burstConfetti(120, wrap);
           if (midEl) midEl.hidden = false;
           else mainEl.hidden = false;
         });
@@ -253,12 +253,6 @@
         const isLast = i === order.length - 1;
         const target = isLast && giftEl ? giftEl : stopEls[i];
         setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "center" }), isLast ? 700 : 260);
-      }, () => {
-        // חשיפת תמונת התחנה באמצע הפעילות (לפני סיום)
-        if (stopEls[i]) {
-          stopEls[i].classList.remove("hidden-locked");
-          burstConfetti(120, stopEls[i]);
-        }
       });
       gateEls[i] = g;
       tl.appendChild(g);
