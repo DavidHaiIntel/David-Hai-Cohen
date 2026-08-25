@@ -12,7 +12,7 @@ const CONFIG = {
   birthdayDate: "2026-09-03T16:00:00",
 
   kahootUrl: "https://kahoot.it/",
-  playlistUrl: "https://open.spotify.com/",
+  playlistUrl: "https://open.spotify.com/playlist/1hZdzk6HM4JX8MIBvzfUVI",
 };
 
 /* ---------- מסלול החיים (20 נקודות דרך — מספר התמונה תואם למספר התחנה) ---------- */
