@@ -140,11 +140,20 @@
               <h3 class="gate-title">${gate.pre.question}</h3>
               <button class="gate-submit gate-pre-btn" type="button">${gate.pre.button}</button>
             </div>
+            ${gate.photo ? `
+            <div class="gate-photo-step" hidden>
+              <div class="gate-lock">📸</div>
+              <span class="gate-kicker">${gate.photo.kicker || gate.kicker || "תחנה"}</span>
+              <img class="gate-photo-reveal" src="${gate.photo.img}" alt="${gate.photo.title || ""}" />
+              <h3 class="gate-title">${gate.photo.title || ""}</h3>
+              <p class="gate-intro">${gate.photo.text || ""}</p>
+              <button class="gate-submit gate-photo-btn" type="button">${gate.photo.button || "ממשיכים"}</button>
+            </div>` : ""}
             ${gate.mid ? `
             <div class="gate-mid" hidden>
               <div class="gate-lock">🎯</div>
               <span class="gate-kicker">${gate.mid.kicker || gate.kicker || "תחנה"}</span>
-              ${gate.mid.img ? `<img class="gate-photo-reveal" src="${gate.mid.img}" alt="${gate.mid.title || ""}" />` : `<div class="gate-emoji">${gate.mid.emoji || gate.emoji || "🎉"}</div>`}
+              <div class="gate-emoji">${gate.mid.emoji || gate.emoji || "🎉"}</div>
               <h3 class="gate-title">${gate.mid.title || ""}</h3>
               <p class="gate-intro">${gate.mid.text || ""}</p>
               <button class="gate-submit gate-mid-btn" type="button">${gate.mid.button || "ממשיכים"}</button>
@@ -159,14 +168,21 @@
               <button class="gate-submit gate-station" type="button">${gate.button || "בוצע ✓ ממשיכים"}</button>
             </div>
           </div>`;
+        const photoEl = wrap.querySelector(".gate-photo-step");
         const midEl = wrap.querySelector(".gate-mid");
         const mainEl = wrap.querySelector(".gate-main");
+        const chain = [photoEl, midEl, mainEl].filter(Boolean);
         wrap.querySelector(".gate-pre-btn").addEventListener("click", () => {
           wrap.querySelector(".gate-pre").hidden = true;
           if (gate.revealPhoto) burstConfetti(120, wrap);
-          if (midEl) midEl.hidden = false;
-          else mainEl.hidden = false;
+          chain[0].hidden = false;
         });
+        if (photoEl) {
+          wrap.querySelector(".gate-photo-btn").addEventListener("click", () => {
+            photoEl.hidden = true;
+            (midEl || mainEl).hidden = false;
+          });
+        }
         if (midEl) {
           wrap.querySelector(".gate-mid-btn").addEventListener("click", () => {
             midEl.hidden = true;
