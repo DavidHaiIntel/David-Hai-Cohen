@@ -45,7 +45,10 @@
     .hero-band .eyebrow { font-family: "Frank Ruhl Libre", serif; letter-spacing: 5px; font-size: 13px; opacity: .92; margin-bottom: 10px; }
     .hero-band .big { font-family: "Amatic SC", cursive; font-size: clamp(52px, 12vw, 88px); line-height: 1.05; padding-bottom: 6px; text-shadow: 0 2px 14px rgba(0,0,0,.3); }
     .hero-band .big b { display: block; font-size: 1.05em; color: var(--gold); }
-    .hero-body { text-align: center; padding: 28px 26px 30px; }
+    .portrait { position: relative; z-index: 2; width: 132px; height: 132px; margin: -66px auto 0; }
+    .portrait-ring { width:100%; height:100%; border-radius:50%; overflow:hidden; border:5px solid var(--cream); box-shadow:0 12px 30px rgba(10,6,30,.45); }
+    .portrait-ring img { width:100%; height:100%; object-fit:cover; object-position:center 28%; }
+    .hero-body { text-align: center; padding: 22px 26px 30px; }
     .hero-body .disc { font-size: 34px; }
     .hero-body h1 { font-family: "Frank Ruhl Libre", serif; font-weight: 900; font-size: clamp(23px,5vw,32px); color: var(--gold); margin: 8px 0 12px; }
     .hero-body p { font-family: "Frank Ruhl Libre", serif; font-size: 17px; line-height: 1.7; color: var(--ink); max-width: 52ch; margin: 0 auto; }
@@ -108,6 +111,9 @@
 
     @media (max-width: 680px) { .song { flex-basis: calc((100% - 16px)/2); max-width: calc((100% - 16px)/2); } }
     @media (max-width: 460px) { .song { flex-basis: 100%; max-width: 100%; } }
+    .player { margin: 26px auto 6px; max-width: 620px; }
+    .player iframe { width: 100%; border: 0; border-radius: 14px; box-shadow: 0 16px 40px rgba(10,6,30,.5); }
+    .player .p-note { text-align: center; font-size: 13px; color: var(--ink-soft); margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -118,6 +124,7 @@
         <p class="eyebrow">הסאונדטרק של החיים</p>
         <div class="big">40 שירים<b>אהובים</b></div>
       </div>
+      <div class="portrait"><div class="portrait-ring"><img src="%D7%9E%D7%95%D7%A8%D7%99%D7%94.jpg" alt="מוריה" /></div></div>
       <div class="hero-body">
         <div class="disc">💿</div>
         <h1>הפלייליסט של מוריה</h1>
@@ -126,6 +133,11 @@
         <div class="divider"><span>♪</span></div>
       </div>
     </header>
+
+    <section class="player">
+      <iframe src="https://open.spotify.com/embed/playlist/1hZdzk6HM4JX8MIBvzfUVI?utm_source=generator" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="הפלייליסט של מוריה"></iframe>
+      <p class="p-note">▶ לחצו Play לנגן ישירות כאן · או גלו כל שיר למטה והאזינו בספוטיפיי</p>
+    </section>
 
     <main id="root"></main>
 
@@ -158,8 +170,7 @@
         grid.className = "grid";
         a.songs.forEach((title) => {
           n++;
-          const q = encodeURIComponent(a.name + " " + title.replace(/—.*/, "").trim());
-          const url = "https://www.youtube.com/results?search_query=" + q;
+          const url = "https://open.spotify.com/playlist/1hZdzk6HM4JX8MIBvzfUVI";
           const card = document.createElement("article");
           card.className = "song";
           card.innerHTML = `
@@ -173,7 +184,7 @@
                 <div class="eq"><i></i><i></i><i></i><i></i><i></i></div>
                 <div class="title">${title}</div>
                 <div class="artist">${a.name}</div>
-                <a class="play" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">▶ האזנה</a>
+                <a class="play" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🎧 בספוטיפיי</a>
               </div>
             </div>`;
           card.addEventListener("click", () => card.classList.toggle("open"));

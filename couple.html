@@ -33,7 +33,10 @@
     .hero-band .eyebrow { font-family:"Frank Ruhl Libre",serif; letter-spacing:5px; font-size:13px; opacity:.95; margin-bottom:10px; }
     .hero-band .big { font-family:"Amatic SC",cursive; font-size: clamp(48px,11vw,82px); line-height:1.05; padding-bottom:6px; text-shadow:0 2px 12px rgba(0,0,0,.18); }
     .hero-band .big b { display:block; font-size:1.05em; color: #fff4e0; }
-    .hero-body { text-align:center; padding: 26px 26px 30px; }
+    .portrait { position: relative; z-index: 2; width: 132px; height: 132px; margin: -66px auto 0; }
+    .portrait-ring { width:100%; height:100%; border-radius:50%; overflow:hidden; border:5px solid var(--cream); box-shadow:0 12px 30px rgba(110,40,55,.3); }
+    .portrait-ring img { width:100%; height:100%; object-fit:cover; object-position:center 25%; }
+    .hero-body { text-align:center; padding: 22px 26px 30px; }
     .hero-body .h { font-size: 34px; }
     .hero-body h1 { font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size: clamp(23px,5vw,32px); color: var(--rose-deep); margin: 8px 0 12px; }
     .hero-body p { font-family:"Frank Ruhl Libre",serif; font-size:17px; line-height:1.7; color: var(--ink); max-width:52ch; margin:0 auto; }
@@ -85,6 +88,7 @@
         <p class="eyebrow">מהניצוץ ועד הממלכה</p>
         <div class="big">40 עצות<b>לזוגיות</b></div>
       </div>
+      <div class="portrait"><div class="portrait-ring"><img src="05.jpg" alt="מוריה" /></div></div>
       <div class="hero-body">
         <div class="h">💕</div>
         <h1>לאהבה שרק הולכת וגדלה</h1>
@@ -106,7 +110,7 @@
 
   <script>
     const GROUPS = [
-      { kicker:"פרק א׳", range:"היסודות", title:"חברות ואמון",
+      { kicker:"עשור ההיכרות", range:"היסודות", title:"חברות ואמון",
         tips:[
           { e:"🗺️", t:"מפת האהבה", d:"הכירו את עולמו הפנימי של בן/בת הזוג — חלומות, פחדים ומה שמעסיק אותם היום." },
           { e:"🤝", t:"חברות לפני הכל", d:"גוטמן: זוגיות מאושרת בנויה על חברות עמוקה, לא רק על רומנטיקה." },
@@ -119,7 +123,7 @@
           { e:"💬", t:"שיחת סוף יום", d:"עשר דקות של 'איך היה לך' — פורקן ותמיכה, לא פתרונות." },
           { e:"🌱", t:"לגדול יחד", d:"תמכו בצמיחה של כל אחד — זוגיות פורחת כשגם הפרטים פורחים." },
         ] },
-      { kicker:"פרק ב׳", range:"תקשורת", title:"לדבר ולהקשיב",
+      { kicker:"עשור התקשורת", range:"לדבר ולהקשיב", title:"לדבר ולהקשיב",
         tips:[
           { e:"💗", t:"פתיחה רכה", d:"ראו איך פותחים שיחה קשה — פתיחה עדינה קובעת את כל ההמשך." },
           { e:"🪞", t:"דברו בגוף ראשון", d:"'אני מרגישה' במקום 'אתה תמיד'. תיאור ולא האשמה." },
@@ -132,7 +136,7 @@
           { e:"🗣️", t:"בקשו במפורש", d:"אל תצפו שיקראו מחשבות. בקשה ברורה חוסכת מפח נפש." },
           { e:"🔇", t:"כוחה של שתיקה", d:"לפעמים חיבוק שקט אומר יותר מאלף מילים." },
         ] },
-      { kicker:"פרק ג׳", range:"קרבה ורגש", title:"אינטימיות וחום",
+      { kicker:"עשור הקרבה", range:"אינטימיות וחום", title:"אינטימיות וחום",
         tips:[
           { e:"🫶", t:"קרבה רגשית", d:"היקשרות בטוחה: להיות מקלט זה לזה בעת מצוקה." },
           { e:"💞", t:"מגע יומיומי", d:"חיבוק של 6 שניות, יד ביד — מגע משחרר אוקסיטוצין ומחבר." },
@@ -145,7 +149,7 @@
           { e:"🌟", t:"ראו את הטוב", d:"התמקדו בתכונות שאתם אוהבים — מה שמאירים גדל." },
           { e:"🤗", t:"נחמו במצוקה", d:"בעת קושי, היו הכתובת הראשונה — לא הביקורת." },
         ] },
-      { kicker:"פרק ד׳", range:"צמיחה", title:"לבנות ביחד לאורך זמן",
+      { kicker:"עשור הצמיחה", range:"לבנות ביחד לאורך זמן", title:"לבנות ביחד לאורך זמן",
         tips:[
           { e:"🎯", t:"חלומות משותפים", d:"בנו חזון משותף לחיים — ותנו לכל אחד גם חלום אישי." },
           { e:"🤲", t:"סליחה ותיקון", d:"אף אחד לא מושלם. סליחה אמיתית משחררת את שניכם." },
@@ -166,7 +170,7 @@
       GROUPS.forEach((g) => {
         const sec = document.createElement("section");
         sec.className = "group";
-        sec.innerHTML = `<div class="group-head"><span class="g-kicker">${g.kicker}</span><h2>${g.title}</h2><div class="g-range">${g.range}</div></div>`;
+        sec.innerHTML = `<div class="group-head"><span class="g-kicker">${g.kicker} · 10 עצות</span><h2>${g.title}</h2><div class="g-range">${g.range}</div></div>`;
         const grid = document.createElement("div"); grid.className = "grid";
         g.tips.forEach((tip) => {
           n++;

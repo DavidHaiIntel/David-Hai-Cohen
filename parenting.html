@@ -33,7 +33,10 @@
     .hero-band .eyebrow { font-family:"Frank Ruhl Libre",serif; letter-spacing:5px; font-size:13px; opacity:.95; margin-bottom:10px; }
     .hero-band .big { font-family:"Amatic SC",cursive; font-size: clamp(50px,12vw,84px); line-height:1.05; padding-bottom:6px; text-shadow:0 2px 12px rgba(0,0,0,.18); }
     .hero-band .big b { display:block; font-size:1.05em; color: #fff6df; }
-    .hero-body { text-align:center; padding: 26px 26px 30px; }
+    .portrait { position: relative; z-index: 2; width: 132px; height: 132px; margin: -66px auto 0; }
+    .portrait-ring { width:100%; height:100%; border-radius:50%; overflow:hidden; border:5px solid var(--cream); box-shadow:0 12px 30px rgba(20,70,45,.28); }
+    .portrait-ring img { width:100%; height:100%; object-fit:cover; object-position:center 28%; }
+    .hero-body { text-align:center; padding: 22px 26px 30px; }
     .hero-body .h { font-size: 34px; }
     .hero-body h1 { font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size: clamp(23px,5vw,32px); color: var(--green-deep); margin: 8px 0 12px; }
     .hero-body p { font-family:"Frank Ruhl Libre",serif; font-size:17px; line-height:1.7; color: var(--ink); max-width:52ch; margin:0 auto; }
@@ -94,6 +97,7 @@
         <p class="eyebrow">6 ניצנים בממלכה</p>
         <div class="big">40 עצות<b>להורות</b></div>
       </div>
+      <div class="portrait"><div class="portrait-ring"><img src="07.jpg" alt="מוריה" /></div></div>
       <div class="hero-body">
         <div class="h">🌿</div>
         <h1>לגדל בני אדם, באהבה</h1>
@@ -115,7 +119,7 @@
 
   <script>
     const GROUPS = [
-      { kicker:"פרק א׳", range:"הקשר", title:"חיבור וביטחון",
+      { kicker:"עשור הקשר", range:"חיבור וביטחון", title:"חיבור וביטחון",
         tips:[
           { e:"🫂", t:"חיבור לפני תיקון", d:"ילד מרגיש מחובר משתף פעולה יותר. קשר קודם לגבולות." },
           { e:"🔒", t:"היקשרות בטוחה", d:"היו בסיס בטוח: מקלט ברגעי מצוקה ובמה לחקירת העולם." },
@@ -128,7 +132,7 @@
           { e:"🪞", t:"נוכחות רגועה", d:"אתם העוגן. ויסות שלכם עוזר לילד להירגע (ויסות משותף)." },
           { e:"💬", t:"שיחות קטנות", d:"רגעי היומיום — במכונית, לפני השינה — הם זהב לקרבה." },
         ] },
-      { kicker:"פרק ב׳", range:"רגשות", title:"אימון רגשי",
+      { kicker:"עשור הרגש", range:"אימון רגשי", title:"אימון רגשי",
         tips:[
           { e:"❤️", t:"כל הרגשות מותרים", d:"רגש אינו טוב או רע. ההתנהגות גבולית — הרגש תמיד לגיטימי." },
           { e:"🏷️", t:"תנו שם לרגש", d:"'אתה נראה מתוסכל' — מילים מרגיעות את המוח הרגשי." },
@@ -141,7 +145,7 @@
           { e:"🌡️", t:"שימו לב לצרכים", d:"רעב, עייפות וגירוי-יתר עומדים מאחורי הרבה 'התנהגויות'." },
           { e:"🕊️", t:"תיקון אחרי סערה", d:"אחרי התפרצות — חזרו, חבקו ותקנו. זה מלמד שקשר שורד קונפליקט." },
         ] },
-      { kicker:"פרק ג׳", range:"גבולות", title:"סמכות באהבה",
+      { kicker:"עשור הגבולות", range:"סמכות באהבה", title:"סמכות באהבה",
         tips:[
           { e:"⚖️", t:"הורות מאזנת", d:"באומרינד: חום גבוה + גבולות ברורים = התוצאות הטובות ביותר." },
           { e:"🧱", t:"גבולות עקביים", d:"ילדים זקוקים לגבול יציב — הוא נותן ביטחון, לא מגביל אהבה." },
@@ -154,7 +158,7 @@
           { e:"🙅", t:"'לא' מכבד", d:"סירוב אפשר לומר בחום — בלי צעקות ובלי בושה." },
           { e:"🛠️", t:"פתרון בעיות יחד", d:"שתפו את הילד בחיפוש פתרון — זה מלמד אחריות." },
         ] },
-      { kicker:"פרק ד׳", range:"צמיחה", title:"לגדל אדם עצמאי",
+      { kicker:"עשור הכנפיים", range:"לגדל אדם עצמאי", title:"לגדל אדם עצמאי",
         tips:[
           { e:"🌟", t:"שבחו מאמץ", d:"'עבדת קשה' מטפח 'תפיסת צמיחה' יותר מ'אתה גאון'." },
           { e:"🧗", t:"תנו להתמודד", d:"אל תצילו מכל קושי — התמודדות בונה חוסן." },
@@ -175,7 +179,7 @@
       GROUPS.forEach((g) => {
         const sec = document.createElement("section");
         sec.className = "group";
-        sec.innerHTML = `<div class="group-head"><span class="g-kicker">${g.kicker}</span><h2>${g.title}</h2><div class="g-range">${g.range}</div></div>`;
+        sec.innerHTML = `<div class="group-head"><span class="g-kicker">${g.kicker} · 10 עצות</span><h2>${g.title}</h2><div class="g-range">${g.range}</div></div>`;
         const grid = document.createElement("div"); grid.className = "grid";
         g.tips.forEach((tip) => {
           n++;

@@ -341,7 +341,7 @@
   <script>
     const GROUPS = [
       {
-        kicker: "העשור הראשון",
+        kicker: "עשור היסודות",
         range: "גיל 0–10 · הניצוץ",
         title: "היסודות — לב שמקשיב",
         tips: [
@@ -358,7 +358,7 @@
         ],
       },
       {
-        kicker: "העשור השני",
+        kicker: "עשור הכלים",
         range: "גיל 10–20 · הכלים",
         title: "אמנות הייעוץ — כלים מבוססי מחקר",
         tips: [
@@ -375,7 +375,7 @@
         ],
       },
       {
-        kicker: "העשור השלישי",
+        kicker: "עשור החוכמה",
         range: "גיל 20–30 · החוכמה",
         title: "אתיקה, גבולות ועומק",
         tips: [
@@ -392,7 +392,7 @@
         ],
       },
       {
-        kicker: "העשור הרביעי",
+        kicker: "עשור הצמיחה",
         range: "גיל 30–40 · הממלכה",
         title: "עוצמה, טיפוח עצמי ומורשת",
         tips: [
@@ -418,7 +418,7 @@
         sec.className = "group";
         const head = document.createElement("div");
         head.className = "group-head";
-        head.innerHTML = `<span class="g-kicker">${g.kicker}</span><h2>${g.title}</h2><div class="g-range">${g.range}</div>`;
+        head.innerHTML = `<span class="g-kicker">${g.kicker} · 10 עצות</span><h2>${g.title}</h2><div class="g-range">${g.range}</div>`;
         sec.appendChild(head);
 
         const grid = document.createElement("div");

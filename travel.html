@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>40 מקומות לטייל · המפה של מוריה</title>
+  <meta name="description" content="40 יעדים ומקומות לטייל בעולם ובארץ — מתנה למוריה, מנקודת אור לממלכה" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&family=Amatic+SC:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sea: #2f7f8f; --sea-deep: #1f5b68; --sea-soft: #7fc0cc;
+      --sand: #e6c688; --cream: #f0f9fa; --ink: #22343a; --ink-soft: #4e6b73;
+      --shadow: 0 20px 60px rgba(20, 60, 70, 0.2);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Heebo", sans-serif; color: var(--ink);
+      background: radial-gradient(1100px 560px at 50% -10%, #e4f6f8 0%, transparent 60%),
+        linear-gradient(165deg, #dcf0f2 0%, #c3e6ea 45%, #ddf1f3 100%);
+      min-height: 100vh; padding: 28px 16px 60px; overflow-x: hidden;
+    }
+    .clouds { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .clouds span { position: absolute; opacity: 0; animation: rise 13s linear infinite; font-size: 15px; }
+    @keyframes rise { 0%{transform:translateY(20px);opacity:0} 15%{opacity:.8} 85%{opacity:.8} 100%{transform:translateY(-92vh);opacity:0} }
+
+    .wrap { position: relative; z-index: 1; width: min(940px, 100%); margin: 0 auto; }
+    .hero { background: var(--cream); border:1px solid rgba(47,127,143,.3); border-radius: 28px; box-shadow: var(--shadow); overflow: hidden; animation: r 1s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes r { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .hero-band { background: linear-gradient(135deg, var(--sea-deep), var(--sea) 52%, var(--sea-soft)); color:#fff; text-align:center; padding: 40px 24px 34px; }
+    .hero-band .eyebrow { font-family:"Frank Ruhl Libre",serif; letter-spacing:5px; font-size:13px; opacity:.95; margin-bottom:10px; }
+    .hero-band .big { font-family:"Amatic SC",cursive; font-size: clamp(48px,11vw,82px); line-height:1.05; padding-bottom:6px; text-shadow:0 2px 12px rgba(0,0,0,.18); }
+    .hero-band .big b { display:block; font-size:1.05em; color: #fff2d6; }
+    .portrait { position: relative; z-index: 2; width: 132px; height: 132px; margin: -66px auto 0; }
+    .portrait-ring { width:100%; height:100%; border-radius:50%; overflow:hidden; border:5px solid var(--cream); box-shadow:0 12px 30px rgba(20,60,70,.3); }
+    .portrait-ring img { width:100%; height:100%; object-fit:cover; object-position:center 30%; }
+    .hero-body { text-align:center; padding: 22px 26px 30px; }
+    .hero-body .globe { font-size: 34px; }
+    .hero-body h1 { font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size: clamp(23px,5vw,32px); color: var(--sea-deep); margin: 8px 0 12px; }
+    .hero-body p { font-family:"Frank Ruhl Libre",serif; font-size:17px; line-height:1.7; color: var(--ink); max-width:52ch; margin:0 auto; }
+    .hero-body .note { margin-top:14px; font-size:14px; color: var(--ink-soft); }
+    .divider { display:flex; align-items:center; justify-content:center; gap:12px; margin: 22px auto 4px; color: var(--sea); }
+    .divider::before,.divider::after { content:""; height:1px; width:80px; background: linear-gradient(to left, transparent, var(--sea)); }
+
+    .group { margin-top: 44px; }
+    .group-head { text-align:center; margin-bottom: 22px; }
+    .group-head .g-kicker { display:inline-block; font-size:12px; font-weight:700; letter-spacing:2px; color: var(--sea-deep);
+      background: rgba(47,127,143,.12); border:1px solid rgba(47,127,143,.3); padding:5px 16px; border-radius:999px; }
+    .group-head h2 { font-family:"Frank Ruhl Libre",serif; font-weight:700; font-size: clamp(22px,5vw,30px); color: var(--ink); margin-top:12px; }
+    .group-head .g-range { display:inline-block; margin-top:8px; font-family:"Amatic SC",cursive; font-size:26px; color: var(--sea-deep); }
+
+    .grid { display:flex; flex-wrap:wrap; justify-content:center; gap: 24px 16px; }
+    .place {
+      flex: 0 1 calc((100% - 34px)/3); max-width: calc((100% - 34px)/3);
+      position: relative; height: 176px; border-radius: 18px; cursor: pointer; overflow: hidden;
+      opacity:0; transform:translateY(16px); transition: opacity .5s ease, transform .5s ease;
+      box-shadow: 0 10px 26px rgba(20,60,70,.14);
+    }
+    .place.show { opacity:1; transform:translateY(0); }
+    .place .content { position:absolute; inset:0; padding:18px; display:flex; flex-direction:column; justify-content:center; text-align:right;
+      background: linear-gradient(160deg, #fff, #ecf7f8); border:1px solid rgba(47,127,143,.35); border-radius:18px; }
+    .place .content .num { position:absolute; top:12px; inset-inline-end:14px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:13px; color: var(--sea); opacity:.65; }
+    .place .content .emoji { font-size:26px; }
+    .place .content h3 { font-family:"Frank Ruhl Libre",serif; font-weight:700; font-size:18px; color: var(--sea-deep); margin:5px 0 6px; }
+    .place .content p { font-size:13.5px; line-height:1.5; color: var(--ink-soft); }
+    .place .content .go { margin-top:8px; align-self:flex-start; font-size:12px; font-weight:700; color:#fff; text-decoration:none;
+      background: linear-gradient(135deg, var(--sea-deep), var(--sea)); padding:5px 12px; border-radius:999px; }
+    /* postcard cover that slides away */
+    .place .stamp {
+      position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+      background: radial-gradient(90px 80px at 50% 32%, rgba(255,255,255,.28), transparent 70%),
+        linear-gradient(150deg, var(--sea-deep), var(--sea) 55%, var(--sea-soft));
+      color:#fff; border:1px solid rgba(255,255,255,.35); border-radius:18px; z-index:2;
+      transition: transform .55s cubic-bezier(.4,0,.2,1), opacity .5s ease;
+    }
+    .place.open .stamp { transform: translateX(-105%) rotate(-4deg); opacity: 0; }
+    .place .stamp .pin { font-size:32px; }
+    .place .stamp .cnum { margin-top:8px; font-family:"Amatic SC",cursive; font-size:26px; }
+    .place .stamp .csub { font-size:10px; letter-spacing:3px; opacity:.9; margin-top:2px; }
+
+    .closing { margin-top: 52px; text-align:center; background: var(--cream); border:1px solid rgba(47,127,143,.3); border-radius:24px; padding: 36px 26px; box-shadow: var(--shadow); }
+    .closing h2 { font-family:"Amatic SC",cursive; font-size:40px; color: var(--sea-deep); margin-bottom:10px; }
+    .closing p { font-family:"Frank Ruhl Libre",serif; font-size:17px; line-height:1.7; max-width:46ch; margin:0 auto; color: var(--ink); }
+    .invite-btn { display:inline-flex; gap:8px; margin-top:22px; padding:13px 32px; border-radius:999px;
+      background: linear-gradient(135deg, var(--sea-deep), var(--sea)); color:#fff; font-weight:700; text-decoration:none; box-shadow:0 12px 26px rgba(31,91,104,.35); transition: transform .2s ease; }
+    .invite-btn:hover { transform: translateY(-2px); }
+
+    @media (max-width: 680px) { .place { flex-basis: calc((100% - 16px)/2); max-width: calc((100% - 16px)/2); } }
+    @media (max-width: 460px) { .place { flex-basis: 100%; max-width: 100%; } }
+  </style>
+</head>
+<body>
+  <div class="clouds" id="clouds" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-band">
+        <p class="eyebrow">מנקודת אור לממלכה</p>
+        <div class="big">40 מקומות<b>לטייל</b></div>
+      </div>
+      <div class="portrait"><div class="portrait-ring"><img src="04.jpg" alt="מוריה" /></div></div>
+      <div class="hero-body">
+        <div class="globe">🌍</div>
+        <h1>המפה של מוריה</h1>
+        <p>מהטיול הבלתי נשכח עם בובי ועד היעדים הבאים — 40 מקומות חלומיים בעולם ובארץ, בארבע קטגוריות. הפוך גלויה וגלה לאן טסים 🧳</p>
+        <p class="note">כל יעד נחשף בלחיצה · כפתור "למפה" פותח את המקום ב-Google Maps</p>
+        <div class="divider"><span>✦</span></div>
+      </div>
+    </header>
+
+    <main id="root"></main>
+
+    <section class="closing">
+      <div style="font-size:30px">🧭</div>
+      <h2>העולם מחכה לך</h2>
+      <p>מגיע לך לראות את היופי של העולם כמו שהוא רואה אותך. שנצא יחד להרפתקה הבאה 💛</p>
+      <a class="invite-btn" href="invitation.html">💌 לחזרה להזמנה</a>
+    </section>
+  </div>
+
+  <script>
+    const GROUPS = [
+      { kicker:"קטגוריה א׳", range:"יעדים בעולם", title:"חלומות רחוקים",
+        items:[
+          { e:"🗼", t:"פריז, צרפת", d:"עיר האורות, האהבה והקרואסונים." },
+          { e:"🎡", t:"רומא, איטליה", d:"קולוסיאום, מזרקות ופסטה נצחית." },
+          { e:"🏛️", t:"אתונה, יוון", d:"האקרופוליס והשורשים של התרבות." },
+          { e:"🌷", t:"אמסטרדם, הולנד", d:"תעלות, פרחים ואופניים." },
+          { e:"🏰", t:"פראג, צ׳כיה", d:"עיר אגדות עם גשר וטירה." },
+          { e:"🚡", t:"שווייץ — האלפים", d:"פסגות מושלגות ואגמים צלולים." },
+          { e:"🌋", t:"סנטוריני, יוון", d:"בתים לבנים ושקיעות מעל הים." },
+          { e:"🕌", t:"איסטנבול, טורקיה", d:"מפגש של מזרח ומערב." },
+          { e:"🗽", t:"ניו יורק, ארה״ב", d:"העיר שלא ישנה לעולם." },
+          { e:"🌸", t:"טוקיו, יפן", d:"בין מקדשים עתיקים לניאון עתידני." },
+        ] },
+      { kicker:"קטגוריה ב׳", range:"טבע ונופים", title:"פלאי טבע",
+        items:[
+          { e:"🏔️", t:"הדולומיטים, איטליה", d:"רכסים דרמטיים ואגמים טורקיז." },
+          { e:"🌌", t:"אורות הצפון, איסלנד", d:"ריקוד אורות ירוק בשמי הלילה." },
+          { e:"🏝️", t:"האיים המלדיביים", d:"מים צלולים ובקתות מעל הלגונה." },
+          { e:"🦁", t:"ספארי, טנזניה", d:"סרנגטי וחיות הבר בטבע." },
+          { e:"🏜️", t:"ואדי רם, ירדן", d:"מדבר אדום כמו כוכב אחר." },
+          { e:"💦", t:"מפלי איגואסו", d:"עוצמה של מים בין ברזיל וארגנטינה." },
+          { e:"🐢", t:"איי גלפגוס", d:"גן עדן של חיות נדירות." },
+          { e:"🏞️", t:"פיורדים, נורווגיה", d:"מצוקים ומים בין ההרים." },
+          { e:"🌵", t:"הגרנד קניון, ארה״ב", d:"תהום עצומה שחוצבה במיליוני שנים." },
+          { e:"🌊", t:"האי בורה בורה", d:"פנינה טרופית בפולינזיה." },
+        ] },
+      { kicker:"קטגוריה ג׳", range:"אתרים בארץ", title:"היופי של ישראל",
+        items:[
+          { e:"🕍", t:"ירושלים העתיקה", d:"אבן, היסטוריה וקדושה בכל פינה." },
+          { e:"🧂", t:"ים המלח", d:"לצוף על המים הכי נמוכים בעולם." },
+          { e:"⛰️", t:"מצדה", d:"זריחה מעל המדבר וההיסטוריה." },
+          { e:"🐠", t:"אילת והאלמוגים", d:"צלילה בים סוף הצבעוני." },
+          { e:"🌲", t:"הגליל והחרמון", d:"נחלים ירוקים ושלג בחורף." },
+          { e:"🏜️", t:"מכתש רמון", d:"פלא גיאולוגי בלב הנגב." },
+          { e:"⚓", t:"נמל יפו העתיק", d:"סמטאות, אמנות וים." },
+          { e:"🍇", t:"רמת הגולן", d:"יקבים, מפלים ונופים פתוחים." },
+          { e:"🏖️", t:"חופי הכנרת", d:"מים מתוקים בין ההרים." },
+          { e:"🌼", t:"עמק המעיינות", d:"מעיינות זכים ושבילי אופניים." },
+        ] },
+      { kicker:"קטגוריה ד׳", range:"חוויות ובילויים", title:"רגעים בלתי נשכחים",
+        items:[
+          { e:"🎈", t:"טיסת כדור פורח", d:"לרחף מעל הנוף עם הזריחה." },
+          { e:"♨️", t:"מעיינות חמים", d:"רגיעה מוחלטת בטבע." },
+          { e:"🐎", t:"רכיבת סוסים בחוף", d:"חופש ליד הים." },
+          { e:"🍷", t:"סיור יקבים", d:"טעימות יין בין הכרמים." },
+          { e:"🚂", t:"מסע ברכבת נופית", d:"נופים שחולפים מבעד לחלון." },
+          { e:"🤿", t:"שנורקלינג בשונית", d:"עולם תת-ימי קסום." },
+          { e:"🎭", t:"פסטיבל תרבות", d:"מוזיקה, אוכל ואמנות מקומית." },
+          { e:"🏕️", t:"לילה תחת הכוכבים", d:"קמפינג ושמיים זרועי כוכבים." },
+          { e:"🛶", t:"שייט בקיאק", d:"שקט על המים בין הנופים." },
+          { e:"🌅", t:"שקיעה על צוק", d:"רגע של הודיה מול האופק." },
+        ] },
+    ];
+
+    (function build() {
+      const root = document.getElementById("root");
+      let n = 0;
+      GROUPS.forEach((g) => {
+        const sec = document.createElement("section");
+        sec.className = "group";
+        sec.innerHTML = `<div class="group-head"><span class="g-kicker">${g.kicker} · 10 יעדים</span><h2>${g.title}</h2><div class="g-range">${g.range}</div></div>`;
+        const grid = document.createElement("div"); grid.className = "grid";
+        g.items.forEach((it) => {
+          n++;
+          const url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(it.t);
+          const card = document.createElement("article"); card.className = "place";
+          card.innerHTML = `
+            <div class="content">
+              <div class="num">#${n}</div>
+              <div class="emoji">${it.e}</div>
+              <h3>${it.t}</h3>
+              <p>${it.d}</p>
+              <a class="go" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🗺️ למפה</a>
+            </div>
+            <div class="stamp">
+              <div class="pin">📮</div>
+              <div class="cnum">יעד ${n}</div>
+              <div class="csub">✦ הפכו ✦</div>
+            </div>`;
+          card.addEventListener("click", () => card.classList.toggle("open"));
+          grid.appendChild(card);
+        });
+        sec.appendChild(grid); root.appendChild(sec);
+      });
+      const io = new IntersectionObserver((es)=>es.forEach((e)=>{ if(e.isIntersecting){e.target.classList.add("show");io.unobserve(e.target);} }), { threshold:.12 });
+      document.querySelectorAll(".place").forEach((c)=>io.observe(c));
+    })();
+
+    (function () {
+      const layer = document.getElementById("clouds");
+      const g = ["✈️","☁️","✦","🧭","🗺️"];
+      for (let i=0;i<18;i++){ const s=document.createElement("span"); s.textContent=g[Math.floor(Math.random()*g.length)];
+        s.style.left=Math.random()*100+"vw"; s.style.fontSize=10+Math.random()*16+"px";
+        s.style.animationDuration=11+Math.random()*8+"s"; s.style.animationDelay=-Math.random()*12+"s"; layer.appendChild(s); }
+    })();
+  </script>
+</body>
+</html>
