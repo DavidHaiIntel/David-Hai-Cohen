@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>40 מתכונים · המטבח של מוריה</title>
+  <meta name="description" content="40 מתכונים אהובים בארבע קטגוריות — מתנה למוריה, מנקודת אור לממלכה" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&family=Amatic+SC:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --terra: #c9622f; --terra-deep: #9e4620; --terra-soft: #e6a06b;
+      --olive: #7c7a3a; --cream: #fbf4e9; --ink: #3d2a1e; --ink-soft: #6f5744;
+      --shadow: 0 20px 60px rgba(90, 45, 20, 0.2);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Heebo", sans-serif; color: var(--ink);
+      background: radial-gradient(1100px 560px at 50% -10%, #fff3e2 0%, transparent 60%),
+        linear-gradient(165deg, #f6e8d3 0%, #efdcc0 45%, #f4e6cf 100%);
+      min-height: 100vh; padding: 28px 16px 60px; overflow-x: hidden;
+    }
+    .spice { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .spice span { position: absolute; opacity: 0; animation: rise 11s linear infinite; font-size: 14px; }
+    @keyframes rise { 0%{transform:translateY(20px);opacity:0} 15%{opacity:.85} 85%{opacity:.85} 100%{transform:translateY(-92vh);opacity:0} }
+
+    .wrap { position: relative; z-index: 1; width: min(940px, 100%); margin: 0 auto; }
+    .hero { background: var(--cream); border: 1px solid rgba(201,98,47,.3); border-radius: 28px; box-shadow: var(--shadow); overflow: hidden; animation: r 1s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes r { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .hero-band { background: linear-gradient(135deg, var(--terra-deep), var(--terra) 50%, var(--terra-soft)); color: #fff; text-align: center; padding: 40px 24px 34px; }
+    .hero-band .eyebrow { font-family: "Frank Ruhl Libre", serif; letter-spacing: 5px; font-size: 13px; opacity: .95; margin-bottom: 10px; }
+    .hero-band .big { font-family: "Amatic SC", cursive; font-size: clamp(52px,12vw,86px); line-height: 1.05; padding-bottom: 6px; text-shadow: 0 2px 12px rgba(0,0,0,.18); }
+    .hero-band .big b { display: block; font-size: 1.05em; }
+    .hero-body { text-align: center; padding: 26px 26px 30px; }
+    .hero-body .pan { font-size: 34px; }
+    .hero-body h1 { font-family: "Frank Ruhl Libre", serif; font-weight: 900; font-size: clamp(23px,5vw,32px); color: var(--terra-deep); margin: 8px 0 12px; }
+    .hero-body p { font-family: "Frank Ruhl Libre", serif; font-size: 17px; line-height: 1.7; color: var(--ink); max-width: 52ch; margin: 0 auto; }
+    .hero-body .note { margin-top: 14px; font-size: 14px; color: var(--ink-soft); }
+    .divider { display:flex; align-items:center; justify-content:center; gap:12px; margin: 22px auto 4px; color: var(--terra); }
+    .divider::before,.divider::after { content:""; height:1px; width:80px; background: linear-gradient(to left, transparent, var(--terra)); }
+
+    .group { margin-top: 44px; }
+    .group-head { text-align: center; margin-bottom: 22px; }
+    .group-head .g-kicker { display:inline-block; font-size:12px; font-weight:700; letter-spacing:2px; color: var(--terra-deep);
+      background: rgba(201,98,47,.12); border:1px solid rgba(201,98,47,.3); padding:5px 16px; border-radius:999px; }
+    .group-head h2 { font-family: "Frank Ruhl Libre", serif; font-weight:700; font-size: clamp(22px,5vw,30px); color: var(--ink); margin-top: 12px; }
+    .group-head .g-range { display:inline-block; margin-top: 8px; font-family: "Amatic SC", cursive; font-size: 26px; color: var(--terra-deep); }
+
+    .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px 16px; }
+    .dish {
+      flex: 0 1 calc((100% - 34px) / 3); max-width: calc((100% - 34px) / 3);
+      position: relative; height: 168px; border-radius: 18px; cursor: pointer; overflow: hidden;
+      opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease;
+      box-shadow: 0 10px 26px rgba(90,45,20,.14);
+    }
+    .dish.show { opacity: 1; transform: translateY(0); }
+    /* revealed content underneath */
+    .dish .content {
+      position: absolute; inset: 0; padding: 18px; display: flex; flex-direction: column; justify-content: center; text-align: right;
+      background: linear-gradient(160deg, #fff, #fdf1de); border: 1px solid rgba(201,98,47,.35); border-radius: 18px;
+    }
+    .dish .content .num { position:absolute; top:12px; inset-inline-end:14px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:13px; color: var(--terra); opacity:.65; }
+    .dish .content .emoji { font-size: 26px; }
+    .dish .content h3 { font-family:"Frank Ruhl Libre",serif; font-weight:700; font-size:18px; color: var(--terra-deep); margin: 5px 0 6px; }
+    .dish .content p { font-size:13.5px; line-height:1.5; color: var(--ink-soft); }
+    .dish .content .go { margin-top:8px; align-self:flex-start; font-size:12px; font-weight:700; color:#fff; text-decoration:none;
+      background: linear-gradient(135deg, var(--terra-deep), var(--terra)); padding:5px 12px; border-radius:999px; }
+    /* the cover (cloche) that lifts away */
+    .dish .cover {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      background: radial-gradient(90px 80px at 50% 34%, rgba(255,255,255,.25), transparent 70%),
+        linear-gradient(150deg, var(--terra-deep), var(--terra) 55%, var(--terra-soft));
+      color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: 18px;
+      transition: transform .55s cubic-bezier(.4,0,.2,1), opacity .55s ease; transform-origin: top center; z-index: 2;
+    }
+    .dish.open .cover { transform: translateY(-100%) scale(1.04); opacity: 0; }
+    .dish .cover .dome { font-size: 32px; }
+    .dish .cover .cnum { margin-top: 8px; font-family:"Amatic SC",cursive; font-size: 26px; }
+    .dish .cover .csub { font-size: 10px; letter-spacing: 3px; opacity: .9; margin-top: 2px; }
+
+    .closing { margin-top: 52px; text-align: center; background: var(--cream); border:1px solid rgba(201,98,47,.3); border-radius: 24px; padding: 36px 26px; box-shadow: var(--shadow); }
+    .closing h2 { font-family:"Amatic SC",cursive; font-size: 40px; color: var(--terra-deep); margin-bottom: 10px; }
+    .closing p { font-family:"Frank Ruhl Libre",serif; font-size:17px; line-height:1.7; max-width:46ch; margin:0 auto; color: var(--ink); }
+    .invite-btn { display:inline-flex; gap:8px; margin-top:22px; padding:13px 32px; border-radius:999px;
+      background: linear-gradient(135deg, var(--terra-deep), var(--terra)); color:#fff; font-weight:700; text-decoration:none; box-shadow:0 12px 26px rgba(158,70,32,.35); transition: transform .2s ease; }
+    .invite-btn:hover { transform: translateY(-2px); }
+
+    @media (max-width: 680px) { .dish { flex-basis: calc((100% - 16px)/2); max-width: calc((100% - 16px)/2); } }
+    @media (max-width: 460px) { .dish { flex-basis: 100%; max-width: 100%; } }
+  </style>
+</head>
+<body>
+  <div class="spice" id="spice" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-band">
+        <p class="eyebrow">מנקודת אור לממלכה</p>
+        <div class="big">40 מתכונים<b>אהובים</b></div>
+      </div>
+      <div class="hero-body">
+        <div class="pan">🍲</div>
+        <h1>המטבח של מוריה</h1>
+        <p>40 מתכונים נבחרים בארבע קטגוריות — מארוחות בוקר ומאפים, דרך מרקים וסלטים, מנות עיקריות ועד קינוחים מתוקים. הרימו את המכסה וגלו מה מתבשל 🍽️</p>
+        <p class="note">כל מנה נחשפת בלחיצה · כפתור "למתכון" מוביל לחיפוש מתכונים</p>
+        <div class="divider"><span>✦</span></div>
+      </div>
+    </header>
+
+    <main id="root"></main>
+
+    <section class="closing">
+      <div style="font-size:30px">🍽️</div>
+      <h2>בתיאבון, מלכה</h2>
+      <p>הבית שלנו תמיד ריח של אהבה מהמטבח שלך. שתמשיכי לפנק אותנו — ושיפנקו גם אותך 💛</p>
+      <a class="invite-btn" href="invitation.html">💌 לחזרה להזמנה</a>
+    </section>
+  </div>
+
+  <script>
+    const GROUPS = [
+      { kicker: "קטגוריה א׳", range: "בקרים ומאפים", title: "לפתוח את היום",
+        items: [
+          { e:"🍳", t:"שקשוקה", d:"ביצים ברוטב עגבניות פיקנטי — קלאסיקה ישראלית." },
+          { e:"🍞", t:"חלה קלועה מתוקה", d:"בצק אוורירי לשבת, קלוע ומבריק." },
+          { e:"🥞", t:"פנקייק אמריקאי", d:"רך, גבוה ותפוח — עם מייפל ופירות." },
+          { e:"🥐", t:"קרואסון חמאה", d:"בצק עלים פריך וחמאתי לבוקר מפנק." },
+          { e:"🫓", t:"ג׳חנון תימני", d:"נאפה לילה שלם — עם ביצה ורסק." },
+          { e:"🥯", t:"בורקס גבינה", d:"בצק פילו פריך במילוי גבינה מלוחה." },
+          { e:"🥣", t:"גרנולה ביתית", d:"שיבולת שועל, אגוזים ודבש — קלוי וזהוב." },
+          { e:"🧁", t:"מאפין אוכמניות", d:"רך ולחלוחי עם פיצוצי אוכמניות." },
+          { e:"🍳", t:"אומלט ירקות", d:"קל, מהיר ומלא בירק טרי." },
+          { e:"🥔", t:"לביבות תפוחי אדמה", d:"פריכות מבחוץ, רכות מבפנים." },
+        ] },
+      { kicker: "קטגוריה ב׳", range: "מרקים וסלטים", title: "טרי וחם",
+        items: [
+          { e:"🍲", t:"מרק עוף עם קניידלך", d:"מרק הזהב של סבתא — מנחם בכל טמפרטורה." },
+          { e:"🥣", t:"מרק עדשים כתום", d:"קטיפתי, מתובל וממלא." },
+          { e:"🥗", t:"סלט יווני", d:"עגבניה, מלפפון, זיתים ופטה." },
+          { e:"🍜", t:"מרק כרובית קטיפתי", d:"קרמי ועדין, עם שמן זית וקרוטונים." },
+          { e:"🌿", t:"טאבולה", d:"פטרוזיליה, בורגול, נענע ולימון." },
+          { e:"🥬", t:"סלט קיסר", d:"חסה פריכה, רוטב קרמי וקרוטונים." },
+          { e:"🧅", t:"מרק בצל צרפתי", d:"בצל מקורמל, יין וגבינה גרטן." },
+          { e:"🍆", t:"סלט חצילים קלויים", d:"חציל שרוף, טחינה ורימונים." },
+          { e:"🍲", t:"מינסטרונה", d:"מרק ירקות איטלקי עשיר עם פסטה." },
+          { e:"🥗", t:"קינואה וסלק", d:"סלט צבעוני, בריא וממכר." },
+        ] },
+      { kicker: "קטגוריה ג׳", range: "מנות עיקריות", title: "לב הארוחה",
+        items: [
+          { e:"🍝", t:"פסטה עגבניות ובזיליקום", d:"רוטב פשוט וטרי — טעם של איטליה." },
+          { e:"🍗", t:"שניצל פריך", d:"פירורי לחם זהובים — אהוב על כולם." },
+          { e:"🍚", t:"אורז פרסי", d:"אורז מאודה עם קרום זהוב (תהדיג)." },
+          { e:"🍆", t:"מוסקה", d:"שכבות חציל, בשר ובשמל אפוי." },
+          { e:"🐟", t:"סלמון בתנור ולימון", d:"עסיסי, בריא ומהיר להכנה." },
+          { e:"🥘", t:"תבשיל בקר ביין אדום", d:"בישול איטי שנמס בפה." },
+          { e:"🥘", t:"פאייה ספרדית", d:"אורז, זעפרן ופירות ים." },
+          { e:"🍗", t:"קדרת עוף ושזיפים", d:"מתוק-מלוח, מרוקאי וחגיגי." },
+          { e:"🍚", t:"ריזוטו פטריות", d:"קרמי, עשיר ומנחם." },
+          { e:"🍲", t:"קוסקוס עם ירקות", d:"פנינים רכות עם מרק ירקות מתובל." },
+        ] },
+      { kicker: "קטגוריה ד׳", range: "קינוחים ומתוקים", title: "הסוף המתוק",
+        items: [
+          { e:"🍰", t:"עוגת גבינה אפויה", d:"קרמית, גבוהה ונימוחה." },
+          { e:"🍫", t:"בראוניז שוקולד", d:"פאדג׳י, אינטנסיבי ומכור." },
+          { e:"🍮", t:"טירמיסו", d:"מסקרפונה, קפה וקקאו — איטלקי קלאסי." },
+          { e:"🍓", t:"פבלובה", d:"מרנג פריך, קצפת ופירות יער." },
+          { e:"🍫", t:"עוגת לבה", d:"לב שוקולד נוזלי שנשפך." },
+          { e:"🍨", t:"מלבי", d:"קינוח חלבי עדין במי ורדים וסירופ." },
+          { e:"🍮", t:"קרם ברולה", d:"קרם וניל עם קרום קרמל שבור." },
+          { e:"🍪", t:"עוגיות חמאה", d:"נמסות בפה — עם קפה מושלם." },
+          { e:"🥧", t:"פאי תפוחים", d:"בצק פריך, תפוחים וקינמון." },
+          { e:"🍫", t:"מוס שוקולד", d:"אוורירי, עשיר ואלגנטי." },
+        ] },
+    ];
+
+    (function build() {
+      const root = document.getElementById("root");
+      let n = 0;
+      GROUPS.forEach((g) => {
+        const sec = document.createElement("section");
+        sec.className = "group";
+        sec.innerHTML = `<div class="group-head"><span class="g-kicker">${g.kicker}</span><h2>${g.title}</h2><div class="g-range">${g.range}</div></div>`;
+        const grid = document.createElement("div");
+        grid.className = "grid";
+        g.items.forEach((it) => {
+          n++;
+          const url = "https://www.google.com/search?q=" + encodeURIComponent("מתכון " + it.t);
+          const card = document.createElement("article");
+          card.className = "dish";
+          card.innerHTML = `
+            <div class="content">
+              <div class="num">#${n}</div>
+              <div class="emoji">${it.e}</div>
+              <h3>${it.t}</h3>
+              <p>${it.d}</p>
+              <a class="go" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔎 למתכון</a>
+            </div>
+            <div class="cover">
+              <div class="dome">🍽️</div>
+              <div class="cnum">מנה ${n}</div>
+              <div class="csub">✦ הרימו ✦</div>
+            </div>`;
+          card.addEventListener("click", () => card.classList.toggle("open"));
+          grid.appendChild(card);
+        });
+        sec.appendChild(grid);
+        root.appendChild(sec);
+      });
+      const io = new IntersectionObserver((es)=>es.forEach((e)=>{ if(e.isIntersecting){e.target.classList.add("show");io.unobserve(e.target);} }), { threshold:.12 });
+      document.querySelectorAll(".dish").forEach((c)=>io.observe(c));
+    })();
+
+    (function () {
+      const layer = document.getElementById("spice");
+      const g = ["🌿","✦","•","🫑","🌶️"];
+      for (let i=0;i<20;i++){ const s=document.createElement("span"); s.textContent=g[Math.floor(Math.random()*g.length)];
+        s.style.left=Math.random()*100+"vw"; s.style.fontSize=10+Math.random()*16+"px";
+        s.style.animationDuration=9+Math.random()*8+"s"; s.style.animationDelay=-Math.random()*12+"s"; layer.appendChild(s); }
+    })();
+  </script>
+</body>
+</html>
