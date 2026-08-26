@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>40 עצות זהב ליועצת · למוריה באהבה</title>
+  <meta name="description" content="40 העצות החשובות והמחקריות ביותר ליועצת — מתנה למוריה, מנקודת אור לממלכה" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&family=Amatic+SC:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c9a24b;
+      --gold-soft: #e6cf92;
+      --gold-deep: #a8842f;
+      --ink: #3a2f22;
+      --ink-soft: #6a5c46;
+      --cream: #fbf7ef;
+      --rose: #d98a8a;
+      --shadow: 0 20px 60px rgba(80, 60, 20, 0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Heebo", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 50% -10%, #fff8ea 0%, transparent 60%),
+        linear-gradient(160deg, #f6efe0 0%, #efe4cc 45%, #f3ead6 100%);
+      min-height: 100vh;
+      padding: 28px 16px 60px;
+      overflow-x: hidden;
+    }
+
+    /* Floating decorative sparkles */
+    .sparkles { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .sparkles span {
+      position: absolute;
+      color: var(--gold-soft);
+      font-size: 14px;
+      opacity: 0;
+      animation: float 9s linear infinite;
+    }
+    @keyframes float {
+      0%   { transform: translateY(20px) scale(.6); opacity: 0; }
+      15%  { opacity: .9; }
+      85%  { opacity: .9; }
+      100% { transform: translateY(-90vh) scale(1); opacity: 0; }
+    }
+
+    .wrap { position: relative; z-index: 1; width: min(920px, 100%); margin: 0 auto; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      background: var(--cream);
+      border: 1px solid rgba(201, 162, 75, 0.35);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: rise 1s cubic-bezier(.2, .8, .2, 1) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-band {
+      background: linear-gradient(135deg, var(--gold-deep), var(--gold) 45%, var(--gold-soft));
+      color: #fff;
+      text-align: center;
+      padding: 42px 24px 38px;
+    }
+    .hero-band .eyebrow {
+      font-family: "Frank Ruhl Libre", serif;
+      letter-spacing: 5px;
+      font-size: 13px;
+      opacity: .95;
+      margin-bottom: 10px;
+    }
+    .hero-band .big {
+      font-family: "Amatic SC", cursive;
+      font-size: clamp(52px, 12vw, 88px);
+      line-height: .95;
+      text-shadow: 0 2px 12px rgba(0,0,0,.18);
+    }
+    .hero-band .big b { display: block; font-size: 1.05em; }
+    .hero-body { text-align: center; padding: 30px 26px 34px; }
+    .hero-body .crown { font-size: 34px; }
+    .hero-body h1 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-weight: 900;
+      font-size: clamp(24px, 5.5vw, 34px);
+      color: var(--gold-deep);
+      margin: 8px 0 14px;
+    }
+    .hero-body p {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--ink);
+      max-width: 52ch;
+      margin: 0 auto;
+    }
+    .hero-body .note {
+      margin-top: 16px;
+      font-family: "Heebo", sans-serif;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    .divider {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; margin: 26px auto 6px; color: var(--gold);
+    }
+    .divider::before, .divider::after {
+      content: ""; height: 1px; width: 80px;
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+    .divider span { font-size: 18px; }
+
+    /* ---------- Groups ---------- */
+    .group { margin-top: 46px; }
+    .group-head { text-align: center; margin-bottom: 22px; }
+    .group-head .g-kicker {
+      display: inline-block;
+      font-family: "Heebo", sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      color: var(--gold-deep);
+      background: rgba(201, 162, 75, .12);
+      border: 1px solid rgba(201, 162, 75, .3);
+      padding: 5px 16px; border-radius: 999px;
+    }
+    .group-head h2 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-weight: 700;
+      font-size: clamp(22px, 5vw, 30px);
+      color: var(--ink);
+      margin-top: 12px;
+    }
+    .group-head .g-range {
+      display: inline-block; margin-top: 8px;
+      font-family: "Amatic SC", cursive;
+      font-size: 26px; color: var(--gold-deep); line-height: 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 26px 16px;
+      perspective: 1400px;
+    }
+
+    /* כרטיס עצה — נפתח בלחיצה (אפקט היפוך) */
+    .tip {
+      height: 210px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .tip.show { opacity: 1; transform: translateY(0); }
+    .tip-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform .7s cubic-bezier(.2, .8, .2, 1);
+      transform-style: preserve-3d;
+    }
+    .tip.open .tip-inner { transform: rotateY(180deg); }
+
+    .tip-face {
+      position: absolute; inset: 0;
+      -webkit-backface-visibility: hidden; backface-visibility: hidden;
+      border-radius: 18px; padding: 20px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 10px 26px rgba(140, 110, 40, .12);
+      overflow: hidden;
+    }
+
+    /* צד סגור — חותם זהב */
+    .tip-front {
+      align-items: center; justify-content: center; text-align: center;
+      background:
+        radial-gradient(120px 120px at 50% 28%, rgba(255,255,255,.28), transparent 70%),
+        linear-gradient(150deg, var(--gold-deep), var(--gold) 55%, var(--gold-soft));
+      color: #fff; border: 1px solid rgba(255,255,255,.4);
+    }
+    .tip-front .fnum {
+      font-family: "Frank Ruhl Libre", serif;
+      font-weight: 900; font-size: 14px; letter-spacing: 2px; opacity: .92;
+    }
+    .tip-front .fseal {
+      width: 60px; height: 60px; margin: 10px 0 12px;
+      display: grid; place-items: center; font-size: 30px;
+      background: rgba(255,255,255,.16);
+      border: 1.5px solid rgba(255,255,255,.55);
+      border-radius: 50%;
+      box-shadow: inset 0 2px 10px rgba(255,255,255,.28);
+    }
+    .tip-front .fhint {
+      font-family: "Amatic SC", cursive; font-size: 27px; line-height: 1;
+      text-shadow: 0 1px 6px rgba(0,0,0,.15);
+    }
+    .tip-front .fsub { font-size: 11px; letter-spacing: 3px; margin-top: 6px; opacity: .9; }
+    .tip:hover .tip-front { filter: brightness(1.05); }
+
+    /* צד פתוח — התוכן */
+    .tip-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(160deg, #fff, #fdf6e7);
+      border: 1px solid rgba(201, 162, 75, .4);
+      justify-content: center; text-align: right;
+    }
+    .tip-back .bnum {
+      position: absolute; top: 12px; inset-inline-end: 15px;
+      font-family: "Frank Ruhl Libre", serif;
+      font-weight: 900; font-size: 13px; color: var(--gold); opacity: .7;
+    }
+    .tip-back .bemoji { font-size: 26px; line-height: 1; }
+    .tip-back h3 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-weight: 700; font-size: 18px; color: var(--gold-deep);
+      margin: 6px 0 7px;
+    }
+    .tip-back p { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+
+    /* ---------- Closing + nav ---------- */
+    .closing {
+      margin-top: 54px;
+      text-align: center;
+      background: var(--cream);
+      border: 1px solid rgba(201, 162, 75, .35);
+      border-radius: 24px;
+      padding: 38px 26px 34px;
+      box-shadow: var(--shadow);
+    }
+    .closing .heart { font-size: 30px; }
+    .closing h2 {
+      font-family: "Amatic SC", cursive;
+      font-size: 40px; color: var(--gold-deep);
+      line-height: 1; margin: 6px 0 12px;
+    }
+    .closing p {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 17px; line-height: 1.7; color: var(--ink);
+      max-width: 46ch; margin: 0 auto;
+    }
+    .invite-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 24px;
+      padding: 14px 34px;
+      background: linear-gradient(135deg, var(--gold-deep), var(--gold));
+      color: #fff; text-decoration: none;
+      border-radius: 999px; font-weight: 700; font-size: 16px;
+      box-shadow: 0 10px 24px rgba(168, 132, 47, .35);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .invite-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(168, 132, 47, .45); }
+    .hearts { margin-top: 18px; font-size: 18px; letter-spacing: 4px; color: var(--gold); }
+
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero-body { padding: 26px 20px 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkles" id="sparkles" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-band">
+        <p class="eyebrow">מתנה מנקודת אור לממלכה</p>
+        <div class="big">40 עצות<b>זהב</b></div>
+      </div>
+      <div class="hero-body">
+        <div class="crown">👑</div>
+        <h1>ליועצת שלנו — למוריה, באהבה</h1>
+        <p>
+          40 שנה, 40 עצות — עשור אחר עשור. אספנו עבורך את העצות
+          החשובות והמחקריות ביותר — תמצית של חוכמת הייעוץ והטיפול,
+          מחולקות לארבעת העשורים של חייך.
+        </p>
+        <p class="note">לחצו על כל חותם זהב כדי לפתוח את העצה ✦ &nbsp;·&nbsp; מבוסס על מחקר: רוג׳רס, הברית הטיפולית, ראיון מוטיבציוני, גישה ממוקדת פתרון ו‑CBT.</p>
+        <div class="divider"><span>✦</span></div>
+      </div>
+    </header>
+
+    <main id="tips-root"><!-- נבנה דינמית --></main>
+
+    <!-- CLOSING + קישור להזמנה (בכוונה אין קישור לעמוד הראשי — הפתעה ליום עצמו) -->
+    <section class="closing">
+      <div class="heart">💛</div>
+      <h2>מהניצוץ ועד הממלכה</h2>
+      <p>
+        את לא רק יועצת — את מגדלור. כל 40 העצות האלה כבר חיות בתוכך,
+        כי לב שמקשיב באמת לא צריך ספר הוראות. אנחנו כל כך גאים בך.
+      </p>
+      <a class="invite-btn" href="invitation.html">💌 לחזרה להזמנה</a>
+      <div class="hearts">💛 ✦ 💛</div>
+    </section>
+  </div>
+
+  <script>
+    const GROUPS = [
+      {
+        kicker: "העשור הראשון",
+        range: "גיל 0–10 · הניצוץ",
+        title: "היסודות — לב שמקשיב",
+        tips: [
+          { e: "🤝", t: "הברית לפני הטכניקה", d: "איכות הקשר האנושי מנבאת הצלחה יותר מכל שיטה. קודם כול — קשר." },
+          { e: "💗", t: "אמפתיה אמיתית", d: "היכנסי לנעליו של האחר, הרגישי את עולמו — מבלי לאבד את עצמך בדרך." },
+          { e: "🕊️", t: "קבלה ללא תנאי", d: "כדברי קרל רוג׳רס — לקבל את האדם כפי שהוא, בלי תנאים ובלי שיפוט." },
+          { e: "🎯", t: "נוכחות מלאה", d: "להיות כאן ועכשיו — בלי טלפון, בלי הסחות, בלי לחשוב על המשפט הבא." },
+          { e: "🛋️", t: "מרחב בטוח", d: "צרי מקום שבו מותר להיפתח, לבכות ולטעות — בלי חשש ובלי ביקורת." },
+          { e: "👂", t: "הקשבה פעילה", d: "הקשיבי כדי להבין — לא כדי לענות. הקשבה אמיתית היא מתנה נדירה." },
+          { e: "❓", t: "שאלות פתוחות", d: "'ספרי לי עוד' פותח עולמות. שאלות של כן/לא סוגרות דלתות." },
+          { e: "🔁", t: "שיקוף רגשי", d: "החזירי במילים שלך את מה ששמעת — כך האחר מרגיש שבאמת הובן." },
+          { e: "🤫", t: "כוחה של שתיקה", d: "שתיקה אינה חלל ריק. תני לה מקום — לעיתים שם קורה הדבר החשוב." },
+          { e: "✅", t: "לתקף רגשות", d: "'זה הגיוני שאת מרגישה כך' — אימות הרגש הוא צעד ראשון בריפוי." },
+        ],
+      },
+      {
+        kicker: "העשור השני",
+        range: "גיל 10–20 · הכלים",
+        title: "אמנות הייעוץ — כלים מבוססי מחקר",
+        tips: [
+          { e: "💪", t: "גישה מבוססת חוזקות", d: "בני על מה שכבר עובד. חפשי את הכוחות, לא רק את הקשיים." },
+          { e: "🔥", t: "ראיון מוטיבציוני", d: "אל תדחפי לשינוי — עוררי את המוטיבציה הפנימית שכבר קיימת בפנים." },
+          { e: "🗝️", t: "גישה ממוקדת פתרון", d: "חפשי את 'החריגים החיוביים' — הרגעים שבהם הבעיה כבר לא הייתה שם." },
+          { e: "🧠", t: "עקרונות CBT", d: "מחשבה משפיעה על רגש שמשפיע על התנהגות. שינוי בחוליה אחת מזיז את כולן." },
+          { e: "🎯", t: "מטרות ברות השגה", d: "הציבי יעדים ברורים, מדידים וקטנים — הצלחה מולידה הצלחה." },
+          { e: "📚", t: "פסיכו‑חינוך", d: "ידע מעצים. כשמסבירים מה קורה ולמה — החרדה קטנה והשליטה גדלה." },
+          { e: "✨", t: "שאלת הנס", d: "'אילו הבעיה תיעלם בן לילה — איך היית יודעת?' — פותח תמונת עתיד." },
+          { e: "🌟", t: "חיזוק חיובי", d: "שימי לב להצלחות הקטנות והאירי אותן. מה שמאירים — גדל." },
+          { e: "🧍", t: "שפת גוף", d: "רוב התקשורת אינה מילולית. הקשיבי לגוף — שלך ושל האחר." },
+          { e: "🌫️", t: "להקשיב לשקט", d: "שימי לב גם למה שלא נאמר — למה שנעצר בגרון, מתחת לפני השטח." },
+        ],
+      },
+      {
+        kicker: "העשור השלישי",
+        range: "גיל 20–30 · החוכמה",
+        title: "אתיקה, גבולות ועומק",
+        tips: [
+          { e: "🔐", t: "סודיות היא הבסיס", d: "מה שנאמר נשאר בחדר — מלבד מצבי סכנה. זהו יסוד האמון." },
+          { e: "🚧", t: "גבולות מגנים", d: "גבול ברור מגן על שני הצדדים ושומר על הקשר מקצועי ובריא." },
+          { e: "⚖️", t: "בלי שיפוטיות", d: "השאירי את השיפוט בחוץ. תפקידך להבין — לא לשפוט." },
+          { e: "🐢", t: "לכבד את הקצב", d: "כל אדם צומח בקצב שלו. אל תדחפי — לכי לצידו, לא לפניו." },
+          { e: "🪧", t: "העברה נגדית", d: "היי מודעת לרגשות שהמפגש מעורר בך. הם מידע — לא הכוונה לפעולה." },
+          { e: "🧭", t: "להכיר בגבולות", d: "לדעת מה מעבר להתמחות שלך — ולהפנות באומץ ובאחריות." },
+          { e: "🗂️", t: "תיעוד מסודר", d: "רישום מקצועי ומכבד שומר עלייך, על המטופל ועל רצף הטיפול." },
+          { e: "🌍", t: "רגישות תרבותית", d: "כבדי רקע, אמונות וערכים שונים משלך. הענווה התרבותית היא כוח." },
+          { e: "🪞", t: "כנות ושקיפות", d: "קונגרואנטיות: להיות אותנטית. אנשים מרגישים מיד לב פתוח." },
+          { e: "⏳", t: "לא למהר לפתור", d: "לא כל כאב מחפש פתרון. לפעמים כל מה שצריך זו אוזן קשבת." },
+        ],
+      },
+      {
+        kicker: "העשור הרביעי",
+        range: "גיל 30–40 · הממלכה",
+        title: "עוצמה, טיפוח עצמי ומורשת",
+        tips: [
+          { e: "🧑‍🏫", t: "הדרכה (סופרוויז׳ן)", d: "אל תעבדי לבד. הדרכה קבועה שומרת עלייך חדה, בטוחה ומאוזנת." },
+          { e: "🔋", t: "מניעת שחיקה", d: "את הכלי המרכזי בעבודה — שמרי עליו. יועצת שחוקה לא יכולה להאיר." },
+          { e: "🤍", t: "חמלה עצמית", d: "היי עדינה עם עצמך כפי שאת עדינה עם אחרים. גם את זקוקה לחמלה." },
+          { e: "🏡", t: "גבול בית ועבודה", d: "השאירי את הכאב של אחרים בעבודה. הבית שלך זקוק לך שלמה." },
+          { e: "📈", t: "למידה מתמדת", d: "המקצוע מתפתח — וגם את. סקרנות מקצועית היא סימן לחיוניות." },
+          { e: "🧩", t: "אינטואיציה + ידע", d: "סמכי על שניהם. הידע נותן מסגרת, האינטואיציה נותנת עומק." },
+          { e: "🕯️", t: "תקווה מדבקת", d: "האמונה שלך ביכולת של אדם להשתנות — משדרת אליו ומחזקת אותו." },
+          { e: "👁️", t: "לראות את האדם", d: "אף פעם לא רק 'תיק' או 'בעיה' — מולך יושב אדם שלם עם סיפור." },
+          { e: "🧱", t: "אמון נבנה בטיפות", d: "עקביות ואמינות — האמון נבנה מאלף מחוות קטנות לאורך זמן." },
+          { e: "💛", t: "את עושה הבדל", d: "לפעמים לעולם לא תדעי כמה. מילה אחת שלך יכולה לשנות חיים שלמים." },
+        ],
+      },
+    ];
+
+    (function build() {
+      const root = document.getElementById("tips-root");
+      let n = 0;
+      GROUPS.forEach((g) => {
+        const sec = document.createElement("section");
+        sec.className = "group";
+        const head = document.createElement("div");
+        head.className = "group-head";
+        head.innerHTML = `<span class="g-kicker">${g.kicker}</span><h2>${g.title}</h2><div class="g-range">${g.range}</div>`;
+        sec.appendChild(head);
+
+        const grid = document.createElement("div");
+        grid.className = "grid";
+        g.tips.forEach((tip) => {
+          n++;
+          const card = document.createElement("article");
+          card.className = "tip";
+          card.innerHTML = `
+            <div class="tip-inner">
+              <div class="tip-face tip-front">
+                <div class="fnum">עצה ${n}</div>
+                <div class="fseal">${tip.e}</div>
+                <div class="fhint">פִּתחו אותי</div>
+                <div class="fsub">✦ לחצו ✦</div>
+              </div>
+              <div class="tip-face tip-back">
+                <div class="bnum">#${n}</div>
+                <div class="bemoji">${tip.e}</div>
+                <h3>${tip.t}</h3>
+                <p>${tip.d}</p>
+              </div>
+            </div>`;
+          card.addEventListener("click", () => card.classList.toggle("open"));
+          grid.appendChild(card);
+        });
+        sec.appendChild(grid);
+        root.appendChild(sec);
+      });
+
+      // חשיפה עדינה בגלילה
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("show");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll(".tip").forEach((c) => io.observe(c));
+    })();
+
+    // נצנוצים
+    (function () {
+      const layer = document.getElementById("sparkles");
+      const glyphs = ["✦", "✧", "❀", "•", "✨"];
+      for (let i = 0; i < 24; i++) {
+        const s = document.createElement("span");
+        s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.fontSize = 8 + Math.random() * 16 + "px";
+        s.style.animationDuration = 7 + Math.random() * 8 + "s";
+        s.style.animationDelay = -Math.random() * 12 + "s";
+        layer.appendChild(s);
+      }
+    })();
+  </script>
+</body>
+</html>
