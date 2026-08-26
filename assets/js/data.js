@@ -149,15 +149,15 @@ const REASONS = [
 ];
 
 /* ---------- פלייליסט ---------- */
-const ytSearch = (q) => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+const yt = (id) => "https://www.youtube.com/watch?v=" + id;
 const PLAYLIST = [
-  { title: "היום יום הולדת", artist: "Choir", url: ytSearch("היום יום הולדת Choir"), emoji: "🎂" },
-  { title: "כן תזכה לשנה הבאה", artist: "דוד אלהרר", url: ytSearch("כן תזכה לשנה הבאה דוד אלהרר"), emoji: "🎉" },
-  { title: "רק פעם בשנה", artist: "ערוץ הופ", url: ytSearch("רק פעם בשנה ערוץ הופ"), emoji: "🎈" },
-  { title: "למה לנו לדבר מאחרים", artist: "ישי ריבו", url: ytSearch("למה לנו לדבר מאחרים ישי ריבו"), emoji: "🎶" },
-  { title: "קול פעמונים", artist: "ישי ריבו", url: ytSearch("קול פעמונים ישי ריבו"), emoji: "🔔" },
-  { title: "לא תנצחו אותי", artist: "יורם גאון", url: ytSearch("לא תנצחו אותי יורם גאון"), emoji: "💪" },
-  { title: "הלוואי", artist: "חנן בן ארי ופאר טסי", url: ytSearch("הלוואי חנן בן ארי פאר טסי"), emoji: "🙏" },
-  { title: "אבא מלך", artist: "אביעד", url: ytSearch("אבא מלך אביעד"), emoji: "👑" },
+  { title: "היום יום הולדת", artist: "Choir", url: yt("cm0QEnSh9JU"), emoji: "🎂" },
+  { title: "כן תזכה לשנה הבאה", artist: "דוד אלהרר", url: yt("X6L8axuSNlI"), emoji: "🎉" },
+  { title: "רק פעם בשנה", artist: "ערוץ הופ", url: yt("_wRY7M7SuUo"), emoji: "🎈" },
+  { title: "למה לנו לדבר מאחרים", artist: "ישי ריבו", url: yt("YvETUFACpUA"), emoji: "🎶" },
+  { title: "קול פעמונים", artist: "ישי ריבו", url: yt("skuGq6-Yo-Y"), emoji: "🔔" },
+  { title: "לא תנצחו אותי", artist: "יורם גאון", url: yt("7yMw3vG4_kU"), emoji: "💪" },
+  { title: "הלוואי", artist: "חנן בן ארי ופאר טסי", url: yt("4DbqBFPv1aE"), emoji: "🙏" },
+  { title: "אבא מלך", artist: "אביעד", url: yt("lsDRiWQu0Pc"), emoji: "👑" },
 ];
 
