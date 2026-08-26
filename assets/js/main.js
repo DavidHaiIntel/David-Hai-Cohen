@@ -507,26 +507,76 @@
     ...W_C,...W_A,...W_B,...R, ...HB_A,...HB_B,...R, ...PK_A,...PK_B,...R, ...G_A,...G_B,...R, ...F_A,...F_B,...R, ...M_A,...M_B,...M_C,...R,
     ...HB_A,...HB_B,...R, ...M_A,...M_B,...M_C,...R, ...W_A,...W_B,...W_C,...R, ...F_A,...F_B,...R, ...PK_A,...PK_B,...R, ...G_A,...G_B,...R,
   ];
+  const TEMPO = 0.82; // קצב מהיר וקופצני — לא מרדים
+  let master, noiseBuf;
+  function initAudio() {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    master = audioCtx.createGain();
+    master.gain.value = 0.9;
+    master.connect(audioCtx.destination);
+    const len = Math.floor(audioCtx.sampleRate * 0.2);
+    noiseBuf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+    const data = noiseBuf.getChannelData(0);
+    for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+  }
+  // תו מנגינה עשיר: טריאנגל ראשי + אוקטבה נמוכה (חום) + נצנוץ עליון, מעטפה פלאקית
+  function voice(freq, t, dur) {
+    if (freq <= 0) return;
+    const end = t + dur * 0.98;
+    const o1 = audioCtx.createOscillator(), g1 = audioCtx.createGain();
+    o1.type = "triangle"; o1.frequency.value = freq;
+    g1.gain.setValueAtTime(0.0001, t);
+    g1.gain.linearRampToValueAtTime(0.17, t + 0.008);
+    g1.gain.exponentialRampToValueAtTime(0.0001, end);
+    o1.connect(g1).connect(master); o1.start(t); o1.stop(end + 0.03);
+    const o2 = audioCtx.createOscillator(), g2 = audioCtx.createGain();
+    o2.type = "sine"; o2.frequency.value = freq / 2;
+    g2.gain.setValueAtTime(0.0001, t);
+    g2.gain.linearRampToValueAtTime(0.08, t + 0.008);
+    g2.gain.exponentialRampToValueAtTime(0.0001, end);
+    o2.connect(g2).connect(master); o2.start(t); o2.stop(end + 0.03);
+    const o3 = audioCtx.createOscillator(), g3 = audioCtx.createGain();
+    o3.type = "sine"; o3.frequency.value = freq * 2;
+    g3.gain.setValueAtTime(0.0001, t);
+    g3.gain.linearRampToValueAtTime(0.028, t + 0.008);
+    g3.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.5);
+    o3.connect(g3).connect(master); o3.start(t); o3.stop(t + dur * 0.5 + 0.03);
+  }
+  function kick(t) {
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = "sine";
+    o.frequency.setValueAtTime(150, t);
+    o.frequency.exponentialRampToValueAtTime(52, t + 0.12);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.34, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.17);
+    o.connect(g).connect(master); o.start(t); o.stop(t + 0.2);
+  }
+  function hat(t, vol) {
+    const s = audioCtx.createBufferSource(); s.buffer = noiseBuf;
+    const hp = audioCtx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 7500;
+    const g = audioCtx.createGain();
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+    s.connect(hp).connect(g).connect(master); s.start(t); s.stop(t + 0.06);
+  }
   function playTune() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let t = audioCtx.currentTime + 0.1;
-    MEDLEY.forEach(([freq, dur]) => {
-      if (freq > 0) {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = "triangle";
-        osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0, t);
-        gain.gain.linearRampToValueAtTime(0.18, t + 0.05);
-        gain.gain.linearRampToValueAtTime(0, t + dur);
-        osc.connect(gain).connect(audioCtx.destination);
-        osc.start(t);
-        osc.stop(t + dur);
-      }
-      t += dur;
-    });
-    const total = MEDLEY.reduce((a, [, d]) => a + d, 0.6) * 1000;
-    noteTimer = setTimeout(playTune, total); // מנגן שוב בלולאה בסיום המחרוזת
+    if (!audioCtx) initAudio();
+    const start = audioCtx.currentTime + 0.1;
+    // מנגינה — שלוש שכבות לצליל עשיר
+    let t = start;
+    MEDLEY.forEach(([freq, dur]) => { const d = dur * TEMPO; voice(freq, t, d); t += d; });
+    const total = t - start;
+    // גרוב קצבי ושמח לאורך כל המחרוזת (בס-דראם + היי-הט + מחיאה)
+    const beat = 0.3 * TEMPO;
+    let i = 0;
+    for (let bt = 0; bt < total - 0.05; bt += beat, i++) {
+      const tb = start + bt;
+      if (i % 2 === 0) kick(tb); else hat(tb, 0.06);
+      hat(tb, i % 2 === 0 ? 0.03 : 0.055);
+      if (i % 8 === 4) { hat(tb, 0.13); hat(tb + beat * 0.5, 0.09); }
+    }
+    noteTimer = setTimeout(playTune, total * 1000 + 200); // לולאה בסיום המחרוזת
   }
   musicBtn.addEventListener("click", () => {
     playing = !playing;
