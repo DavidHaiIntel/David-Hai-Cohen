@@ -94,7 +94,7 @@
         <div class="mic">🎙️</div>
         <h1>האוזניות של מוריה</h1>
         <p>40 פודקאסטים מומלצים בנושאים שאת אוהבת — סיפורים מרתקים, חינוך וידע, הורות וזוגיות והשראה אישית. הפוך כל כרטיס וגלה פודקאסט חדש להאזין בדרך 🎧</p>
-        <p class="note">כל פודקאסט נפתח בלחיצה · כפתור ההאזנה מוביל לפרק אמיתי ביוטיוב</p>
+        <p class="note">כל פודקאסט נפתח בלחיצה · כפתור ההאזנה פותח את הפודקאסט בספוטיפיי</p>
         <div class="divider"><span>✦</span></div>
       </div>
     </header>
@@ -175,7 +175,7 @@
         const grid = document.createElement("div"); grid.className = "grid";
         g.items.forEach((it) => {
           n++;
-          const url = "https://www.youtube.com/watch?v=" + it.id;
+          const url = "https://open.spotify.com/search/" + encodeURIComponent(it.t) + "/shows";
           const card = document.createElement("article"); card.className = "pod";
           card.innerHTML = `
             <div class="pod-inner">
@@ -189,7 +189,7 @@
                 <div class="bemoji">${it.e}</div>
                 <h3>${it.t}</h3>
                 <p>${it.d}</p>
-                <a class="play" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">▶ להאזנה ביוטיוב</a>
+                <a class="play" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🎧 בספוטיפיי</a>
               </div>
             </div>`;
           card.addEventListener("click", () => card.classList.toggle("open"));
