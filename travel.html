@@ -89,6 +89,20 @@
 
     @media (max-width: 680px) { .place { flex-basis: calc((100% - 16px)/2); max-width: calc((100% - 16px)/2); } }
     @media (max-width: 460px) { .place { flex-basis: 100%; max-width: 100%; } }
+
+    /* חלון סיפור ומסלול */
+    .modal-back { position: fixed; inset: 0; background: rgba(15,45,55,.55); display: none; align-items: center; justify-content: center; z-index: 60; padding: 20px; }
+    .modal-back.open { display: flex; }
+    .modal { background: var(--cream); border-radius: 22px; width: min(460px, 100%); max-height: 86vh; overflow: auto; box-shadow: var(--shadow); border: 1px solid rgba(47,127,143,.35); animation: r .35s ease both; }
+    .modal-head { background: linear-gradient(135deg, var(--sea-deep), var(--sea)); color:#fff; padding: 22px 20px; text-align:center; position:relative; }
+    .modal-head .m-emoji { font-size: 34px; }
+    .modal-head h3 { font-family:"Frank Ruhl Libre",serif; font-size: 24px; margin-top:6px; }
+    .modal-close { position:absolute; top:12px; inset-inline-start:14px; width:34px; height:34px; border:none; border-radius:50%; background:rgba(255,255,255,.22); color:#fff; font-size:16px; cursor:pointer; }
+    .modal-body { padding: 20px 24px 26px; text-align: right; }
+    .modal-body h4 { font-family:"Frank Ruhl Libre",serif; color: var(--sea-deep); font-size:16px; margin: 12px 0 6px; }
+    .modal-body p { font-size:15px; line-height:1.7; color: var(--ink); }
+    .modal-body ul { padding-inline-start: 20px; }
+    .modal-body li { font-size:14.5px; line-height:1.6; color: var(--ink); margin-bottom:5px; }
   </style>
 </head>
 <body>
@@ -104,7 +118,7 @@
         <div class="globe">🌍</div>
         <h1>המפה של מוריה</h1>
         <p>מהטיול הבלתי נשכח עם בובי ועד היעדים הבאים — 40 מקומות חלומיים בעולם ובארץ, בארבע קטגוריות. הפוך גלויה וגלה לאן טסים 🧳</p>
-        <p class="note">כל יעד נחשף בלחיצה · הכפתור מוביל לסיפורי טיול, מסלולים ופוסטים על המקום</p>
+        <p class="note">כל יעד נחשף בלחיצה · 'הסיפור והמסלול' נפתח כאן בדף — בלי חיפושים</p>
         <div class="divider"><span>✦</span></div>
       </div>
     </header>
@@ -117,6 +131,17 @@
       <p>מגיע לך לראות את היופי של העולם כמו שהוא רואה אותך. שנצא יחד להרפתקה הבאה 💛</p>
       <a class="invite-btn" href="invitation.html">💌 לחזרה להזמנה</a>
     </section>
+  </div>
+
+  <div class="modal-back" id="modal-back" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <button class="modal-close" id="modal-close" aria-label="סגירה">✕</button>
+        <div class="m-emoji" id="m-emoji"></div>
+        <h3 id="m-title"></h3>
+      </div>
+      <div class="modal-body" id="m-body"></div>
+    </div>
   </div>
 
   <script>
@@ -175,6 +200,50 @@
         ] },
     ];
 
+    // סיפור ומסלול לכל יעד (אינדקס = מספר היעד - 1)
+    const INFO = [
+      { s:"עיר האורות — רומנטיקה, אמנות ומאפים בכל פינה.", r:["מגדל אייפל מואר בלילה","הלובר ומונה ליזה","שיט על נהר הסן ומאפייה מקומית"] },
+      { s:"לב האימפריה הרומית — היסטוריה חיה.", r:["הקולוסיאום והפורום","מזרקת טרווי","פסטה ברובע טרסטוורה"] },
+      { s:"ערש הדמוקרטיה והתרבות המערבית.", r:["האקרופוליס והפרתנון","שכונת פלאקה","טברנה יוונית אותנטית"] },
+      { s:"תעלות, אופניים ואמנות.", r:["שיט בתעלות","מוזיאון ואן גוך","שוק הפרחים"] },
+      { s:"עיר אגדות מימי הביניים.", r:["גשר קארל","טירת פראג","השעון האסטרונומי"] },
+      { s:"פסגות מושלגות ואגמים צלולים.", r:["רכבל ליונגפראו","שיט באגם לוצרן","מסלול הליכה אלפיני"] },
+      { s:"בתים לבנים ושקיעות מעל הים.", r:["שקיעה באיה","כפר אויה","חוף אדום ויין מקומי"] },
+      { s:"מפגש של מזרח ומערב.", r:["איה סופיה","הבאזאר הגדול","שיט על הבוספורוס"] },
+      { s:"העיר שלא ישנה לעולם.", r:["סנטרל פארק","טיימס סקוואר","פסל החירות"] },
+      { s:"עתיד וניאון לצד מקדשים.", r:["מקדש סנסו-ג׳י","צומת שיבויה","שוק אוכל יפני"] },
+      { s:"רכסים דרמטיים ואגמי טורקיז.", r:["אגם בראייס","טרק טרה צ׳ימה","כפרים אלפיניים"] },
+      { s:"ריקוד אורות בשמי הלילה.", r:["צפייה בזוהר הצפוני","המפל גולפוס","מעיינות חמים בלגונה הכחולה"] },
+      { s:"לגונות טורקיז וחוף לבן.", r:["בקתה מעל המים","שנורקלינג בשונית","שקיעה על סירה"] },
+      { s:"חיות בר בסרנגטי.", r:["ספארי בסרנגטי","מכתש נגורונגורו","מפגש עם שבט המסאי"] },
+      { s:"מדבר אדום כמו מאדים.", r:["ג׳יפ במדבר","לינה בקמפ בדואי","זריחה בין הצוקים"] },
+      { s:"עוצמת המים של איגואסו.", r:["גרון השטן","שביל המפלים","שיט מתחת למפל"] },
+      { s:"גן עדן של חיות נדירות.", r:["צבי ענק","שנורקלינג עם אריות ים","איגואנות ים"] },
+      { s:"מצוקים ומים בין ההרים.", r:["שיט בגאירנגר-פיורד","פרייקסטולן (צוק הדוכן)","רכבת פלום"] },
+      { s:"תהום עצומה שנחצבה במיליוני שנים.", r:["תצפית סאות′ רים","זריחה בקניון","טרק במורד"] },
+      { s:"פנינה טרופית בפולינזיה.", r:["בקתה מעל הלגונה","שנורקלינג","שקיעה פולינזית"] },
+      { s:"אבן, היסטוריה וקדושה.", r:["הכותל המערבי","הרובע היהודי","שוק המאפה בעיר העתיקה"] },
+      { s:"לצוף על המים הנמוכים בעולם.", r:["ציפה במלח","בוץ מינרלי","שקיעה מול ההרים"] },
+      { s:"מבצר על פסגת המדבר.", r:["זריחה בפסגה","שביל הנחש","מוזיאון מצדה"] },
+      { s:"ים סוף הצבעוני.", r:["שמורת האלמוגים","אקווריום תת-ימי","שנורקלינג"] },
+      { s:"נחלים ירוקים ושלג בחורף.", r:["חרמון בחורף","נחל עיון","יקב בגליל"] },
+      { s:"פלא גיאולוגי בלב הנגב.", r:["תצפית מצפה רמון","טרק במכתש","לינה תחת כוכבים"] },
+      { s:"סמטאות ואמנות ליד הים.", r:["שוק הפשפשים","שעון יפו","טיילת הנמל לעת שקיעה"] },
+      { s:"יקבים, מפלים ונופים פתוחים.", r:["מפל הבניאס","יקב רמת הגולן","הר בנטל"] },
+      { s:"מים מתוקים בין ההרים.", r:["חוף שקט לפיקניק","טיילת טבריה","שקיעה על המים"] },
+      { s:"מעיינות זכים וירוק.", r:["גן השלושה (הסחנה)","שביל אופניים","מעיין קריר בטבע"] },
+      { s:"לרחף מעל הנוף עם הזריחה.", r:["המראה עם שחר","נוף מהאוויר","כוסית בנחיתה"] },
+      { s:"רגיעה מוחלטת בטבע.", r:["בריכה טבעית חמה","עיסוי מפנק","שקט מוחלט"] },
+      { s:"חופש ליד הים.", r:["רכיבה על קו המים","שקיעה מהאוכף","חוות סוסים"] },
+      { s:"טעימות בין הכרמים.", r:["סיור ביקב","טעימת יינות","ארוחה זוגית בין הגפנים"] },
+      { s:"נופים שחולפים מהחלון.", r:["מסלול הררי","עצירה בכפר ציורי","קפה בקרון"] },
+      { s:"עולם תת-ימי קסום.", r:["שונית אלמוגים","דגים צבעוניים","צלילה חופשית"] },
+      { s:"מוזיקה, אוכל ואמנות.", r:["הופעות חיות","דוכני אוכל","אמנות רחוב"] },
+      { s:"לילה בטבע תחת כיפת כוכבים.", r:["הקמת אוהל","מדורה","צפייה בכוכבים"] },
+      { s:"שקט על המים.", r:["חתירה רגועה","מפרצים נסתרים","פיקניק על החוף"] },
+      { s:"רגע של הודיה מול האופק.", r:["נקודת תצפית","שמיכה וכיבוד","צפייה בשקיעה"] },
+    ];
+
     (function build() {
       const root = document.getElementById("root");
       let n = 0;
@@ -185,7 +254,7 @@
         const grid = document.createElement("div"); grid.className = "grid";
         g.items.forEach((it) => {
           n++;
-          const url = "https://www.google.com/search?q=" + encodeURIComponent(it.t + " טיול מסלול בלוג");
+          const idx = n - 1;
           const card = document.createElement("article"); card.className = "place";
           card.innerHTML = `
             <div class="content">
@@ -193,7 +262,16 @@
               <div class="emoji">${it.e}</div>
               <h3>${it.t}</h3>
               <p>${it.d}</p>
-              <a class="go" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📖 לסיפור ומסלול</a>
+              <button class="go" type="button">📖 הסיפור והמסלול</button>
+            </div>
+            <div class="stamp">
+              <div class="pin">📮</div>
+              <div class="cnum">יעד ${n}</div>
+              <div class="csub">✦ הפכו ✦</div>
+            </div>`;
+          card.addEventListener("click", () => card.classList.toggle("open"));
+          card.querySelector(".go").addEventListener("click", (ev) => { ev.stopPropagation(); openPlace(idx, it); });
+          grid.appendChild(card);
             </div>
             <div class="stamp">
               <div class="pin">📮</div>
@@ -208,6 +286,22 @@
       const io = new IntersectionObserver((es)=>es.forEach((e)=>{ if(e.isIntersecting){e.target.classList.add("show");io.unobserve(e.target);} }), { threshold:.12 });
       document.querySelectorAll(".place").forEach((c)=>io.observe(c));
     })();
+
+    // חלון סיפור ומסלול
+    const mBack = document.getElementById("modal-back");
+    function openPlace(idx, it) {
+      const info = INFO[idx];
+      document.getElementById("m-emoji").textContent = it.e;
+      document.getElementById("m-title").textContent = it.t;
+      const bullets = info.r.map((x) => `<li>${x}</li>`).join("");
+      document.getElementById("m-body").innerHTML =
+        `<h4>📍 הסיפור</h4><p>${info.s}</p><h4>🧭 מסלול מומלץ</h4><ul>${bullets}</ul>`;
+      mBack.classList.add("open");
+    }
+    function closePlace() { mBack.classList.remove("open"); }
+    document.getElementById("modal-close").addEventListener("click", closePlace);
+    mBack.addEventListener("click", (e) => { if (e.target === mBack) closePlace(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePlace(); });
 
     (function () {
       const layer = document.getElementById("clouds");

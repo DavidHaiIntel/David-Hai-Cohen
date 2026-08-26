@@ -134,11 +134,6 @@
       </div>
     </header>
 
-    <section class="player">
-      <iframe src="https://open.spotify.com/embed/playlist/1hZdzk6HM4JX8MIBvzfUVI?utm_source=generator" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="הפלייליסט של מוריה"></iframe>
-      <p class="p-note">▶ לחצו Play לנגן ישירות כאן · או גלו כל שיר למטה והאזינו בספוטיפיי</p>
-    </section>
-
     <main id="root"></main>
 
     <section class="closing">
@@ -151,16 +146,16 @@
 
   <script>
     const ARTISTS = [
-      { name: "שלמה ארצי", emoji: "🎸", songs: ["ואת","תרקדי","אהבתיה","מנגד"] },
-      { name: "ישי ריבו", emoji: "🎹", songs: ["כתר מלוכה","לב שלם","סימני דרך","צמאה"] },
-      { name: "חנן בן ארי", emoji: "🎤", songs: ["שביל האתגרים","גיבור על","מחכים למשיח","שלכת"] },
-      { name: "יובל דיין", emoji: "🕊️", songs: ["לאסוף","אל תאמר","ליבי ער","תישארי את"] },
-      { name: "ברי סחרוף", emoji: "🎼", songs: ["ככה זה (לאהוב אותך)","העין","זמן של מספרים","נחמה"] },
-      { name: "המדרגות", emoji: "🎧", songs: ["הכל דבש","פתח הדלת","מעיין חיים","שואף"] },
-      { name: "אביתר בנאי", emoji: "🎶", songs: ["רוח","תפילת האדם","מלך העולם","בוא"] },
-      { name: "שלומי שבת", emoji: "🎙️", songs: ["עדיין אוהב","כאב של לוחמים","אבא","מה שאני מרגיש"] },
-      { name: "יהודה פוליקר", emoji: "🥁", songs: ["פרחים בקנה","אתה חוזר הביתה","רוח סתיו","אבק ועשן"] },
-      { name: "רמי קליינשטיין", emoji: "🎺", songs: ["פרח הלילך","שיר אהבה בדואי","מתנה","את תמיד תהיי שלי"] },
+      { name: "שלמה ארצי", emoji: "🎸", songs: [{t:"ואת",id:"nWSZtxrPXl0"},{t:"תרקדי",id:"hObDThhR5CY"},{t:"אהבתיה",id:"19qoWmBJVRc"},{t:"מנגד",id:"fritEwYaFH0"}] },
+      { name: "ישי ריבו", emoji: "🎹", songs: [{t:"כתר מלוכה",id:"QSAZnYdvVak"},{t:"לב שלם",id:"6U_5KhaH6IM"},{t:"סימני דרך",id:"vLhN2olc06o"},{t:"צמאה",id:"MKDybx7g2lQ"}] },
+      { name: "חנן בן ארי", emoji: "🎤", songs: [{t:"שביל האתגרים",id:"L8JMq8EQ0iQ"},{t:"גיבור על",id:"jlCNqyY-fAk"},{t:"מחכים למשיח",id:"uZq8ENrAWas"},{t:"שלכת",id:"6G_1fUcExJY"}] },
+      { name: "יובל דיין", emoji: "🕊️", songs: [{t:"לאסוף",id:"n37bWkwVakI"},{t:"אל תאמר",id:"WyDloWawVWo"},{t:"ליבי ער",id:"DPsTRWpfEHQ"},{t:"תישארי את",id:"3qmvZ_tjU7Y"}] },
+      { name: "ברי סחרוף", emoji: "🎼", songs: [{t:"ככה זה (לאהוב אותך)",id:"qQ63NqCCRps"},{t:"העין",id:"n9mYJAXQml8"},{t:"זמן של מספרים",id:"PCwDDGYely0"},{t:"נחמה",id:"S7bNjqzhMWc"}] },
+      { name: "המדרגות", emoji: "🎧", songs: [{t:"הכל דבש",id:"BfZstkoznUo"},{t:"פתח הדלת",id:"jicT3f_1NWo"},{t:"מעיין חיים",id:"djtVS-JuBaI"},{t:"שואף",id:"n6WQy8ggdeU"}] },
+      { name: "אביתר בנאי", emoji: "🎶", songs: [{t:"רוח",id:"lY6jtudCUUQ"},{t:"תפילת האדם",id:"jSTJBOsfH_g"},{t:"מלך העולם",id:"cUZzbWE0-Ss"},{t:"בוא",id:"2y-Rx1RvBUM"}] },
+      { name: "שלומי שבת", emoji: "🎙️", songs: [{t:"עדיין אוהב",id:"AQyM8D-_V8w"},{t:"כאב של לוחמים",id:"cBlqSLXgZG8"},{t:"אבא",id:"6Wtoiy3BqJw"},{t:"מה שאני מרגיש",id:"6qUQtevJ71k"}] },
+      { name: "יהודה פוליקר", emoji: "🥁", songs: [{t:"פרחים בקנה",id:"EwvAywMw93M"},{t:"אתה חוזר הביתה",id:"sFzVHbvnEnk"},{t:"רוח סתיו",id:"edFfxiSrklQ"},{t:"אבק ועשן",id:"gNykKmo_8l4"}] },
+      { name: "רמי קליינשטיין", emoji: "🎺", songs: [{t:"פרח הלילך",id:"vHTZqq91KIA"},{t:"שיר אהבה בדואי",id:"vYXysheQIz0"},{t:"מתנה",id:"pn_p5_8taxg"},{t:"את תמיד תהיי שלי",id:"2UOH-07Kfhc"}] },
     ];
 
     (function build() {
@@ -172,9 +167,9 @@
         sec.innerHTML = `<div class="group-head"><div class="g-emoji">${a.emoji}</div><h2>${a.name}</h2><div class="g-sub">${a.songs.length} שירים</div></div>`;
         const grid = document.createElement("div");
         grid.className = "grid";
-        a.songs.forEach((title) => {
+        a.songs.forEach((song) => {
           n++;
-          const url = "https://open.spotify.com/search/" + encodeURIComponent(a.name + " " + title.replace(/—.*/, "").trim());
+          const url = "https://www.youtube.com/watch?v=" + song.id;
           const card = document.createElement("article");
           card.className = "song";
           card.innerHTML = `
@@ -186,9 +181,9 @@
               </div>
               <div class="face back">
                 <div class="eq"><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="title">${title}</div>
+                <div class="title">${song.t}</div>
                 <div class="artist">${a.name}</div>
-                <a class="play" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🎧 בספוטיפיי</a>
+                <a class="play" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">▶ ביוטיוב</a>
               </div>
             </div>`;
           card.addEventListener("click", () => card.classList.toggle("open"));
