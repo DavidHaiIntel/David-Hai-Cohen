@@ -348,6 +348,17 @@
         fb.addEventListener('click',()=>{on=!on;fb.textContent=on?'הצג הכל ✦':'❤️ מועדפים';cards.forEach((c,i)=>{c.style.display=(!on||favs.includes(i))?'':'none';});});
         bar.appendChild(fb);}
     })();
+    // חיפוש מהיר
+    (function(){
+      const cards=[...document.querySelectorAll('.grid article')]; if(!cards.length)return;
+      const bar=document.querySelector('.cardbar'); if(!bar)return;
+      const wrap=document.createElement('div');wrap.style.cssText='flex-basis:100%;display:flex;justify-content:center;order:-1';
+      const inp=document.createElement('input');inp.type='search';inp.placeholder='🔍 חיפוש מתכון...';inp.setAttribute('aria-label','חיפוש');
+      inp.style.cssText='font-family:"Heebo",sans-serif;font-size:15px;padding:9px 16px;border-radius:999px;border:2px solid rgba(0,0,0,.12);background:rgba(255,255,255,.95);min-width:min(320px,80vw);outline:none;box-shadow:0 4px 12px rgba(0,0,0,.1)';
+      wrap.appendChild(inp);bar.appendChild(wrap);
+      const norm=s=>s.toLowerCase().replace(/["'.,!?־-]/g,' ');
+      inp.addEventListener('input',()=>{const q=norm(inp.value.trim());cards.forEach(c=>{const t=norm(c.textContent);c.style.display=(!q||t.includes(q))?'':'none';});});
+    })();
   </script>
   <a href="https://wa.me/?text=🍲%2040%20מתכונים%20מהמטבח%20💛%20https://davidhaiintel.github.io/David-Hai-Cohen/recipes.html" target="_blank" rel="noopener" aria-label="שתף בוואטסאפ" title="שתף בוואטסאפ" style="position:fixed;bottom:18px;left:18px;z-index:90;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.28);text-decoration:none;font-size:27px">💬</a>
 </body>
