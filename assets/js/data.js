@@ -28,7 +28,7 @@ const TIMELINE = [
   { n: 16, year: "2016", hdate: "התשע״ו", title: "הבית בכרמי צור", text: "בית חדש, פרק חדש, אושר חדש.", emoji: "🏡", img: "16.jpg" },
   { n: 9,  year: "2017", hdate: "כ״ב אלול התשע״ז", title: "טיול סוסים עם אבא", text: "הרפתקה זוגית בטבע 🐎", emoji: "🐎", img: "09.jpg" },
   { n: 10, year: "2017", hdate: "ח׳ כסלו התשע״ח", title: "עדי בת שנה", text: "חגיגה מתוקה של שנה ראשונה. <a href='recipes.html' class='tl-link'>🍲 40 מתכונים מהמטבח →</a>", emoji: "🎂", img: "10.jpg" },
-  { n: 11, year: "2020", hdate: "כ״ג אב התשפ׳", title: "זכאות לתואר — אונו", text: "עוד חלום שהתגשם 📜", emoji: "🎓", img: "11.pdf" },
+  { n: 11, year: "2020", hdate: "כ״ג אב התשפ׳", title: "זכאות לתואר — אונו", text: "עוד חלום שהתגשם 📜 <a href='podcasts.html' class='tl-link'>🎧 40 פודקאסטים →</a>", emoji: "🎓", img: "11.pdf" },
   { n: 12, year: "2022", hdate: "כ״ז אדר ב׳ התשפ״ב", title: "מסיבת סידור יהודה יאיר", text: "עוד שמחה בלב המשפחה 💫", emoji: "🎉", img: "12.jpg" },
   { n: 13, year: "2022", hdate: "י״ב אייר התשפ״ב", title: "מטפלת בטיפול בממדים", text: "פרק חדש ומרגש בקריירה.", emoji: "🌈", img: "13.jpg" },
   { n: 14, year: "2022", hdate: "י״א אב התשפ״ב", title: "דייט בצפת", text: "רומנטיקה בעיר הקבלה 💕", emoji: "🕯️", img: "14.jpg" },

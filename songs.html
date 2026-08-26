@@ -40,14 +40,14 @@
     @keyframes rise2 { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
     .hero-band {
       background: linear-gradient(135deg, #3a2c6e, #6d55c0 55%, #9a83e6);
-      text-align: center; padding: 40px 24px 34px; color: #fff;
+      text-align: center; padding: 40px 24px 66px; color: #fff;
     }
     .hero-band .eyebrow { font-family: "Frank Ruhl Libre", serif; letter-spacing: 5px; font-size: 13px; opacity: .92; margin-bottom: 10px; }
     .hero-band .big { font-family: "Amatic SC", cursive; font-size: clamp(52px, 12vw, 88px); line-height: 1.05; padding-bottom: 6px; text-shadow: 0 2px 14px rgba(0,0,0,.3); }
     .hero-band .big b { display: block; font-size: 1.05em; color: var(--gold); }
-    .portrait { position: relative; z-index: 2; width: 132px; height: 132px; margin: -66px auto 0; }
+    .portrait { position: relative; z-index: 2; width: 132px; height: 132px; margin: -48px auto 0; }
     .portrait-ring { width:100%; height:100%; border-radius:50%; overflow:hidden; border:5px solid var(--cream); box-shadow:0 12px 30px rgba(10,6,30,.45); }
-    .portrait-ring img { width:100%; height:100%; object-fit:cover; object-position:center 28%; }
+    .portrait-ring img { width:100%; height:100%; object-fit:cover; object-position:center 26%; }
     .hero-body { text-align: center; padding: 22px 26px 30px; }
     .hero-body .disc { font-size: 34px; }
     .hero-body h1 { font-family: "Frank Ruhl Libre", serif; font-weight: 900; font-size: clamp(23px,5vw,32px); color: var(--gold); margin: 8px 0 12px; }
@@ -124,11 +124,11 @@
         <p class="eyebrow">הסאונדטרק של החיים</p>
         <div class="big">40 שירים<b>אהובים</b></div>
       </div>
-      <div class="portrait"><div class="portrait-ring"><img src="%D7%9E%D7%95%D7%A8%D7%99%D7%94.jpg" alt="מוריה" /></div></div>
+      <div class="portrait"><div class="portrait-ring"><img src="%D7%9E%D7%95%D7%A8%D7%99%D7%94%202.jpg" alt="מוריה" /></div></div>
       <div class="hero-body">
         <div class="disc">💿</div>
         <h1>הפלייליסט של מוריה</h1>
-        <p>40 שירים מהאמנים שהכי אוהבים בבית — שלמה ארצי, ישי ריבו, חנן בן ארי, יובל דיין, ברי סחרוף והמדרגות. לחצו על כל תקליט כדי לגלות את השיר, ומשם ישר להאזנה 🎧</p>
+        <p>40 שירים — 10 האמנים האהובים, 4 שירים לכל אחד: שלמה ארצי, ישי ריבו, חנן בן ארי, יובל דיין, ברי סחרוף, המדרגות, אביתר בנאי, שלומי שבת, יהודה פוליקר ורמי קליינשטין. לחצו על כל תקליט כדי לגלות את השיר 🎧</p>
         <p class="note">כל שיר נפתח בלחיצה · כפתור ההאזנה מוביל ליוטיוב</p>
         <div class="divider"><span>♪</span></div>
       </div>
@@ -151,12 +151,16 @@
 
   <script>
     const ARTISTS = [
-      { name: "שלמה ארצי", emoji: "🎸", songs: ["ואת","תרקדי","אהבתיה","מנגד","פתאום עכשיו פתאום היום","נמל","מלאך","געגוע"] },
-      { name: "ישי ריבו", emoji: "🎹", songs: ["כתר מלוכה","לב שלם","סימני דרך","צמאה","נשמתי","הללויה","שיבולת"] },
-      { name: "חנן בן ארי", emoji: "🎤", songs: ["שביל האתגרים","גיבור על","מחכים למשיח","שלכת","טוב שלא ידעתי","פרימיטיבי","אבא"] },
-      { name: "יובל דיין", emoji: "🕊️", songs: ["לאסוף","אל תאמר","ליבי ער","לילותיי","שרק תחייך","לפתוח את הלב","תישארי את","הנה באו הימים"] },
-      { name: "ברי סחרוף", emoji: "🎼", songs: ["ככה זה (לאהוב אותך)","העין","זמן של מספרים","כלום זה לא סתם","נחמה","מונסון"] },
-      { name: "המדרגות", emoji: "🎧", songs: ["המדרגות — להיטים","המדרגות — הופעה חיה","המדרגות — אוסף","המדרגות — שירים נבחרים"] },
+      { name: "שלמה ארצי", emoji: "🎸", songs: ["ואת","תרקדי","אהבתיה","מנגד"] },
+      { name: "ישי ריבו", emoji: "🎹", songs: ["כתר מלוכה","לב שלם","סימני דרך","צמאה"] },
+      { name: "חנן בן ארי", emoji: "🎤", songs: ["שביל האתגרים","גיבור על","מחכים למשיח","שלכת"] },
+      { name: "יובל דיין", emoji: "🕊️", songs: ["לאסוף","אל תאמר","ליבי ער","תישארי את"] },
+      { name: "ברי סחרוף", emoji: "🎼", songs: ["ככה זה (לאהוב אותך)","העין","זמן של מספרים","נחמה"] },
+      { name: "המדרגות", emoji: "🎧", songs: ["הכל דבש","פתח הדלת","מעיין חיים","שואף"] },
+      { name: "אביתר בנאי", emoji: "🎶", songs: ["רוח","תפילת האדם","מלך העולם","בוא"] },
+      { name: "שלומי שבת", emoji: "🎙️", songs: ["עדיין אוהב","כאב של לוחמים","אבא","מה שאני מרגיש"] },
+      { name: "יהודה פוליקר", emoji: "🥁", songs: ["פרחים בקנה","אתה חוזר הביתה","רוח סתיו","אבק ועשן"] },
+      { name: "רמי קליינשטיין", emoji: "🎺", songs: ["פרח הלילך","שיר אהבה בדואי","מתנה","את תמיד תהיי שלי"] },
     ];
 
     (function build() {
@@ -170,7 +174,7 @@
         grid.className = "grid";
         a.songs.forEach((title) => {
           n++;
-          const url = "https://open.spotify.com/playlist/1hZdzk6HM4JX8MIBvzfUVI";
+          const url = "https://open.spotify.com/search/" + encodeURIComponent(a.name + " " + title.replace(/—.*/, "").trim());
           const card = document.createElement("article");
           card.className = "song";
           card.innerHTML = `
