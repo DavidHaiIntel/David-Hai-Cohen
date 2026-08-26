@@ -483,46 +483,50 @@
   const musicBtn = document.getElementById("music-toggle");
   let audioCtx,
     playing = false,
-    noteTimer,
-    tuneIdx = 0;
-  // מנגינות יום הולדת שנוצרות ב-Web Audio (ללא קבצים חיצוניים) — מתחלפות בכל סבב
-  const TUNES = [
-    { name: "יום הולדת שמח", notes: [
-      [392, 0.4], [392, 0.2], [440, 0.6], [392, 0.6], [523, 0.6], [494, 1.0],
-      [392, 0.4], [392, 0.2], [440, 0.6], [392, 0.6], [587, 0.6], [523, 1.0],
-    ] },
-    { name: "ריקוד חגיגי", notes: [
-      [523, 0.3], [659, 0.3], [392, 0.3], [523, 0.45],
-      [587, 0.3], [494, 0.3], [392, 0.45],
-      [523, 0.3], [659, 0.3], [784, 0.45],
-      [698, 0.3], [659, 0.3], [587, 0.3], [523, 0.6],
-    ] },
-    { name: "פאנפרת חגיגה", notes: [
-      [392, 0.2], [523, 0.2], [659, 0.25], [784, 0.5],
-      [659, 0.2], [784, 0.6],
-      [523, 0.2], [659, 0.2], [784, 0.25], [1046.5, 0.75],
-    ] },
+    noteTimer;
+  // מחרוזת מנגינות יום הולדת (~2:20 דק׳) שנוצרת ב-Web Audio — בלי קבצים חיצוניים.
+  // כל שורה = ביטוי מוזיקלי; [0, dur] = הפסקה קצרה. הפרקים חוזרים בסדר משתנה כדי לגוון.
+  const HB_A = [[392,.4],[392,.2],[440,.6],[392,.6],[523,.6],[494,1.0]];              // "יום הולדת שמח"
+  const HB_B = [[392,.4],[392,.2],[440,.6],[392,.6],[587,.6],[523,1.0]];
+  const W_A  = [[523,.3],[659,.3],[784,.3],[659,.45],[587,.15],[523,.6]];             // ואלס חגיגי
+  const W_B  = [[587,.3],[698,.3],[880,.3],[698,.45],[659,.15],[587,.6]];
+  const W_C  = [[523,.3],[659,.3],[784,.3],[1046.5,.6],[880,.3],[784,.3],[659,.3],[523,.9]];
+  const F_A  = [[392,.2],[523,.2],[659,.25],[784,.5],[659,.2],[784,.6]];              // פאנפרה
+  const F_B  = [[523,.2],[659,.2],[784,.25],[1046.5,.75],[880,.3],[784,.3],[659,.3],[523,.6]];
+  const M_A  = [[392,.3],[392,.3],[494,.3],[587,.3],[494,.3],[392,.6]];               // מארש שמח
+  const M_B  = [[440,.3],[440,.3],[523,.3],[659,.3],[587,.3],[494,.6]];
+  const M_C  = [[659,.3],[587,.3],[494,.3],[440,.3],[392,.9]];
+  const G_A  = [[349,.4],[440,.4],[523,.4],[440,.4],[466,.4],[349,.8]];               // לחן חם ורך
+  const G_B  = [[523,.4],[587,.4],[659,.4],[587,.4],[523,.4],[466,.8]];
+  const PK_A = [[523,.25],[523,.25],[587,.25],[659,.25],[523,.25],[659,.5]];          // פולקה קופצנית
+  const PK_B = [[698,.25],[659,.25],[587,.25],[523,.25],[494,.25],[523,.5]];
+  const R    = [[0,.35]];
+  const MEDLEY = [
+    ...HB_A,...HB_B,...R, ...W_A,...W_B,...W_C,...R, ...F_A,...F_B,...R, ...M_A,...M_B,...M_C,...R, ...G_A,...G_B,...R, ...PK_A,...PK_B,...R,
+    ...F_A,...F_B,...R, ...PK_A,...PK_B,...R, ...M_A,...M_B,...M_C,...R, ...W_A,...W_B,...W_C,...R, ...G_A,...G_B,...R, ...HB_A,...HB_B,...R,
+    ...W_C,...W_A,...W_B,...R, ...HB_A,...HB_B,...R, ...PK_A,...PK_B,...R, ...G_A,...G_B,...R, ...F_A,...F_B,...R, ...M_A,...M_B,...M_C,...R,
+    ...HB_A,...HB_B,...R, ...M_A,...M_B,...M_C,...R, ...W_A,...W_B,...W_C,...R, ...F_A,...F_B,...R, ...PK_A,...PK_B,...R, ...G_A,...G_B,...R,
   ];
   function playTune() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const notes = TUNES[tuneIdx].notes;
     let t = audioCtx.currentTime + 0.1;
-    notes.forEach(([freq, dur]) => {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = "triangle";
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.18, t + 0.05);
-      gain.gain.linearRampToValueAtTime(0, t + dur);
-      osc.connect(gain).connect(audioCtx.destination);
-      osc.start(t);
-      osc.stop(t + dur);
+    MEDLEY.forEach(([freq, dur]) => {
+      if (freq > 0) {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "triangle";
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.18, t + 0.05);
+        gain.gain.linearRampToValueAtTime(0, t + dur);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(t);
+        osc.stop(t + dur);
+      }
       t += dur;
     });
-    const total = notes.reduce((a, [, d]) => a + d, 0.6) * 1000;
-    tuneIdx = (tuneIdx + 1) % TUNES.length; // בסבב הבא — המנגינה הבאה
-    noteTimer = setTimeout(playTune, total);
+    const total = MEDLEY.reduce((a, [, d]) => a + d, 0.6) * 1000;
+    noteTimer = setTimeout(playTune, total); // מנגן שוב בלולאה בסיום המחרוזת
   }
   musicBtn.addEventListener("click", () => {
     playing = !playing;
