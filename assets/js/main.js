@@ -508,39 +508,44 @@
     ...HB_A,...HB_B,...R, ...M_A,...M_B,...M_C,...R, ...W_A,...W_B,...W_C,...R, ...F_A,...F_B,...R, ...PK_A,...PK_B,...R, ...G_A,...G_B,...R,
   ];
   const TEMPO = 0.82; // קצב מהיר וקופצני — לא מרדים
-  let master, noiseBuf;
+  let master, melBus, noiseBuf;
   function initAudio() {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     master = audioCtx.createGain();
     master.gain.value = 1.0;
     master.connect(audioCtx.destination);
+    // אפיק מנגינה עם פילטר רך שמרכך צרימות (התופים עוקפים אותו)
+    melBus = audioCtx.createGain();
+    melBus.gain.value = 1.0;
+    const lp = audioCtx.createBiquadFilter();
+    lp.type = "lowpass"; lp.frequency.value = 5200; lp.Q.value = 0.4;
+    melBus.connect(lp).connect(master);
     const len = Math.floor(audioCtx.sampleRate * 0.2);
     noiseBuf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
     const data = noiseBuf.getChannelData(0);
     for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
   }
-  // תו מנגינה עשיר: טריאנגל ראשי + אוקטבה נמוכה (חום) + נצנוץ עליון, מעטפה פלאקית
+  // תו מלא ורציף: טריאנגל + כורוס מדוטן + אוקטבה נמוכה + נצנוץ עדין; מעטפת attack–sustain–release
   function voice(freq, t, dur) {
     if (freq <= 0) return;
-    const end = t + dur * 0.98;
-    const o1 = audioCtx.createOscillator(), g1 = audioCtx.createGain();
-    o1.type = "triangle"; o1.frequency.value = freq;
-    g1.gain.setValueAtTime(0.0001, t);
-    g1.gain.linearRampToValueAtTime(0.17, t + 0.008);
-    g1.gain.exponentialRampToValueAtTime(0.0001, end);
-    o1.connect(g1).connect(master); o1.start(t); o1.stop(end + 0.03);
-    const o2 = audioCtx.createOscillator(), g2 = audioCtx.createGain();
-    o2.type = "sine"; o2.frequency.value = freq / 2;
-    g2.gain.setValueAtTime(0.0001, t);
-    g2.gain.linearRampToValueAtTime(0.08, t + 0.008);
-    g2.gain.exponentialRampToValueAtTime(0.0001, end);
-    o2.connect(g2).connect(master); o2.start(t); o2.stop(end + 0.03);
-    const o3 = audioCtx.createOscillator(), g3 = audioCtx.createGain();
-    o3.type = "sine"; o3.frequency.value = freq * 2;
-    g3.gain.setValueAtTime(0.0001, t);
-    g3.gain.linearRampToValueAtTime(0.028, t + 0.008);
-    g3.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.5);
-    o3.connect(g3).connect(master); o3.start(t); o3.stop(t + dur * 0.5 + 0.03);
+    const rel = 0.07;
+    const relStart = Math.max(t + 0.022, t + dur - rel);
+    const layers = [
+      { type: "triangle", f: freq, g: 0.15, det: 0 },
+      { type: "triangle", f: freq, g: 0.075, det: 8 },   // כורוס עדין
+      { type: "sine", f: freq / 2, g: 0.075, det: 0 },    // אוקטבה נמוכה לחום
+      { type: "sine", f: freq * 2, g: 0.02, det: 0 },     // נצנוץ עליון עדין
+    ];
+    layers.forEach((L) => {
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.type = L.type; o.frequency.value = L.f; if (L.det) o.detune.value = L.det;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.linearRampToValueAtTime(L.g, t + 0.02);
+      g.gain.setValueAtTime(L.g, relStart);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.03);
+      o.connect(g).connect(melBus);
+      o.start(t); o.stop(t + dur + 0.06);
+    });
   }
   function kick(t) {
     const o = audioCtx.createOscillator(), g = audioCtx.createGain();
@@ -548,16 +553,16 @@
     o.frequency.setValueAtTime(150, t);
     o.frequency.exponentialRampToValueAtTime(52, t + 0.12);
     g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(0.34, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.28, t + 0.006);
     g.gain.exponentialRampToValueAtTime(0.0001, t + 0.17);
     o.connect(g).connect(master); o.start(t); o.stop(t + 0.2);
   }
   function hat(t, vol) {
     const s = audioCtx.createBufferSource(); s.buffer = noiseBuf;
-    const hp = audioCtx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 7500;
+    const hp = audioCtx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 8000;
     const g = audioCtx.createGain();
     g.gain.setValueAtTime(vol, t);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.045);
     s.connect(hp).connect(g).connect(master); s.start(t); s.stop(t + 0.06);
   }
   function playTune() {
