@@ -483,16 +483,31 @@
   const musicBtn = document.getElementById("music-toggle");
   let audioCtx,
     playing = false,
-    noteTimer;
-  // מנגינת "יום הולדת שמח" קצרה שנוצרת ב-Web Audio (ללא קובץ חיצוני)
-  const melody = [
-    [392, 0.4], [392, 0.2], [440, 0.6], [392, 0.6], [523, 0.6], [494, 1.0],
-    [392, 0.4], [392, 0.2], [440, 0.6], [392, 0.6], [587, 0.6], [523, 1.0],
+    noteTimer,
+    tuneIdx = 0;
+  // מנגינות יום הולדת שנוצרות ב-Web Audio (ללא קבצים חיצוניים) — מתחלפות בכל סבב
+  const TUNES = [
+    { name: "יום הולדת שמח", notes: [
+      [392, 0.4], [392, 0.2], [440, 0.6], [392, 0.6], [523, 0.6], [494, 1.0],
+      [392, 0.4], [392, 0.2], [440, 0.6], [392, 0.6], [587, 0.6], [523, 1.0],
+    ] },
+    { name: "ריקוד חגיגי", notes: [
+      [523, 0.3], [659, 0.3], [392, 0.3], [523, 0.45],
+      [587, 0.3], [494, 0.3], [392, 0.45],
+      [523, 0.3], [659, 0.3], [784, 0.45],
+      [698, 0.3], [659, 0.3], [587, 0.3], [523, 0.6],
+    ] },
+    { name: "פאנפרת חגיגה", notes: [
+      [392, 0.2], [523, 0.2], [659, 0.25], [784, 0.5],
+      [659, 0.2], [784, 0.6],
+      [523, 0.2], [659, 0.2], [784, 0.25], [1046.5, 0.75],
+    ] },
   ];
-  function playMelody() {
+  function playTune() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = TUNES[tuneIdx].notes;
     let t = audioCtx.currentTime + 0.1;
-    melody.forEach(([freq, dur]) => {
+    notes.forEach(([freq, dur]) => {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = "triangle";
@@ -505,14 +520,15 @@
       osc.stop(t + dur);
       t += dur;
     });
-    const total = melody.reduce((a, [, d]) => a + d, 0.4) * 1000;
-    noteTimer = setTimeout(playMelody, total);
+    const total = notes.reduce((a, [, d]) => a + d, 0.6) * 1000;
+    tuneIdx = (tuneIdx + 1) % TUNES.length; // בסבב הבא — המנגינה הבאה
+    noteTimer = setTimeout(playTune, total);
   }
   musicBtn.addEventListener("click", () => {
     playing = !playing;
     musicBtn.classList.toggle("playing", playing);
     if (playing) {
-      playMelody();
+      playTune();
       burstConfetti(60);
     } else {
       clearTimeout(noteTimer);
