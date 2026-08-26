@@ -86,7 +86,33 @@
       text-shadow: 0 2px 12px rgba(0,0,0,.18);
     }
     .hero-band .big b { display: block; font-size: 1.05em; }
-    .hero-body { text-align: center; padding: 30px 26px 34px; }
+
+    /* דיוקן עגול שמשתלב בין פס הזהב לגוף */
+    .portrait {
+      position: relative; z-index: 2;
+      width: 150px; height: 150px;
+      margin: -78px auto 0;
+    }
+    .portrait-ring {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid var(--cream);
+      box-shadow: 0 12px 30px rgba(120, 90, 30, .32);
+    }
+    .portrait-ring img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 40% 38%;
+    }
+    .portrait-crown {
+      position: absolute; top: -20px; left: 50%;
+      transform: translateX(-50%) rotate(-8deg);
+      font-size: 34px;
+      filter: drop-shadow(0 3px 5px rgba(120, 90, 30, .35));
+    }
+
+    .hero-body { text-align: center; padding: 22px 26px 34px; }
     .hero-body .crown { font-size: 34px; }
     .hero-body h1 {
       font-family: "Frank Ruhl Libre", serif;
@@ -280,8 +306,11 @@
         <p class="eyebrow">מתנה מנקודת אור לממלכה</p>
         <div class="big">40 עצות<b>זהב</b></div>
       </div>
+      <div class="portrait">
+        <div class="portrait-ring"><img src="%D7%9E%D7%95%D7%A8%D7%99%D7%94%20%D7%A2%D7%A6%D7%95%D7%AA.jpg" alt="מוריה" /></div>
+        <span class="portrait-crown">👑</span>
+      </div>
       <div class="hero-body">
-        <div class="crown">👑</div>
         <h1>ליועצת שלנו — למוריה, באהבה</h1>
         <p>
           40 שנה, 40 עצות — עשור אחר עשור. אספנו עבורך את העצות
