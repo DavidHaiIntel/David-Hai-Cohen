@@ -80,6 +80,7 @@
     }
     .dish.open .cover { transform: translateY(-100%) scale(1.04); opacity: 0; }
     .dish .cover .dome { font-size: 32px; }
+    .dish .cover .cname { margin-top: 8px; font-family: "Frank Ruhl Libre", serif; font-weight: 700; font-size: 19px; line-height: 1.25; padding: 0 12px; }
     .dish .cover .cnum { margin-top: 8px; font-family:"Amatic SC",cursive; font-size: 26px; }
     .dish .cover .csub { font-size: 10px; letter-spacing: 3px; opacity: .9; margin-top: 2px; }
 
@@ -269,9 +270,9 @@
               <button class="go" type="button">📖 למתכון המלא</button>
             </div>
             <div class="cover">
-              <div class="dome">🍽️</div>
-              <div class="cnum">מנה ${n}</div>
-              <div class="csub">✦ הרימו ✦</div>
+              <div class="dome">${it.e}</div>
+              <div class="cname">${it.t}</div>
+              <div class="csub">✦ לחצו לגילוי ✦</div>
             </div>`;
           card.addEventListener("click", () => card.classList.toggle("open"));
           card.querySelector(".go").addEventListener("click", (ev) => { ev.stopPropagation(); openRecipe(idx, it); });

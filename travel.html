@@ -77,6 +77,7 @@
     }
     .place.open .stamp { transform: translateX(-105%) rotate(-4deg); opacity: 0; }
     .place .stamp .pin { font-size:32px; }
+    .place .stamp .cname { margin-top:8px; font-family:"Frank Ruhl Libre",serif; font-weight:700; font-size:19px; line-height:1.25; padding:0 12px; }
     .place .stamp .cnum { margin-top:8px; font-family:"Amatic SC",cursive; font-size:26px; }
     .place .stamp .csub { font-size:10px; letter-spacing:3px; opacity:.9; margin-top:2px; }
 
@@ -265,20 +266,12 @@
               <button class="go" type="button">📖 הסיפור והמסלול</button>
             </div>
             <div class="stamp">
-              <div class="pin">📮</div>
-              <div class="cnum">יעד ${n}</div>
-              <div class="csub">✦ הפכו ✦</div>
+              <div class="pin">${it.e}</div>
+              <div class="cname">${it.t}</div>
+              <div class="csub">✦ לחצו לסיפור ✦</div>
             </div>`;
           card.addEventListener("click", () => card.classList.toggle("open"));
           card.querySelector(".go").addEventListener("click", (ev) => { ev.stopPropagation(); openPlace(idx, it); });
-          grid.appendChild(card);
-            </div>
-            <div class="stamp">
-              <div class="pin">📮</div>
-              <div class="cnum">יעד ${n}</div>
-              <div class="csub">✦ הפכו ✦</div>
-            </div>`;
-          card.addEventListener("click", () => card.classList.toggle("open"));
           grid.appendChild(card);
         });
         sec.appendChild(grid); root.appendChild(sec);
