@@ -596,4 +596,10 @@
       if (audioCtx) audioCtx.suspend();
     }
   });
+  // חימום מנוע השמע כבר במגע הראשון בדף — עוקף חסימות autoplay בחלק מהדפדפנים
+  document.addEventListener("pointerdown", function warmAudio() {
+    if (!audioCtx) initAudio();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    document.removeEventListener("pointerdown", warmAudio);
+  }, { once: true });
 })();
