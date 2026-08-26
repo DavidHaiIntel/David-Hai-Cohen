@@ -15,6 +15,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@300;400;700;900&family=Suez+One&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* ליטוש: גלילה חלקה + מרווח לניווט הצף */
+    html { scroll-behavior: smooth; }
+    #journey, #reasons, #kahoot, #playlist { scroll-margin-top: 76px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    /* זוהר עדין ל-"40" */
+    .hero-forty b {
+      text-shadow: 0 0 20px rgba(255, 214, 120, .55), 0 2px 4px rgba(0, 0, 0, .22);
+      animation: fortyGlow 3.2s ease-in-out infinite;
+    }
+    @keyframes fortyGlow {
+      0%, 100% { text-shadow: 0 0 16px rgba(255, 214, 120, .45), 0 2px 4px rgba(0, 0, 0, .22); }
+      50%      { text-shadow: 0 0 30px rgba(255, 224, 150, .8), 0 2px 6px rgba(0, 0, 0, .25); }
+    }
+  </style>
 </head>
 <body>
   <!-- רקע חלקיקים / קונפטי -->
