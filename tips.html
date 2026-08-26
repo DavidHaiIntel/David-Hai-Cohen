@@ -147,9 +147,15 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 26px 16px;
       perspective: 1400px;
+    }
+    /* העצה העשירית נשארת לבד — ממרכזים אותה (3/3/3 + אחת באמצע) */
+    .grid > .tip:nth-child(3n+1):last-child {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc((100% - 32px) / 3);
     }
 
     /* כרטיס עצה — נפתח בלחיצה (אפקט היפוך) */
@@ -258,6 +264,10 @@
     .invite-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(168, 132, 47, .45); }
     .hearts { margin-top: 18px; font-size: 18px; letter-spacing: 4px; color: var(--gold); }
 
+    @media (max-width: 680px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .grid > .tip:nth-child(3n+1):last-child { grid-column: auto; justify-self: stretch; width: auto; }
+    }
     @media (max-width: 480px) {
       .grid { grid-template-columns: 1fr; }
       .hero-body { padding: 26px 20px 30px; }
