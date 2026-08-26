@@ -149,7 +149,7 @@ const REASONS = [
 ];
 
 /* ---------- פלייליסט ---------- */
-const yt = (id) => "https://www.youtube.com/watch?v=" + id;
+const yt = (id) => "https://youtu.be/" + id;
 const PLAYLIST = [
   { title: "היום יום הולדת", artist: "Choir", url: yt("cm0QEnSh9JU"), emoji: "🎂" },
   { title: "כן תזכה לשנה הבאה", artist: "דוד אלהרר", url: yt("X6L8axuSNlI"), emoji: "🎉" },
