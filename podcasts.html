@@ -175,7 +175,7 @@
         const grid = document.createElement("div"); grid.className = "grid";
         g.items.forEach((it) => {
           n++;
-          const url = "https://open.spotify.com/search/" + encodeURIComponent(it.t) + "/shows";
+          const url = "https://open.spotify.com/search/" + encodeURIComponent(it.t);
           const card = document.createElement("article"); card.className = "pod";
           card.innerHTML = `
             <div class="pod-inner">
