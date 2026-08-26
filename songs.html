@@ -209,6 +209,20 @@
         s.style.left = Math.random()*100+"vw"; s.style.fontSize = 10+Math.random()*20+"px";
         s.style.animationDuration = 8+Math.random()*8+"s"; s.style.animationDelay = -Math.random()*12+"s"; layer.appendChild(s); }
     })();
+    // סרגל: מד התקדמות + פתח/סגור הכל
+    (function(){
+      const cards=()=>document.querySelectorAll('.grid article'); if(!cards().length)return;
+      const st=document.createElement('style');
+      st.textContent='.cardbar{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin:28px auto 0}.cardbar .cb-count{font-family:"Frank Ruhl Libre",serif;font-weight:700;background:rgba(255,255,255,.92);color:#241a44;padding:7px 16px;border-radius:999px;box-shadow:0 6px 16px rgba(0,0,0,.2);font-size:14px}.cardbar .cb-btn{cursor:pointer;border:none;font-family:"Heebo",sans-serif;font-weight:700;font-size:14px;color:#241a44;background:linear-gradient(135deg,#c79b3b,#e8c66b);padding:8px 18px;border-radius:999px;box-shadow:0 6px 16px rgba(0,0,0,.25)}';
+      document.head.appendChild(st);
+      const bar=document.createElement('div');bar.className='cardbar';bar.innerHTML='<span class="cb-count"></span><button class="cb-btn" type="button"></button>';
+      const main=document.querySelector('main');main.parentNode.insertBefore(bar,main);
+      const countEl=bar.querySelector('.cb-count'),btn=bar.querySelector('.cb-btn');
+      const upd=()=>{const a=cards();const o=[...a].filter(c=>c.classList.contains('open')).length;countEl.textContent='גילית '+o+' מתוך '+a.length+' 💛';btn.textContent=(o>=a.length?'סגור הכל ✦':'פתח הכל ✦');};
+      document.addEventListener('click',e=>{if(e.target.closest('.grid article'))setTimeout(upd,0);});
+      btn.addEventListener('click',()=>{const a=[...cards()];const allOpen=a.every(c=>c.classList.contains('open'));a.forEach(c=>c.classList.toggle('open',!allOpen));upd();});
+      upd();
+    })();
   </script>
   <a href="https://wa.me/?text=🎵%2040%20שירים%20אהובים%20💛%20https://davidhaiintel.github.io/David-Hai-Cohen/songs.html" target="_blank" rel="noopener" aria-label="שתף בוואטסאפ" title="שתף בוואטסאפ" style="position:fixed;bottom:18px;left:18px;z-index:90;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.28);text-decoration:none;font-size:27px">💬</a>
 </body>
