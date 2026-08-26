@@ -512,7 +512,7 @@
   function initAudio() {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     master = audioCtx.createGain();
-    master.gain.value = 0.9;
+    master.gain.value = 1.0;
     master.connect(audioCtx.destination);
     const len = Math.floor(audioCtx.sampleRate * 0.2);
     noiseBuf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
@@ -578,16 +578,17 @@
     }
     noteTimer = setTimeout(playTune, total * 1000 + 200); // לולאה בסיום המחרוזת
   }
-  musicBtn.addEventListener("click", () => {
+  musicBtn.addEventListener("click", async () => {
     playing = !playing;
     musicBtn.classList.toggle("playing", playing);
     if (playing) {
+      if (!audioCtx) initAudio();
+      try { await audioCtx.resume(); } catch (e) { /* חלק מהדפדפנים מחזירים דחייה שקטה */ }
       playTune();
       burstConfetti(60);
     } else {
       clearTimeout(noteTimer);
       if (audioCtx) audioCtx.suspend();
     }
-    if (audioCtx && playing) audioCtx.resume();
   });
 })();
