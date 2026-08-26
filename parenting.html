@@ -232,6 +232,25 @@
       btn.addEventListener('click',()=>{const a=[...cards()];const allOpen=a.every(c=>c.classList.contains('open'));a.forEach(c=>c.classList.toggle('open',!allOpen));upd();});
       upd();
     })();
+    // מועדפים ❤️
+    (function(){
+      const cards=[...document.querySelectorAll('.grid article')]; if(!cards.length)return;
+      const page=(location.pathname.split('/').pop()||'index').replace('.html','');
+      const KEY='fav:'+page;
+      const load=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}};
+      let favs=load(); const save=()=>localStorage.setItem(KEY,JSON.stringify(favs));
+      const st=document.createElement('style');
+      st.textContent='.favbtn{position:absolute;top:8px;inset-inline-start:8px;z-index:40;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,.85);box-shadow:0 3px 10px rgba(0,0,0,.2);font-size:16px;line-height:1;text-align:center;padding:0;transition:transform .15s}.favbtn:hover{transform:scale(1.15)}.favbtn.on{background:#ff5a7a;box-shadow:0 3px 12px rgba(255,90,122,.5)}';
+      document.head.appendChild(st);
+      cards.forEach((c,i)=>{ if(getComputedStyle(c).position==='static')c.style.position='relative';
+        const b=document.createElement('button');b.type='button';b.className='favbtn'+(favs.includes(i)?' on':'');b.textContent=favs.includes(i)?'❤️':'🤍';b.setAttribute('aria-label','שמור למועדפים');
+        b.addEventListener('click',e=>{e.stopPropagation();const k=favs.indexOf(i);if(k>=0){favs.splice(k,1);b.classList.remove('on');b.textContent='🤍';}else{favs.push(i);b.classList.add('on');b.textContent='❤️';}save();});
+        c.appendChild(b);});
+      const bar=document.querySelector('.cardbar');
+      if(bar){const fb=document.createElement('button');fb.type='button';fb.className='cb-btn';fb.style.background='linear-gradient(135deg,#ff5a7a,#ff87a0)';fb.textContent='❤️ מועדפים';let on=false;
+        fb.addEventListener('click',()=>{on=!on;fb.textContent=on?'הצג הכל ✦':'❤️ מועדפים';cards.forEach((c,i)=>{c.style.display=(!on||favs.includes(i))?'':'none';});});
+        bar.appendChild(fb);}
+    })();
   </script>
   <a href="https://wa.me/?text=🌿%2040%20עצות%20להורות%20💛%20https://davidhaiintel.github.io/David-Hai-Cohen/parenting.html" target="_blank" rel="noopener" aria-label="שתף בוואטסאפ" title="שתף בוואטסאפ" style="position:fixed;bottom:18px;left:18px;z-index:90;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.28);text-decoration:none;font-size:27px">💬</a>
 </body>
