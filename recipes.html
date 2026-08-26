@@ -253,6 +253,50 @@
       { ing:["200 גר\u2032\u2032 שוקולד מריר","3 ביצים","3 כפות סוכר","250 מ\u2032\u2032ל שמנת מתוקה"], steps:["ממיסים שוקולד ומצננים מעט.","מקציפים חלמונים וסוכר, מוסיפים לשוקולד.","מקפלים שמנת מוקצפת וחלבונים.","מקררים 3 שעות ומגישים."] },
     ];
 
+    // זמן הכנה משוער / מס׳ מנות / רמת קושי (אינדקס = מספר המנה - 1)
+    const META = [
+      { time:"20 דק׳", serves:"4", level:"קל" },
+      { time:"3 שעות (כולל תפיחה)", serves:"2 חלות", level:"בינוני" },
+      { time:"20 דק׳", serves:"4", level:"קל" },
+      { time:"שעה", serves:"8", level:"בינוני" },
+      { time:"אפייה איטית (לילה)", serves:"~30 יח׳", level:"בינוני" },
+      { time:"שעה", serves:"12", level:"קל" },
+      { time:"40 דק׳", serves:"8 מנות", level:"קל" },
+      { time:"35 דק׳", serves:"12", level:"קל" },
+      { time:"15 דק׳", serves:"2", level:"קל" },
+      { time:"40 דק׳", serves:"4", level:"בינוני" },
+      { time:"שעתיים", serves:"6", level:"בינוני" },
+      { time:"40 דק׳", serves:"6", level:"קל" },
+      { time:"15 דק׳", serves:"4", level:"קל" },
+      { time:"40 דק׳", serves:"6", level:"קל" },
+      { time:"30 דק׳", serves:"6", level:"קל" },
+      { time:"20 דק׳", serves:"4", level:"קל" },
+      { time:"שעה", serves:"4", level:"בינוני" },
+      { time:"45 דק׳", serves:"6", level:"בינוני" },
+      { time:"45 דק׳", serves:"6", level:"קל" },
+      { time:"40 דק׳", serves:"4", level:"קל" },
+      { time:"30 דק׳", serves:"4", level:"קל" },
+      { time:"30 דק׳", serves:"4", level:"קל" },
+      { time:"שעה", serves:"6", level:"בינוני" },
+      { time:"שעה וחצי", serves:"6", level:"מאתגר" },
+      { time:"25 דק׳", serves:"4", level:"קל" },
+      { time:"3.5 שעות", serves:"6", level:"בינוני" },
+      { time:"שעה", serves:"6", level:"מאתגר" },
+      { time:"שעה וחצי", serves:"6", level:"בינוני" },
+      { time:"40 דק׳", serves:"4", level:"בינוני" },
+      { time:"שעה", serves:"6", level:"בינוני" },
+      { time:"שעה וחצי", serves:"12", level:"בינוני" },
+      { time:"40 דק׳", serves:"16", level:"קל" },
+      { time:"30 דק׳ + קירור", serves:"8", level:"בינוני" },
+      { time:"שעה וחצי", serves:"8", level:"מאתגר" },
+      { time:"25 דק׳", serves:"4", level:"בינוני" },
+      { time:"30 דק׳ + קירור", serves:"6", level:"קל" },
+      { time:"שעה + קירור", serves:"6", level:"בינוני" },
+      { time:"30 דק׳", serves:"~30 יח׳", level:"קל" },
+      { time:"שעה", serves:"8", level:"בינוני" },
+      { time:"20 דק׳ + קירור", serves:"6", level:"בינוני" },
+    ];
+
     (function build() {
       const root = document.getElementById("root");
       let n = 0;
@@ -293,14 +337,29 @@
 
     // חלון מתכון מלא
     const mBack = document.getElementById("modal-back");
+    function printRecipe(it, r, m) {
+      const w = window.open("", "_blank");
+      if (!w) return;
+      const ings = r.ing.map((x) => `<li>${x}</li>`).join("");
+      const steps = r.steps.map((x) => `<li>${x}</li>`).join("");
+      w.document.write(`<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>${it.t}</title>`
+        + `<style>body{font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:24px auto;color:#2a1a12;padding:0 18px}h1{font-size:26px;margin-bottom:4px}.meta{margin:6px 0 18px;color:#9e4620;font-weight:bold}h2{border-bottom:2px solid #c9622f;padding-bottom:4px;color:#9e4620;margin-top:20px}li{margin:5px 0;line-height:1.5}</style></head>`
+        + `<body><h1>${it.e} ${it.t}</h1><div class="meta">⏱️ ${m.time} · 🍽️ ${m.serves} · 📊 ${m.level}</div>`
+        + `<h2>🧂 מצרכים</h2><ul>${ings}</ul><h2>👩‍🍳 אופן הכנה</h2><ol>${steps}</ol></body></html>`);
+      w.document.close(); w.focus(); w.print();
+    }
     function openRecipe(idx, it) {
       const r = RECIPES[idx];
+      const m = META[idx] || { time: "", serves: "", level: "" };
       document.getElementById("m-emoji").textContent = it.e;
       document.getElementById("m-title").textContent = it.t;
       const ings = r.ing.map((x) => `<li>${x}</li>`).join("");
       const steps = r.steps.map((x) => `<li>${x}</li>`).join("");
       document.getElementById("m-body").innerHTML =
-        `<h4>🧂 מצרכים</h4><ul>${ings}</ul><h4>👩‍🍳 אופן הכנה</h4><ol>${steps}</ol>`;
+        `<div class="rmeta" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;font-weight:700;color:#9e4620;background:#fff3ea;padding:9px 12px;border-radius:12px;margin-bottom:14px"><span>⏱️ ${m.time}</span><span>🍽️ ${m.serves}</span><span>📊 ${m.level}</span></div>`
+        + `<h4>🧂 מצרכים</h4><ul>${ings}</ul><h4>👩‍🍳 אופן הכנה</h4><ol>${steps}</ol>`
+        + `<button id="m-print" class="go" type="button" style="margin-top:14px">🖨️ הדפסה / שמירה כ-PDF</button>`;
+      document.getElementById("m-print").addEventListener("click", () => printRecipe(it, r, m));
       mBack.classList.add("open");
     }
     function closeRecipe() { mBack.classList.remove("open"); }
