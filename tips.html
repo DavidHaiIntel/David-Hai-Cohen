@@ -146,20 +146,17 @@
     }
 
     .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 26px 16px;
       perspective: 1400px;
     }
-    /* העצה העשירית נשארת לבד — ממרכזים אותה (3/3/3 + אחת באמצע) */
-    .grid > .tip:nth-child(3n+1):last-child {
-      grid-column: 1 / -1;
-      justify-self: center;
-      width: calc((100% - 32px) / 3);
-    }
 
-    /* כרטיס עצה — נפתח בלחיצה (אפקט היפוך) */
+    /* כרטיס עצה — נפתח בלחיצה (אפקט היפוך). 3 בשורה; האחרון מתמרכז אוטומטית */
     .tip {
+      flex: 0 1 calc((100% - 34px) / 3);
+      max-width: calc((100% - 34px) / 3);
       height: 210px;
       cursor: pointer;
       opacity: 0;
@@ -265,11 +262,10 @@
     .hearts { margin-top: 18px; font-size: 18px; letter-spacing: 4px; color: var(--gold); }
 
     @media (max-width: 680px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-      .grid > .tip:nth-child(3n+1):last-child { grid-column: auto; justify-self: stretch; width: auto; }
+      .tip { flex-basis: calc((100% - 16px) / 2); max-width: calc((100% - 16px) / 2); }
     }
     @media (max-width: 480px) {
-      .grid { grid-template-columns: 1fr; }
+      .tip { flex-basis: 100%; max-width: 100%; }
       .hero-body { padding: 26px 20px 30px; }
     }
   </style>
