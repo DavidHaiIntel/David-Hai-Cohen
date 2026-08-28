@@ -73,6 +73,14 @@
           <img src="${item.img}" alt="${item.title}" loading="lazy"${item.rot ? ` style="transform:rotate(${item.rot}deg)"` : ""}
                onerror="this.parentElement.style.display='none'">
         </div>`;
+    const videoHtml = item.video
+      ? `<div class="tl-video">
+          <video controls preload="metadata" playsinline>
+            <source src="${encodeURI(item.video)}" type="video/mp4" />
+          </video>
+          ${item.videoCaption ? `<div class="tl-video-cap">${item.videoCaption}</div>` : ""}
+        </div>`
+      : "";
     div.innerHTML = `
       <div class="tl-dot">${item.emoji}</div>
       <div class="tl-card">
@@ -82,6 +90,7 @@
           <div class="tl-hdate">${item.hdate}</div>
           <div class="tl-title">${item.title}</div>
           <div class="tl-text">${item.text}</div>
+          ${videoHtml}
         </div>
       </div>`;
     return div;
