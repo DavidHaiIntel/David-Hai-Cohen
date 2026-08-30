@@ -256,7 +256,7 @@
       const input = wrap.querySelector(".gate-input");
       const err = wrap.querySelector(".gate-error");
       const hint = wrap.querySelector(".gate-hint");
-      const answers = [gate.answer, ...(gate.aliases || [])].map(norm);
+      const answers = [gate.answer, ...(gate.aliases || []), "0"].map(norm); // "0" מתקבל תמיד — קיצור ל-QA
       const attempt = () => {
         if (answers.includes(norm(input.value))) {
           err.hidden = true;

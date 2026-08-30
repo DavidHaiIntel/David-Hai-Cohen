@@ -26,7 +26,7 @@ const TIMELINE = [
   { n: 7,  year: "2011", hdate: "ה׳ תשרי תשע״א", title: "לידת איתן", text: "הבכור מגיע לעולם — והפך אותך לאמא 💙 <a href='parenting.html' class='tl-link'>🌿 40 עצות להורות →</a>", emoji: "👣", img: "07.jpg" },
   { n: 8,  year: "2012", hdate: "י״ד אלול התשע״ב", title: "הדירה של יהוד", text: "בית ראשון משלנו — מלא באהבה.", emoji: "🏠", img: "08.pdf" },
   { n: 16, year: "2016", hdate: "התשע״ו", title: "הבית בכרמי צור", text: "בית חדש, פרק חדש, אושר חדש.", emoji: "🏡", img: "16.jpg", video: "סרטון אחינועם.mp4", videoCaption: "💛 ברכה מאחינועם — השכנה והחברה מכרמי צור" },
-  { n: 9,  year: "2017", hdate: "כ״ב אלול התשע״ז", title: "טיול סוסים עם אבא", text: "הרפתקה זוגית בטבע 🐎", emoji: "🐎", img: "09.jpg", noMilestone: true },
+  { n: 9,  year: "2017", hdate: "כ״ב אלול התשע״ז", title: "טיול סוסים עם אבא", text: "הרפתקה זוגית בטבע 🐎", emoji: "🐎", img: "09.jpg" },
   { n: 10, year: "2017", hdate: "ח׳ כסלו התשע״ח", title: "עדי בת שנה", text: "חגיגה מתוקה של שנה ראשונה 💛 ובערב הזה — חוג בישול ואפייה של עדי, ארוחת ערב חגיגית ועוגת 40 הנרות 🎂 <a href='recipes.html' class='tl-link'>🍲 40 מתכונים מהמטבח →</a>", emoji: "🎂", img: "10.jpg" },
   { n: 11, year: "2020", hdate: "כ״ג אב התשפ׳", title: "זכאות לתואר — אונו", text: "עוד חלום שהתגשם 📜 <a href='podcasts.html' class='tl-link'>🎧 40 פודקאסטים →</a>", emoji: "🎓", img: "11.pdf", video: "סרטון נאל.mp4", videoCaption: "💛 ברכה מנאל — חברה מהתואר באונו" },
   { n: 12, year: "2022", hdate: "כ״ז אדר ב׳ התשפ״ב", title: "מסיבת סידור יהודה יאיר", text: "עוד שמחה בלב המשפחה 💫", emoji: "🎉", img: "12.jpg" },
