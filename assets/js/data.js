@@ -18,7 +18,7 @@ const CONFIG = {
 /* ---------- מסלול החיים (20 נקודות דרך — מספר התמונה תואם למספר התחנה) ---------- */
 const TIMELINE = [
   { n: 1,  year: "1986", hdate: "כ״ב אלול תשמ״ו", title: "לידה", text: "כאן נדלק הניצוץ — נולדה אישה עם לב ענק 🌟", emoji: "👶", img: "01.jpg" },
-  { n: 2,  year: "1992", hdate: "תשנ״ב", title: "גיל 6", text: "ילדה קטנה עם חלומות גדולים.", emoji: "🎈", img: "02.jpg", rot: 180 },
+  { n: 2,  year: "1992", hdate: "תשנ״ב", title: "גיל 6", text: "ילדה קטנה עם חלומות גדולים.", emoji: "🎈", img: "02.jpg", rot: 90 },
   { n: 3,  year: "1998", hdate: "כ״ב אלול תשנ״ח", title: "בת מצווה", text: "רגע של גדילה, אמונה ומשפחה.", emoji: "✡️", img: "03.jpg" },
   { n: 4,  year: "2006", hdate: "י״ב אב התשס״ו", title: "טיול לחו״ל עם בובי", text: "הרפתקה בלתי נשכחת עם חברה. <a href='travel.html' class='tl-link'>🌍 40 מקומות לטייל →</a>", emoji: "✈️", img: "04.jpg", video: "בובי.mp4", videoCaption: "💛 סרטון מבובי" },
   { n: 5,  year: "2009", hdate: "כ״ט שבט תס״ט", title: "חתונה עם אבא", text: "התחלה של סיפור אהבה גדול 💍 <a href='couple.html' class='tl-link'>💕 40 עצות לזוגיות טובה →</a>", emoji: "💒", img: "05.jpg" },
@@ -26,8 +26,8 @@ const TIMELINE = [
   { n: 7,  year: "2011", hdate: "ה׳ תשרי תשע״א", title: "לידת איתן", text: "הבכור מגיע לעולם — והפך אותך לאמא 💙 <a href='parenting.html' class='tl-link'>🌿 40 עצות להורות →</a>", emoji: "👣", img: "07.jpg" },
   { n: 8,  year: "2012", hdate: "י״ד אלול התשע״ב", title: "הדירה של יהוד", text: "בית ראשון משלנו — מלא באהבה.", emoji: "🏠", img: "08.pdf" },
   { n: 16, year: "2016", hdate: "התשע״ו", title: "הבית בכרמי צור", text: "בית חדש, פרק חדש, אושר חדש.", emoji: "🏡", img: "16.jpg", video: "סרטון אחינועם.mp4", videoCaption: "💛 ברכה מאחינועם — השכנה והחברה מכרמי צור" },
-  { n: 9,  year: "2017", hdate: "כ״ב אלול התשע״ז", title: "טיול סוסים עם אבא", text: "הרפתקה זוגית בטבע 🐎", emoji: "🐎", img: "09.jpg" },
-  { n: 10, year: "2017", hdate: "ח׳ כסלו התשע״ח", title: "עדי בת שנה", text: "חגיגה מתוקה של שנה ראשונה. <a href='recipes.html' class='tl-link'>🍲 40 מתכונים מהמטבח →</a>", emoji: "🎂", img: "10.jpg" },
+  { n: 9,  year: "2017", hdate: "כ״ב אלול התשע״ז", title: "טיול סוסים עם אבא", text: "הרפתקה זוגית בטבע 🐎", emoji: "🐎", img: "09.jpg", noPhoto: true },
+  { n: 10, year: "2017", hdate: "ח׳ כסלו התשע״ח", title: "עדי בת שנה", text: "חגיגה מתוקה של שנה ראשונה. <a href='recipes.html' class='tl-link'>🍲 40 מתכונים מהמטבח →</a>", emoji: "🎂", img: "10.jpg", noPhoto: true },
   { n: 11, year: "2020", hdate: "כ״ג אב התשפ׳", title: "זכאות לתואר — אונו", text: "עוד חלום שהתגשם 📜 <a href='podcasts.html' class='tl-link'>🎧 40 פודקאסטים →</a>", emoji: "🎓", img: "11.pdf", video: "סרטון נאל.mp4", videoCaption: "💛 ברכה מנאל — חברה מהתואר באונו" },
   { n: 12, year: "2022", hdate: "כ״ז אדר ב׳ התשפ״ב", title: "מסיבת סידור יהודה יאיר", text: "עוד שמחה בלב המשפחה 💫", emoji: "🎉", img: "12.jpg" },
   { n: 13, year: "2022", hdate: "י״ב אייר התשפ״ב", title: "מטפלת בטיפול בממדים", text: "פרק חדש ומרגש בקריירה.", emoji: "🌈", img: "13.jpg" },

@@ -66,7 +66,9 @@
     div.className =
       "tl-item " + (i % 2 === 0 ? "tl-a" : "tl-b") + (item.n === 1 || item.n === 21 ? " finale" : "");
     const isPdf = /\.pdf$/i.test(item.img);
-    const media = isPdf
+    const media = item.noPhoto
+      ? ""
+      : isPdf
       ? `<a class="tl-photo tl-pdf" href="${item.img}" target="_blank" rel="noopener"
              data-emoji="${item.emoji}"><span>📄 לצפייה במסמך</span></a>`
       : `<div class="tl-photo" data-emoji="${item.emoji}">
