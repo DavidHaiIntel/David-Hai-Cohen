@@ -63,6 +63,10 @@
 
   const buildMilestone = (item, i) => {
     const div = document.createElement("div");
+    if (item.noMilestone) {
+      div.className = "tl-skip";
+      return div;
+    }
     div.className =
       "tl-item " + (i % 2 === 0 ? "tl-a" : "tl-b") + (item.n === 1 || item.n === 21 ? " finale" : "");
     const isPdf = /\.pdf$/i.test(item.img);
@@ -170,15 +174,6 @@
               <h3 class="gate-title">${gate.pre.question}</h3>
               <button class="gate-submit gate-pre-btn" type="button">${gate.pre.button}</button>
             </div>
-            ${gate.photo ? `
-            <div class="gate-photo-step" hidden>
-              <div class="gate-lock">📸</div>
-              <span class="gate-kicker">${gate.photo.kicker || gate.kicker || "תחנה"}</span>
-              <img class="gate-photo-reveal" src="${gate.photo.img}" alt="${gate.photo.title || ""}" />
-              <h3 class="gate-title">${gate.photo.title || ""}</h3>
-              <p class="gate-intro">${gate.photo.text || ""}</p>
-              <button class="gate-submit gate-photo-btn" type="button">${gate.photo.button || "ממשיכים"}</button>
-            </div>` : ""}
             ${gate.mid ? `
             <div class="gate-mid" hidden>
               <div class="gate-lock">🎯</div>
@@ -187,6 +182,15 @@
               <h3 class="gate-title">${gate.mid.title || ""}</h3>
               <p class="gate-intro">${gate.mid.text || ""}</p>
               <button class="gate-submit gate-mid-btn" type="button">${gate.mid.button || "ממשיכים"}</button>
+            </div>` : ""}
+            ${gate.photo ? `
+            <div class="gate-photo-step" hidden>
+              <div class="gate-lock">📸</div>
+              <span class="gate-kicker">${gate.photo.kicker || gate.kicker || "תחנה"}</span>
+              <img class="gate-photo-reveal" src="${gate.photo.img}" alt="${gate.photo.title || ""}" />
+              <h3 class="gate-title">${gate.photo.title || ""}</h3>
+              <p class="gate-intro">${gate.photo.text || ""}</p>
+              <button class="gate-submit gate-photo-btn" type="button">${gate.photo.button || "ממשיכים"}</button>
             </div>` : ""}
             <div class="gate-main" hidden>
               <div class="gate-lock">🎯</div>
@@ -198,24 +202,27 @@
               <button class="gate-submit gate-station" type="button">${gate.button || "בוצע ✓ ממשיכים"}</button>
             </div>
           </div>`;
-        const photoEl = wrap.querySelector(".gate-photo-step");
         const midEl = wrap.querySelector(".gate-mid");
+        const photoEl = wrap.querySelector(".gate-photo-step");
         const mainEl = wrap.querySelector(".gate-main");
-        const chain = [photoEl, midEl, mainEl].filter(Boolean);
+        const revealFx = () => { if (gate.revealPhoto && photoEl) burstConfetti(120, wrap); };
+        const chain = [midEl, photoEl, mainEl].filter(Boolean);
         wrap.querySelector(".gate-pre-btn").addEventListener("click", () => {
           wrap.querySelector(".gate-pre").hidden = true;
-          if (gate.revealPhoto) burstConfetti(120, wrap);
+          if (chain[0] === photoEl) revealFx();
           chain[0].hidden = false;
         });
-        if (photoEl) {
-          wrap.querySelector(".gate-photo-btn").addEventListener("click", () => {
-            photoEl.hidden = true;
-            (midEl || mainEl).hidden = false;
-          });
-        }
         if (midEl) {
           wrap.querySelector(".gate-mid-btn").addEventListener("click", () => {
             midEl.hidden = true;
+            const next = photoEl || mainEl;
+            if (next === photoEl) revealFx();
+            next.hidden = false;
+          });
+        }
+        if (photoEl) {
+          wrap.querySelector(".gate-photo-btn").addEventListener("click", () => {
+            photoEl.hidden = true;
             mainEl.hidden = false;
           });
         }
@@ -290,6 +297,18 @@
     bannerEls.length = 0;
     unlocked = 0;
     order.forEach((item, i) => {
+    // באנר מעבר לילה→בוקר מוצג לפני שער הבוקר
+    const bannerBeforeGate = item.n === 9;
+    const addBanner = () => {
+      if (BANNERS[item.n]) {
+        const b = document.createElement("div");
+        b.className = "tl-banner";
+        b.innerHTML = `<span>${BANNERS[item.n]}</span>`;
+        bannerEls[i] = b;
+        tl.appendChild(b);
+      }
+    };
+    if (bannerBeforeGate) addBanner();
     // שער נחשף לפני התחנה (חוץ מהתחנה הראשונה — היום)
     if (i > 0 && GATES[item.n]) {
       const g = buildGate(GATES[item.n], () => {
@@ -303,13 +322,7 @@
       gateEls[i] = g;
       tl.appendChild(g);
     }
-    if (BANNERS[item.n]) {
-      const b = document.createElement("div");
-      b.className = "tl-banner";
-      b.innerHTML = `<span>${BANNERS[item.n]}</span>`;
-      bannerEls[i] = b;
-      tl.appendChild(b);
-    }
+    if (!bannerBeforeGate) addBanner();
     const el = buildMilestone(item, i);
     stopEls[i] = el;
     tl.appendChild(el);
