@@ -111,20 +111,32 @@
       const psalmHtml = gate.psalm ? `<div class="gate-psalm">${gate.psalm}</div>` : "";
       if (gate.cake) {
         const total = gate.candles || 40;
+        const photoStepHtml = gate.photo ? `
+            <div class="gate-photo-step">
+              <div class="gate-lock">📸</div>
+              <span class="gate-kicker">${gate.photo.kicker || gate.kicker || "תחנה"}</span>
+              <img class="gate-photo-reveal" src="${gate.photo.img}" alt="${gate.photo.title || ""}" />
+              <h3 class="gate-title">${gate.photo.title || ""}</h3>
+              <p class="gate-intro">${gate.photo.text || ""}</p>
+              <button class="gate-submit gate-photo-btn" type="button">${gate.photo.button || "ממשיכים"}</button>
+            </div>` : "";
         wrap.innerHTML = `
           <div class="gate-card">
-            <div class="gate-lock">🎂</div>
-            <span class="gate-kicker">${gate.kicker || "תחנה"}</span>
-            <div class="gate-emoji">${gate.emoji || "🎂"}</div>
-            <h3 class="gate-title">${gate.title || ""}</h3>
-            <p class="gate-intro">${gate.text || ""}</p>
-            <div class="gate-cake-host"></div>
-            <p class="gate-cake-status">🔥 נותרו ${total} נרות לכבות... (לחצו / העבירו אצבע על הנרות)</p>
-            <button class="gate-submit gate-station" type="button" disabled>${gate.button || "ממשיכים"}</button>
+            ${photoStepHtml}
+            <div class="gate-cake-main"${gate.photo ? " hidden" : ""}>
+              <div class="gate-lock">🎂</div>
+              <span class="gate-kicker">${gate.kicker || "תחנה"}</span>
+              <div class="gate-emoji">${gate.emoji || "🎂"}</div>
+              <h3 class="gate-title">${gate.title || ""}</h3>
+              <p class="gate-intro">${gate.text || ""}</p>
+              <div class="gate-cake-host"></div>
+              <p class="gate-cake-status">🔥 נותרו ${total} נרות לכבות... (לחצו / העבירו אצבע על הנרות)</p>
+              <button class="gate-submit gate-station" type="button" disabled>${gate.button || "ממשיכים"}</button>
+            </div>
           </div>`;
         const host = wrap.querySelector(".gate-cake-host");
         const status = wrap.querySelector(".gate-cake-status");
-        const btn = wrap.querySelector(".gate-submit");
+        const btn = wrap.querySelector(".gate-station");
         let litLeft = total;
         host.appendChild(
           buildCakeWidget(total, () => {
@@ -139,6 +151,13 @@
           })
         );
         btn.addEventListener("click", finish);
+        if (gate.photo) {
+          wrap.querySelector(".gate-photo-btn").addEventListener("click", () => {
+            wrap.querySelector(".gate-photo-step").hidden = true;
+            wrap.querySelector(".gate-cake-main").hidden = false;
+            burstConfetti(100, wrap);
+          });
+        }
       } else if (gate.pre) {
         wrap.innerHTML = `
           <div class="gate-card">
