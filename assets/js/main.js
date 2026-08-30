@@ -313,7 +313,12 @@
         apply();
         burstConfetti(item.n === 1 ? 220 : 130, stopEls[i]);
         const isLast = i === order.length - 1;
-        const target = isLast && giftEl ? giftEl : stopEls[i];
+        // תחנות ללא כרטיס קבוע (עדי/סוסים): מתקדמים קדימה לשלב הבא במקום לקפוץ אחורה
+        const target = isLast && giftEl
+          ? giftEl
+          : item.noMilestone
+          ? bannerEls[i + 1] || gateEls[i + 1] || stopEls[i]
+          : stopEls[i];
         setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "center" }), isLast ? 700 : 260);
       });
       gateEls[i] = g;
