@@ -19,7 +19,7 @@ const CONFIG = {
 const TIMELINE = [
   { n: 1,  year: "1986", hdate: "כ״ב אלול תשמ״ו", title: "לידה", text: "כאן נדלק הניצוץ — נולדה אישה עם לב ענק 🌟", emoji: "👶", img: "01.jpg" },
   { n: 2,  year: "1992", hdate: "תשנ״ב", title: "גיל 6", text: "ילדה קטנה עם חלומות גדולים.", emoji: "🎈", img: "02.jpg", rot: 270 },
-  { n: 3,  year: "1998", hdate: "כ״ב אלול תשנ״ח", title: "בת מצווה", text: "רגע של גדילה, אמונה ומשפחה.", emoji: "✡️", img: "03.jpg" },
+  { n: 3,  year: "1998", hdate: "כ״ב אלול תשנ״ח", title: "בת מצווה", text: "רגע של גדילה, אמונה ומשפחה.", emoji: "✡️", noPhoto: true, video: "סרטון נילי.mp4", videoCaption: "💛 סרטון מנילי" },
   { n: 4,  year: "2006", hdate: "י״ב אב התשס״ו", title: "טיול לחו״ל עם בובי", text: "הרפתקה בלתי נשכחת עם חברה. <a href='travel.html' class='tl-link'>🌍 40 מקומות לטייל →</a>", emoji: "✈️", img: "04.jpg", video: "בובי.mp4", videoCaption: "💛 סרטון מבובי" },
   { n: 5,  year: "2009", hdate: "כ״ט שבט תס״ט", title: "חתונה עם אבא", text: "התחלה של סיפור אהבה גדול 💍 <a href='couple.html' class='tl-link'>💕 40 עצות לזוגיות טובה →</a>", emoji: "💒", img: "05.jpg" },
   { n: 6,  year: "2010", hdate: "כ״ד תמוז תש״ע", title: "סיום סטאז׳", text: "הישג מקצועי מרשים — כל הכבוד!", emoji: "🎓", img: "06.pdf" },
