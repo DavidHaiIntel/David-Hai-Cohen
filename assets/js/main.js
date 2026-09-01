@@ -92,6 +92,14 @@
         </div>`
       )
       .join("");
+    const audioHtml = item.audio
+      ? `<div class="tl-audio">
+          ${item.audioCaption ? `<div class="tl-audio-cap">${item.audioCaption}</div>` : ""}
+          <audio controls preload="metadata">
+            <source src="${encodeURI(item.audio)}" type="audio/mp4" />
+          </audio>
+        </div>`
+      : "";
     div.innerHTML = `
       <div class="tl-dot">${item.emoji}</div>
       <div class="tl-card">
@@ -102,6 +110,7 @@
           <div class="tl-title">${item.title}</div>
           <div class="tl-text">${item.text}</div>
           ${videoHtml}
+          ${audioHtml}
         </div>
       </div>`;
     return div;
