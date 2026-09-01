@@ -79,14 +79,19 @@
           <img src="${item.img}" alt="${item.title}" loading="lazy"${item.rot ? ` style="transform:rotate(${item.rot}deg)"` : ""}
                onerror="this.parentElement.style.display='none'">
         </div>`;
-    const videoHtml = item.video
-      ? `<div class="tl-video">
+    const vids = [];
+    if (item.video) vids.push([item.video, item.videoCaption]);
+    if (item.video2) vids.push([item.video2, item.videoCaption2]);
+    const videoHtml = vids
+      .map(
+        ([src, cap]) => `<div class="tl-video">
           <video controls preload="metadata" playsinline>
-            <source src="${encodeURI(item.video)}" type="video/mp4" />
+            <source src="${encodeURI(src)}" type="video/mp4" />
           </video>
-          ${item.videoCaption ? `<div class="tl-video-cap">${item.videoCaption}</div>` : ""}
+          ${cap ? `<div class="tl-video-cap">${cap}</div>` : ""}
         </div>`
-      : "";
+      )
+      .join("");
     div.innerHTML = `
       <div class="tl-dot">${item.emoji}</div>
       <div class="tl-card">
