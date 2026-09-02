@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countdown — Shiran is Back!</title>
+  <style>
+    :root {
+      --bg1: #1e3c72;
+      --bg2: #2a5298;
+      --accent: #ffd54f;
+      --card: rgba(255, 255, 255, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .wrap {
+      width: min(900px, 100%);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .zack {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--accent);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 6vw, 3.4rem);
+      margin-bottom: 6px;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .sub {
+      font-size: clamp(0.95rem, 2.6vw, 1.25rem);
+      opacity: 0.85;
+      margin-bottom: 34px;
+    }
+
+    .timer {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 16px;
+      padding: 20px 14px;
+      min-width: 120px;
+      flex: 1 1 120px;
+    }
+
+    .num {
+      font-size: clamp(2.2rem, 8vw, 4rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+    }
+
+    .label {
+      font-size: clamp(0.8rem, 2.4vw, 1.05rem);
+      opacity: 0.8;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .done {
+      font-size: clamp(1.5rem, 5vw, 2.6rem);
+      color: var(--accent);
+      line-height: 1.5;
+    }
+
+    .foot {
+      margin-top: 30px;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    .clock {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .clock-time {
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 1px;
+    }
+
+    .clock-date {
+      font-size: clamp(0.85rem, 2.4vw, 1.05rem);
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    .clock-caption {
+      font-size: 0.8rem;
+      opacity: 0.6;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .emoji { font-size: clamp(2rem, 7vw, 3.2rem); margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="emoji">🎉⏳</div>
+    <div class="zack">Hey Zack 👋</div>
+    <h1>Shiran is back at work!</h1>
+    <div class="sub">Sunday, Sep 6, 2026 at 08:00 — here's the countdown:</div>
+
+    <div id="timer" class="timer">
+      <div class="box"><div class="num" id="days">0</div><div class="label">Days</div></div>
+      <div class="box"><div class="num" id="hours">0</div><div class="label">Hours</div></div>
+      <div class="box"><div class="num" id="minutes">0</div><div class="label">Minutes</div></div>
+      <div class="box"><div class="num" id="seconds">0</div><div class="label">Seconds</div></div>
+    </div>
+
+    <div id="done" class="done" style="display:none;">🎊 Shiran is back! Welcome back! 🎊</div>
+
+    <div class="clock">
+      <div class="clock-caption">Your local time</div>
+      <div class="clock-time" id="clockTime">--:--:--</div>
+      <div class="clock-date" id="clockDate"></div>
+    </div>
+
+    <div class="foot">Only a few meetings left without her 😉</div>
+  </div>
+
+  <script>
+    // September 6, 2026, 08:00 (local time)
+    const target = new Date(2026, 8, 6, 8, 0, 0).getTime();
+
+    const el = {
+      days: document.getElementById("days"),
+      hours: document.getElementById("hours"),
+      minutes: document.getElementById("minutes"),
+      seconds: document.getElementById("seconds"),
+      timer: document.getElementById("timer"),
+      done: document.getElementById("done"),
+    };
+
+    function pad(n) { return String(n).padStart(2, "0"); }
+
+    function tick() {
+      const diff = target - Date.now();
+
+      if (diff <= 0) {
+        el.timer.style.display = "none";
+        el.done.style.display = "block";
+        clearInterval(interval);
+        return;
+      }
+
+      const sec = Math.floor(diff / 1000);
+      el.days.textContent = Math.floor(sec / 86400);
+      el.hours.textContent = pad(Math.floor((sec % 86400) / 3600));
+      el.minutes.textContent = pad(Math.floor((sec % 3600) / 60));
+      el.seconds.textContent = pad(sec % 60);
+    }
+
+    const clockTime = document.getElementById("clockTime");
+    const clockDate = document.getElementById("clockDate");
+
+    function updateClock() {
+      const now = new Date();
+      clockTime.textContent = now.toLocaleTimeString();
+      clockDate.textContent = now.toLocaleDateString(undefined, {
+        weekday: "long", year: "numeric", month: "long", day: "numeric",
+      });
+    }
+
+    function loop() {
+      tick();
+      updateClock();
+    }
+
+    loop();
+    const interval = setInterval(loop, 1000);
+  </script>
+</body>
+</html>
