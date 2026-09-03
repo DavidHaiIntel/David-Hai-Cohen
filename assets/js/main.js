@@ -58,7 +58,9 @@
   const stopEls = [];
   const gateEls = [];
   const bannerEls = [];
-  let giftEl = null; // קטע המתנה — נחשף רק בסוף המסע
+  let giftEl = null; // קטע המתנה — נחשף רק אחרי שלב הברכות והעוגה
+  let blessingEl = null; // שלב ברכות הילדים + אכילת העוגה — נחשף בסוף המסע
+  let giftRevealed = false; // המתנה נחשפת רק אחרי לחיצה על "עכשיו למתנה"
   let unlocked = 0; // אינדקס התחנה האחרונה שנחשפה (0 = הראשונה גלויה)
 
   const buildMilestone = (item, i) => {
@@ -298,7 +300,8 @@
     bannerEls.forEach((b, i) => {
       if (b) b.classList.toggle("hidden-locked", i > unlocked + 1);
     });
-    if (giftEl) giftEl.classList.toggle("hidden-locked", unlocked < order.length - 1);
+    if (blessingEl) blessingEl.classList.toggle("hidden-locked", unlocked < order.length - 1);
+    if (giftEl) giftEl.classList.toggle("hidden-locked", !giftRevealed);
   };
 
   function buildJourney() {
@@ -307,6 +310,7 @@
     gateEls.length = 0;
     bannerEls.length = 0;
     unlocked = 0;
+    giftRevealed = false;
     order.forEach((item, i) => {
     // באנר מעבר לילה→בוקר מוצג לפני שער הבוקר
     const bannerBeforeGate = item.n === 9;
@@ -328,8 +332,8 @@
         burstConfetti(item.n === 1 ? 220 : 130, stopEls[i]);
         const isLast = i === order.length - 1;
         // תחנות ללא כרטיס קבוע (עדי/סוסים): מתקדמים קדימה לשלב הבא במקום לקפוץ אחורה
-        const target = isLast && giftEl
-          ? giftEl
+        const target = isLast && blessingEl
+          ? blessingEl
           : item.noMilestone
           ? bannerEls[i + 1] || gateEls[i + 1] || stopEls[i]
           : stopEls[i];
@@ -343,8 +347,29 @@
     stopEls[i] = el;
     tl.appendChild(el);
 
-    // אחרי התחנה האחרונה (הלידה 1986) — קטע המתנה, נחשף רק בסוף המסע
+    // אחרי התחנה האחרונה (הלידה 1986) — שלב ברכות הילדים + עוגה, ואז המתנה
     if (i === order.length - 1) {
+      const bless = document.createElement("div");
+      bless.className = "tl-gift tl-blessings hidden-locked";
+      bless.innerHTML = `
+        <div class="gift-card">
+          <div class="gift-emoji">🎂</div>
+          <span class="section-kicker">רגע לפני המתנה</span>
+          <h2 class="section-title">ברכות מכל הלב ואוכלים עוגה!</h2>
+          <p class="section-lead">עכשיו — כל אחד מהילדים מברך את אמא מכל הלב, ואז חותכים את עוגת ה-40 ואוכלים יחד 🎂💛</p>
+          <ul class="bless-list">
+            <li>👦 ברכה מאיתן</li>
+            <li>🌟 ברכה משחר</li>
+            <li>🎶 ברכה מעדי</li>
+            <li>💃 ברכה מאילה</li>
+            <li>🎈 ברכה מיהודה יאיר</li>
+            <li>🌱 ברכה מגפן</li>
+          </ul>
+          <button type="button" id="to-gift-btn" class="btn-primary">🎁 עכשיו לבחירת המתנה</button>
+        </div>`;
+      tl.appendChild(bless);
+      blessingEl = bless;
+
       const gift = document.createElement("div");
       gift.className = "tl-gift hidden-locked";
       gift.innerHTML = `
@@ -357,6 +382,13 @@
         </div>`;
       tl.appendChild(gift);
       giftEl = gift;
+
+      bless.querySelector("#to-gift-btn").addEventListener("click", () => {
+        giftRevealed = true;
+        apply();
+        burstConfetti(160, gift);
+        setTimeout(() => gift.scrollIntoView({ behavior: "smooth", block: "center" }), 200);
+      });
     }
 
     // התחנה הראשונה (היום/40): פעילות הפתיחה (הצגה) — גלויה, מתחילה את המסע

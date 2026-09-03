@@ -503,6 +503,16 @@ a { color: inherit; text-decoration: none; }
 .gift-card .gift-emoji { font-size: 4rem; margin-bottom: 10px; animation: float 3s ease-in-out infinite; }
 .gift-card .btn-primary { margin-top: 24px; }
 
+/* רשימת ברכות הילדים לפני המתנה */
+.bless-list {
+  list-style: none; margin: 22px auto 6px; padding: 0; max-width: 360px;
+  display: grid; gap: 10px; text-align: start;
+}
+.bless-list li {
+  background: var(--glass); border: 1px solid var(--glass-brd);
+  border-radius: 14px; padding: 11px 16px; font-size: 1.02rem; font-weight: 600;
+}
+
 /* ---------- עוגה ---------- */
 .cake-stage { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .cake {
