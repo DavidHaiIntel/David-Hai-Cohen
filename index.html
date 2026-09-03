@@ -182,24 +182,22 @@
     (function () {
       var overlay = document.getElementById("gate-overlay");
       if (!overlay) return;
-      var STORAGE_KEY = "gateOpened";
 
       // יעד: היום בשעה 17:00 (שעון מקומי)
       var target = new Date();
       target.setHours(17, 0, 0, 0);
 
-      var alreadyOpen = localStorage.getItem(STORAGE_KEY) === "1";
       var timeUp = Date.now() >= target.getTime();
 
-      function openSite(remember) {
-        if (remember) { try { localStorage.setItem(STORAGE_KEY, "1"); } catch (e) {} }
+      function openSite() {
         overlay.classList.add("hidden");
         document.body.classList.remove("gate-locked");
         clearInterval(timer);
         setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 800);
       }
 
-      if (alreadyOpen || timeUp) { openSite(false); return; }
+      // לפני 17:00 הספירה חוזרת בכל רענון (הכניסה המוקדמת תקפה לצפייה הנוכחית בלבד)
+      if (timeUp) { openSite(); return; }
 
       document.body.classList.add("gate-locked");
 
@@ -210,7 +208,7 @@
 
       function tick() {
         var diff = target.getTime() - Date.now();
-        if (diff <= 0) { openSite(true); return; }
+        if (diff <= 0) { openSite(); return; }
         var totalSec = Math.floor(diff / 1000);
         hEl.textContent = pad(Math.floor(totalSec / 3600));
         mEl.textContent = pad(Math.floor((totalSec % 3600) / 60));
@@ -224,7 +222,7 @@
         var pass = prompt("להתחלה מוקדמת יש להזין סיסמה:");
         if (pass === null) return;
         if (pass.trim() === "00000") {
-          openSite(true);
+          openSite();
         } else {
           alert("סיסמה שגויה 🙈 נסו שוב או המתינו לספירה לאחור.");
         }
