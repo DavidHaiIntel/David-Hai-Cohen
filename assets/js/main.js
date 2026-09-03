@@ -359,10 +359,10 @@
           <p class="section-lead">עכשיו — כל אחד מהילדים מברך את אמא מכל הלב, ואז חותכים את עוגת ה-40 ואוכלים יחד 🎂💛</p>
           <ul class="bless-list">
             <li>👦 ברכה מאיתן</li>
-            <li>🌟 ברכה משחר</li>
+            <li>� ברכה מיהודה</li>
             <li>🎶 ברכה מעדי</li>
+            <li>🌟 ברכה משחר</li>
             <li>💃 ברכה מאילה</li>
-            <li>🎈 ברכה מיהודה יאיר</li>
             <li>🌱 ברכה מגפן</li>
           </ul>
           <button type="button" id="to-gift-btn" class="btn-primary">🎁 עכשיו לבחירת המתנה</button>
