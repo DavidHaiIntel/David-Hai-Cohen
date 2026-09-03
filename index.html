@@ -65,12 +65,26 @@
     }
     .gate-start:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(240, 169, 59, .55); }
     .gate-note { margin-top: 14px; font-size: 13px; opacity: .7; }
+    .gate-music {
+      position: absolute; top: 18px; inset-inline-start: 18px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 214, 120, .4);
+      color: #ffe0a3; cursor: pointer; border-radius: 999px;
+      padding: 8px 14px; font-size: 14px; font-weight: 600;
+      backdrop-filter: blur(6px); transition: background .18s ease, transform .18s ease;
+    }
+    .gate-music:hover { background: rgba(255, 255, 255, .18); transform: translateY(-1px); }
+    .gate-music.playing { background: linear-gradient(135deg, #ffd678, #f0a93b); color: #3a1a2e; border-color: transparent; }
+    .gate-music .gm-icon { font-size: 16px; line-height: 1; }
     @media (prefers-reduced-motion: reduce) { .gate-crown { animation: none; } }
   </style>
 </head>
 <body>
   <!-- שער ספירה לאחור — נפתח היום ב-17:00 -->
   <div id="gate-overlay" role="dialog" aria-label="ספירה לאחור לפתיחת החגיגה">
+    <button type="button" class="gate-music" id="gate-music" aria-pressed="false" title="נגן/כבה את השיר 'היום יום הולדת'">
+      <span class="gm-icon">♪</span><span class="gm-text">נגנו את השיר</span>
+    </button>
     <div class="gate-crown">👑</div>
     <p class="gate-eyebrow">מנקודת אור לממלכה ✨</p>
     <h1 class="gate-title">כמעט מתחילים לחגוג 40!</h1>
@@ -190,6 +204,7 @@
       var timeUp = Date.now() >= target.getTime();
 
       function openSite() {
+        stopMusic();
         overlay.classList.add("hidden");
         document.body.classList.remove("gate-locked");
         clearInterval(timer);
@@ -227,6 +242,64 @@
           alert("סיסמה שגויה 🙈 נסו שוב או המתינו לספירה לאחור.");
         }
       });
+
+      /* --- נגן "היום יום הולדת" בלופ (Web Audio, בלי קובץ חיצוני) --- */
+      // מנגינת "היום יום הולדת" — [תדר בהרץ, משך בשניות]; 0 = שתיקה
+      var G4 = 392, A4 = 440, B4 = 493.88, C5 = 523.25, D5 = 587.33, E5 = 659.25, F5 = 698.46, G5 = 783.99;
+      var TUNE = [
+        [G4,.3],[G4,.3],[A4,.6],[G4,.6],[C5,.6],[B4,1.0],[0,.3],
+        [G4,.3],[G4,.3],[A4,.6],[G4,.6],[D5,.6],[C5,1.0],[0,.3],
+        [G4,.3],[G4,.3],[G5,.6],[E5,.6],[C5,.6],[B4,.6],[A4,1.0],[0,.3],
+        [F5,.3],[F5,.3],[E5,.6],[C5,.6],[D5,.6],[C5,1.2],[0,.6],
+      ];
+      var gateAudioCtx, tuneTimer, musicOn = false;
+      var musicBtn = document.getElementById("gate-music");
+
+      function playTune() {
+        if (!gateAudioCtx) gateAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var t = gateAudioCtx.currentTime + 0.1;
+        TUNE.forEach(function (n) {
+          var freq = n[0], dur = n[1];
+          if (freq > 0) {
+            var osc = gateAudioCtx.createOscillator();
+            var gain = gateAudioCtx.createGain();
+            osc.type = "triangle";
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(0.18, t + 0.05);
+            gain.gain.linearRampToValueAtTime(0, t + dur);
+            osc.connect(gain).connect(gateAudioCtx.destination);
+            osc.start(t);
+            osc.stop(t + dur);
+          }
+          t += dur;
+        });
+        var total = TUNE.reduce(function (a, n) { return a + n[1]; }, 0.5) * 1000;
+        tuneTimer = setTimeout(playTune, total); // חוזר בלופ בסיום השיר
+      }
+
+      function stopMusic() {
+        musicOn = false;
+        clearTimeout(tuneTimer);
+        if (musicBtn) { musicBtn.classList.remove("playing"); musicBtn.setAttribute("aria-pressed", "false"); }
+        if (gateAudioCtx) { try { gateAudioCtx.suspend(); } catch (e) {} }
+      }
+
+      if (musicBtn) {
+        musicBtn.addEventListener("click", async function () {
+          musicOn = !musicOn;
+          musicBtn.classList.toggle("playing", musicOn);
+          musicBtn.setAttribute("aria-pressed", musicOn ? "true" : "false");
+          if (musicOn) {
+            if (!gateAudioCtx) gateAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            try { await gateAudioCtx.resume(); } catch (e) {}
+            playTune();
+          } else {
+            clearTimeout(tuneTimer);
+            if (gateAudioCtx) { try { gateAudioCtx.suspend(); } catch (e) {} }
+          }
+        });
+      }
     })();
   </script>
   <a href="https://wa.me/?text=🎉%20מוריה%20חוגגת%2040%20💛%20https://davidhaiintel.github.io/David-Hai-Cohen/index.html" target="_blank" rel="noopener" aria-label="שתף בוואטסאפ" title="שתף בוואטסאפ" style="position:fixed;bottom:88px;left:22px;z-index:61;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.28);text-decoration:none;font-size:27px">💬</a>
