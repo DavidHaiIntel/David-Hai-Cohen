@@ -220,7 +220,15 @@
       var timer = setInterval(tick, 1000);
       tick();
 
-      document.getElementById("gate-start").addEventListener("click", function () { openSite(true); });
+      document.getElementById("gate-start").addEventListener("click", function () {
+        var pass = prompt("להתחלה מוקדמת יש להזין סיסמה:");
+        if (pass === null) return;
+        if (pass.trim() === "00000") {
+          openSite(true);
+        } else {
+          alert("סיסמה שגויה 🙈 נסו שוב או המתינו לספירה לאחור.");
+        }
+      });
     })();
   </script>
   <a href="https://wa.me/?text=🎉%20מוריה%20חוגגת%2040%20💛%20https://davidhaiintel.github.io/David-Hai-Cohen/index.html" target="_blank" rel="noopener" aria-label="שתף בוואטסאפ" title="שתף בוואטסאפ" style="position:fixed;bottom:88px;left:22px;z-index:61;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.28);text-decoration:none;font-size:27px">💬</a>
