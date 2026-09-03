@@ -29,9 +29,61 @@
       0%, 100% { text-shadow: 0 0 16px rgba(255, 214, 120, .45), 0 2px 4px rgba(0, 0, 0, .22); }
       50%      { text-shadow: 0 0 30px rgba(255, 224, 150, .8), 0 2px 6px rgba(0, 0, 0, .25); }
     }
+
+    /* ===== שער ספירה לאחור — נפתח היום ב-17:00 ===== */
+    body.gate-locked { overflow: hidden; }
+    #gate-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 24px;
+      background:
+        radial-gradient(1200px 600px at 50% -10%, rgba(255, 214, 120, .18), transparent 60%),
+        linear-gradient(160deg, #2a1250 0%, #3d1a63 45%, #5a2247 100%);
+      color: #fff; overflow: hidden;
+      transition: opacity .7s ease, visibility .7s ease;
+    }
+    #gate-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .gate-crown { font-size: clamp(48px, 12vw, 96px); line-height: 1; filter: drop-shadow(0 6px 16px rgba(0,0,0,.35)); animation: fortyGlow 3.2s ease-in-out infinite; }
+    .gate-eyebrow { margin: 14px 0 4px; letter-spacing: .12em; font-weight: 600; color: #ffe0a3; font-size: clamp(13px, 3.5vw, 16px); }
+    .gate-title { font-family: "Suez One", serif; font-size: clamp(26px, 7vw, 48px); margin: 0 0 6px; }
+    .gate-sub { max-width: 560px; margin: 0 auto 26px; opacity: .9; font-size: clamp(14px, 4vw, 18px); line-height: 1.6; }
+    .gate-countdown { display: flex; gap: clamp(8px, 3vw, 20px); justify-content: center; margin-bottom: 30px; }
+    .gate-unit {
+      background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 214, 120, .35);
+      border-radius: 16px; padding: clamp(10px, 3vw, 18px) clamp(12px, 4vw, 26px);
+      backdrop-filter: blur(6px); min-width: clamp(64px, 20vw, 96px);
+    }
+    .gate-num { font-family: "Heebo", sans-serif; font-weight: 900; font-size: clamp(28px, 9vw, 54px); line-height: 1; color: #ffd678; }
+    .gate-label { margin-top: 8px; font-size: clamp(11px, 3vw, 14px); opacity: .85; }
+    .gate-start {
+      appearance: none; border: 0; cursor: pointer;
+      background: linear-gradient(135deg, #ffd678, #f0a93b);
+      color: #3a1a2e; font-weight: 800; font-size: clamp(15px, 4.2vw, 18px);
+      padding: 14px 30px; border-radius: 999px;
+      box-shadow: 0 10px 26px rgba(240, 169, 59, .4);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .gate-start:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(240, 169, 59, .55); }
+    .gate-note { margin-top: 14px; font-size: 13px; opacity: .7; }
+    @media (prefers-reduced-motion: reduce) { .gate-crown { animation: none; } }
   </style>
 </head>
 <body>
+  <!-- שער ספירה לאחור — נפתח היום ב-17:00 -->
+  <div id="gate-overlay" role="dialog" aria-label="ספירה לאחור לפתיחת החגיגה">
+    <div class="gate-crown">👑</div>
+    <p class="gate-eyebrow">מנקודת אור לממלכה ✨</p>
+    <h1 class="gate-title">כמעט מתחילים לחגוג 40!</h1>
+    <p class="gate-sub">האתר ייפתח באופן רשמי היום בשעה 17:00 💛<br />עוד רגע קטן והמסע מתחיל...</p>
+    <div class="gate-countdown" id="gate-countdown">
+      <div class="gate-unit"><div class="gate-num" id="gate-h">00</div><div class="gate-label">שעות</div></div>
+      <div class="gate-unit"><div class="gate-num" id="gate-m">00</div><div class="gate-label">דקות</div></div>
+      <div class="gate-unit"><div class="gate-num" id="gate-s">00</div><div class="gate-label">שניות</div></div>
+    </div>
+    <button type="button" class="gate-start" id="gate-start">מתחילים בכל זאת ✨</button>
+    <p class="gate-note">לא רוצים לחכות? אפשר להיכנס כבר עכשיו</p>
+  </div>
+
   <!-- רקע חלקיקים / קונפטי -->
   <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
@@ -125,6 +177,52 @@
 
   <script src="assets/js/data.js"></script>
   <script src="assets/js/main.js"></script>
+  <script>
+    /* שער ספירה לאחור — נפתח אוטומטית היום ב-17:00, או בלחיצה על "מתחילים בכל זאת" */
+    (function () {
+      var overlay = document.getElementById("gate-overlay");
+      if (!overlay) return;
+      var STORAGE_KEY = "gateOpened";
+
+      // יעד: היום בשעה 17:00 (שעון מקומי)
+      var target = new Date();
+      target.setHours(17, 0, 0, 0);
+
+      var alreadyOpen = localStorage.getItem(STORAGE_KEY) === "1";
+      var timeUp = Date.now() >= target.getTime();
+
+      function openSite(remember) {
+        if (remember) { try { localStorage.setItem(STORAGE_KEY, "1"); } catch (e) {} }
+        overlay.classList.add("hidden");
+        document.body.classList.remove("gate-locked");
+        clearInterval(timer);
+        setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 800);
+      }
+
+      if (alreadyOpen || timeUp) { openSite(false); return; }
+
+      document.body.classList.add("gate-locked");
+
+      var hEl = document.getElementById("gate-h");
+      var mEl = document.getElementById("gate-m");
+      var sEl = document.getElementById("gate-s");
+      var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+
+      function tick() {
+        var diff = target.getTime() - Date.now();
+        if (diff <= 0) { openSite(true); return; }
+        var totalSec = Math.floor(diff / 1000);
+        hEl.textContent = pad(Math.floor(totalSec / 3600));
+        mEl.textContent = pad(Math.floor((totalSec % 3600) / 60));
+        sEl.textContent = pad(totalSec % 60);
+      }
+
+      var timer = setInterval(tick, 1000);
+      tick();
+
+      document.getElementById("gate-start").addEventListener("click", function () { openSite(true); });
+    })();
+  </script>
   <a href="https://wa.me/?text=🎉%20מוריה%20חוגגת%2040%20💛%20https://davidhaiintel.github.io/David-Hai-Cohen/index.html" target="_blank" rel="noopener" aria-label="שתף בוואטסאפ" title="שתף בוואטסאפ" style="position:fixed;bottom:88px;left:22px;z-index:61;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.28);text-decoration:none;font-size:27px">💬</a>
 </body>
 </html>
